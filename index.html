@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="af">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Die Kwartaal 1 Eksamen Plan</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f0f4f8;
+      color: #1a1a2e;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+      color: white;
+      text-align: center;
+      padding: 36px 20px 28px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+
+    header h1 {
+      font-size: 2rem;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    header p {
+      font-size: 0.95rem;
+      opacity: 0.75;
+      letter-spacing: 0.5px;
+    }
+
+    .skool-naam {
+      font-size: 0.85rem;
+      opacity: 0.6;
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    /* TAB NAV */
+    .tab-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 16px 20px 0;
+      background: #16213e;
+      border-bottom: 3px solid #e94560;
+    }
+
+    .tab-btn {
+      background: rgba(255,255,255,0.08);
+      color: #cdd3ea;
+      border: none;
+      border-radius: 8px 8px 0 0;
+      padding: 10px 18px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      letter-spacing: 0.3px;
+    }
+
+    .tab-btn:hover {
+      background: rgba(233,69,96,0.25);
+      color: white;
+    }
+
+    .tab-btn.aktief {
+      background: #e94560;
+      color: white;
+      border-bottom: 3px solid #f0f4f8;
+      margin-bottom: -3px;
+    }
+
+    /* TAB INHOUD */
+    .tab-inhoud {
+      display: none;
+      padding: 28px 20px 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .tab-inhoud.aktief {
+      display: block;
+    }
+
+    .vak-titel {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #0f3460;
+      border-left: 5px solid #e94560;
+      padding-left: 14px;
+      margin-bottom: 6px;
+    }
+
+    .eksamendatum {
+      font-size: 0.82rem;
+      color: #e94560;
+      font-weight: 600;
+      padding-left: 20px;
+      margin-bottom: 22px;
+      letter-spacing: 0.4px;
+    }
+
+    .afdeling {
+      background: white;
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+      border-top: 3px solid #0f3460;
+    }
+
+    .afdeling.kwartaal2 {
+      border-top-color: #e94560;
+    }
+
+    .afdeling-opskrif {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #0f3460;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .afdeling-opskrif .kwartaal-etiket {
+      font-size: 0.7rem;
+      background: #0f3460;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .kwartaal2 .afdeling-opskrif .kwartaal-etiket {
+      background: #e94560;
+    }
+
+    .onderafdeling {
+      margin-bottom: 16px;
+    }
+
+    .onderafdeling:last-child {
+      margin-bottom: 0;
+    }
+
+    .onderafdeling-titel {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #16213e;
+      margin-bottom: 8px;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 4px;
+    }
+
+    ul li {
+      padding: 5px 0 5px 22px;
+      position: relative;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #2d2d44;
+      border-bottom: 1px dashed #eef0f5;
+    }
+
+    ul li:last-child {
+      border-bottom: none;
+    }
+
+    ul li::before {
+      content: "▸";
+      position: absolute;
+      left: 4px;
+      color: #e94560;
+      font-size: 0.75rem;
+      top: 6px;
+    }
+
+    .nota {
+      background: #fff8e1;
+      border-left: 4px solid #f9a825;
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 0.85rem;
+      color: #5a4500;
+      margin-top: 12px;
+      font-style: italic;
+    }
+
+    .bladsy-verwysing {
+      color: #888;
+      font-size: 0.8rem;
+      margin-left: 4px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.4rem; }
+      .tab-btn { font-size: 0.75rem; padding: 8px 12px; }
+      .vak-titel { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Die Kwartaal 1 Eksamen Plan</h1>
+  <p>Graad 7 &nbsp;·&nbsp; Studie- en Hersiengids</p>
+  <div class="skool-naam">Laerskool Jeffreysbaai · Jeffreys Bay Primary</div>
+</header>
+
+<!-- OORTJIES -->
+<div class="tab-nav">
+  <button class="tab-btn aktief" onclick="wysOortjie('wiskunde1')">Wiskunde V1</button>
+  <button class="tab-btn" onclick="wysOortjie('wiskunde2')">Wiskunde V2</button>
+  <button class="tab-btn" onclick="wysOortjie('afrikaans')">Afrikaans HT</button>
+  <button class="tab-btn" onclick="wysOortjie('tegnologie')">Tegnologie</button>
+  <button class="tab-btn" onclick="wysOortjie('ebw')">EBW</button>
+  <button class="tab-btn" onclick="wysOortjie('kuns')">Kuns</button>
+  <button class="tab-btn" onclick="wysOortjie('natuur')">Natuurwetenskap</button>
+  <button class="tab-btn" onclick="wysOortjie('geografie')">Geografie</button>
+  <button class="tab-btn" onclick="wysOortjie('geskiedenis')">Geskiedenis</button>
+  <button class="tab-btn" onclick="wysOortjie('engels')">Engels EAT</button>
+  <button class="tab-btn" onclick="wysOortjie('lewens')">Lewensvaardighede</button>
+</div>
+
+<!-- ===================== WISKUNDE VRAESTEL 1 ===================== -->
+<div id="wiskunde1" class="tab-inhoud aktief">
+  <div class="vak-titel">Wiskunde — Vraestel 1</div>
+
+  <div class="afdeling">
+    <div class="afdeling-opskrif">
+      Heelgetalle
+      <span class="kwartaal-etiket">Kwartaal 1</span>
+    </div>
+    <ul>
+      <li>Bewerkings: optelling, aftrekking, vermenigvuldiging en deling (+, −, ×, ÷)</li>
+      <li>Afronding van getalle</li>
+      <li>Uitgebreide notasie</li>
+      <li>Kleinste gemene veelvoud (KGV)</li>
+      <li>Grootste gemene faktor (GGF)</li>
+      <li>Vergelyk getalle met simbole (&lt; ; &gt; ; =)</li>
+      <li>Priemgetalle en saamgestelde getalle</li>
+      <li>Verhouding en Koers</li>
+    </ul>
+  </div>
+
+  <div class="afdeling">
+    <div class="afdeling-opskrif">
+      Eksponente
+      <span class="kwartaal-etiket">Kwartaal 1</span>
+    </div>
+    <ul>
+      <li>Bewerkings met eksponente</li>
+      <li>Skryf in uitgebreide vorm</li>
+      <li>Skryf in eksponensiële vorm</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===================== WISKUNDE VRAESTEL 2 ===================== -->
+<div id="wiskunde2" class="tab-inhoud">
+  <div class="vak-titel">Wiskunde — Vraestel 2</div>
+  <div class="eksamendatum">Eksamen: 04/06/2026</div>
+
+  <div class="afdeling">
+    <div class="afdeling-opskrif">
+      Heelgetalle
+      <span class="kwartaal-etiket">Kwartaal 1 &amp; 2</span>
+    </div>
+    <ul>
+      <li>Kleinste gemene veelvoud (KGV)</li>
+      <li>Grootste gemene faktor (GGF)</li>
+      <li>Priemgetalle en saamgestelde getalle</li>
+      <li>Verhouding en Koers</li>
+      <li>Bewerkings met negatiewe getalle</li>
+    </ul>
+  </div>
+
+  <div class="afdeling">
+    <div class="afdeling-opskrif">
+      Eksponente
+      <span class="kwartaal-etiket">Kwartaal 1 &amp; 2</span>
+    </div>
+    <ul>
+      <li>Bewerkings met eksponente</li>
+      <li>Skryf in uitgebreide vorm</li>
+      <li>Skryf in eksponensiële vorm</li>
+    </ul>
+  </div>
+
+  <div class="afdeling">
+    <div class="afdeling-opskrif">
+      Breuke
+      <span class="kwartaal-etiket">Kwartaal 2</span>
+    </div>
+    <ul>
+      <li>Vereenvoudig breuke</li>
+      <li>Bewerkings met breuke</li>
+      <li>"Van" somme</li>
+    </ul>
+  </div>
+
+  <div class="afdeling">
+    <div class="afdeling-opskrif">
+      Desimale Breuke
+      <span class="kwartaal-etiket">Kwartaal 2</span>
+    </div>
+    <ul>
+      <li>Bewerkings met desimale getalle</li>
+    </ul>
+  </div>
+
+  <div class="afdeling">
+    <div class="afdeling-opskrif">
+      Numeriese en Meetkundige Patrone
+      <span class="kwartaal-etiket">Kwartaal 2</span>
+    </div>
+    <ul>
+      <li>Beskryf die reël in woorde</li>
+      <li>Skryf die reël in terme van <em>n</em></li>
+      <li>Gebruik 'n reël om onbekende waardes te bereken</li>
+    </ul>
+  </div>
+
+  <div class="afdeling">
+    <div class="afdeling-opskrif">
+      Funksies en Verwaantskappe
+      <span class="kwartaal-etiket">Kwartaal 2</span>
+    </div>
+    <ul>
+      <li>Gebruik die gegewe reël om onbekende waardes te bereken</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===================== AFRIKAANS HUISTAAL ===================== -->
+<div id="afrikaans" class="tab-inhoud">
+  <div class="vak-titel">Afrikaans Huistaal</div>
+  <div class="eksamendatum">Eksamen: 03/06/2026</div>
+
+  <div class="afdeling">
+    <div class="afdeling-opskrif">
+      Taalstrukture en -konvensies
+      <span class="kwartaal-etiket">Kwartaal 1 &amp; 2</span>
+    </div>
+    <ul>
+      <li>Klankgrepe en lettergrepe</li>
+      <li>Meervoude</li>
+      <li>Verkleining</li>
+      <li>Byvoeglike naamwoorde</li>
+      <li>Homofone en homonieme</li>
+      <li>Verlede tyd</li>
+      <li>Trappe van vergelyking</li>
+      <li>Sinonieme en Antonieme</li>
+      <li>Werkwoord, Hoofwerkwoorde, Hulpwerkwoorde — tyd, vorm, wyse</li>
+      <li>Funksie van die hulpwerkwoord</li>
+      <li>Vaslegging <span class="bladsy-verwysing">bl. 220 F. 1 2 3</span></li>
+      <li>Enkelvoudige sinne en saamgestelde sinne</li>
+      <li>Selfstandige naamwoorde</li>
+      <li>Direkte rede / Indirekte rede</li>
+      <li>Lydende vorm en Bedrywende vorm</li>
+      <li>Idiome</li>
+      <li>Letterlike betekenis en Figuurlike betekenis</li>
+      <li>Voornaamwoorde</li>
+      <li>Onderwerp, voorwerp en gesegde</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===================== TEGNOLOGIE ===================== -->
+<div id="tegnologie" class="tab-inhoud">
+  <div class="vak-titel">Tegnologie</div>
+
+  <div class="afdeling">
+    <div class="afdeling-opskrif">
+      Kwartaal 1 — Inhoud
+      <span class="kwartaal-etiket">Kwartaal 1</span>
+    </div>
+    <ul>
+      <li>Wat is tegnologie en die ontwerpproses?</li>
+      <li>Hefbome</li>
+      <li>Grafiese kommunikasie en tegnieke</li>
+    </ul>
+  </div>
+
+  <div class="afdeling kwartaal2">
+    <div class="afdeling-opskrif">
+      Kwartaal 2 — Inhoud
+      <span class="kwartaal-etiket">Kwartaal 2</span>
+    </div>
+    <ul>
+      <li>Strukture</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===================== EBW ===================== -->
+<div id="ebw" class="tab-inhoud">
+  <div class="vak-titel">Ekonomiese en Bestuurswetenskappe (EBW)</div>
+
+  <div class="afdeling">
+    <div class="afdeling-opskrif">
+      Finansiële Geletterdheid
+      <span class="kwartaal-etiket">Kwartaal 1 &amp; 2</span>
+    </div>
+    <ul>
+      <li>Bates, laste en uitgawes</li>
+      <li>Bereken Netto waarde</li>
+      <li>Onderskei tussen wins en verlies</li>
+      <li>Stel 'n begroting op van 'n besigheid</li>
+      <li>Wat is: Surplus, tekort, gebalanseerde begroting en kapitaalbegroting</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===================== KUNS ===================== -->
+<div id="kuns" class="tab-inhoud">
+  <div class="vak-titel">Kuns en Kultuur</div>
+
+  <div class="afdeling">
+    <div class="afdeling-opskrif">
+      Visuele Kuns &amp; Drama
+      <span class="kwartaal-etiket">Kwartaal 1 &amp; 2</span>
+    </div>
+    <ul>
+      <li>Elemente van visuele kuns</li>
+      <li>Die Verhoog</li>
+      <li>Wat is drama?</li>
+      <li>Spreekkoor</li>
+      <li>Persepktief</li>
+      <li>George Pemba</li>
+      <li>Maggie Laubser</li>
+      <li>MC Escher</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===================== NATUURWETENSKAP ===================== -->
+<div id="natuur" class="tab-inhoud">
+  <div class="vak-titel">Natuurwetenskappe</div>
+  <div class="eksamendatum">Eksamen: 29/05/2026</div>
+
+  <div class="afdeling">
+    <div class="afdeling-opskrif">
+      Lewende Wêreld
+      <span class="kwartaal-etiket">Kwartaal 1</span>
+    </div>
+    <ul>
+      <li>Die biosfeer</li>
+      <li>Vereistes vir die volhouding van lewe</li>
+      <li>Klassifikasie van lewende organismes</li>
+      <li>Diversiteit van diere</li>
+      <li>Diversiteit van plante</li>
+      <li>Geslagtelike voortplanting van angiosperme</li>
+    </ul>
+  </div>
+
+  <div class="afdeling kwartaal2">
+    <div class="afdeling-opskrif">
+      Materie en Materiale
+      <span class="kwartaal-etiket">Kwartaal 2</span>
+    </div>
+    <ul>
+      <li>Fisiese eienskappe van materiale</li>
+      <li>Impak op die omgewing</li>
+      <li>Mengsels en metodes van fisiese skeiding</li>
+      <li>Eienskappe van sure, basisse en neutrale stowwe</li>
+      <li>Suurbasis-indikators</li>
+      <li>Rangskikking van elemente op die periodieke tabel</li>
+      <li>Sommige eienskappe van metale, halfmetale en nie-metale</li>
+    </ul>
+    <div class="nota">★ Opsommings in werkboeke is belangrik!</div>
+  </div>
+</div>
+
+<!-- ===================== GEOGRAFIE ===================== -->
+<div id="geografie" class="tab-inhoud">
+  <div class="vak-titel">Sosiale Wetenskappe — Geografie</div>
+  <div class="eksamendatum">Eksamen: 05/06/2026</div>
+
+  <div class="afdeling">
+    <div class="afdeling-opskrif">
+      Module 1: Kaartvaardighede
+      <span class="kwartaal-etiket">Kwartaal 1 — bl. 8–21</span>
+    </div>
+    <ul>
+      <li>Afstand en skaal <span class="bladsy-verwysing">bl. 16–17</span></li>
+      <li>Hoe bereken jy direkte afstand? — Sien stappe wat in werkboek afgeskryf is</li>
+      <li>Verskil tussen lengte- en breedtegrade; ken ook 0° breedtelyn asook 0° lengtelyn <span class="bladsy-verwysing">bl. 21</span></li>
+      <li>Vind plekke deur middel van koördinate</li>
+    </ul>
+  </div>
+
+  <div class="afdeling kwartaal2">
+    <div class="afdeling-opskrif">
+      Module 3: Vulkane, Aardbewings en Oorstromings
+      <span class="kwartaal-etiket">Kwartaal 2 — bl. 44–58</span>
+    </div>
+    <ul>
+      <li>Skets met byskrifte — struktuur van die aarde <span class="bladsy-verwysing">bl. 44</span></li>
+      <li>Bewing van aardkorsplate <span class="bladsy-verwysing">bl. 45</span></li>
+      <li>Ligging van vulkane en aardbewings t.o.v. aardkorsplate <span class="bladsy-verwysing">bl. 45</span></li>
+      <li>Gevolge van aardbewings <span class="bladsy-verwysing">bl. 51</span></li>
+      <li>Waarom sommige gemeenskappe hoër risiko loop as ander <span class="bladsy-verwysing">bl. 52</span></li>
+      <li>Hoe kan ons die uitwerking van aardbewings verminder? <span class="bladsy-verwysing">bl. 52–53</span></li>
+      <li>Aardbewings: wat, waar, wanneer — 2011, 2010, 2005 <span class="bladsy-verwysing">bl. 51</span></li>
+      <li>Vulkane: wat, waar, wanneer — 2010, 2000, 1986 <span class="bladsy-verwysing">bl. 46</span></li>
+      <li>Langvraag paragraafvorm: hoe ontstaan 'n vulkaan? <span class="bladsy-verwysing">bl. 48</span></li>
+      <li>Oorsake van oorstromings <span class="bladsy-verwysing">bl. 54–55</span></li>
+      <li>Positiewe en negatiewe gevolge van oorstromings <span class="bladsy-verwysing">bl. 56</span></li>
+      <li>Watter gemeenskappe word meer geraak deur oorstromings? <span class="bladsy-verwysing">bl. 56</span></li>
+      <li>Hoe om die uitwerking van oorstromings te verminder <span class="bladsy-verwysing">bl. 56</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===================== GESKIEDENIS ===================== -->
+<div id="geskiedenis" class="tab-inhoud">
+  <div class="vak-titel">Sosiale Wetenskappe — Geskiedenis</div>
+  <div class="eksamendatum">Eksamen: 02/06/2026</div>
+
+  <div class="afdeling">
+    <div class="afdeling-opskrif">
+      Module 2: Islam en Afrika
+      <span class="kwartaal-etiket">Kwartaal 1 — bl. 26–39</span>
+    </div>
+    <ul>
+      <li>Handel oor die Saharawoestyn <span class="bladsy-verwysing">bl. 26–27</span></li>
+      <li>Verspreiding van Islam geloof <span class="bladsy-verwysing">bl. 27</span></li>
+      <li>Hoe om eeue uit te werk <span class="bladsy-verwysing">bl. 28</span></li>
+      <li>Koningkryk van Mali <span class="bladsy-verwysing">bl. 29</span></li>
+      <li>Wat doen 'n Jali/Griot? <span class="bladsy-verwysing">bl. 29</span></li>
+      <li>Mansa Musa se storie — beskrywing van sy lewe in paragraafvorm, moontlik 8–10 feite <span class="bladsy-verwysing">bl. 30–31</span></li>
+      <li>Die groot moskee <span class="bladsy-verwysing">bl. 32</span></li>
+      <li>Leo Africanus en sy reise <span class="bladsy-verwysing">bl. 33–34</span></li>
+      <li>Timboektoe as Handelsentrum <span class="bladsy-verwysing">bl. 35</span></li>
+      <li>Timboektoe as leersentrum — waarvan kon jy leer as jy in die 16de eeu in Timboektoe geleef het? <span class="bladsy-verwysing">bl. 37–38</span></li>
+      <li>Projek om Timboektoe manuskripte te beskerm — hoekom het die manuskripte se toestand verswak? <span class="bladsy-verwysing">bl. 39</span></li>
+      <li>Waarom was Timboektoe as 'n wêrelderfenisgebied verklaar?</li>
+    </ul>
+  </div>
+
+  <div class="afdeling kwartaal2">
+    <div class="afdeling-opskrif">
+      Module 4: Slawerny
+      <span class="kwartaal-etiket">Kwartaal 2 — bl. 62–77</span>
+    </div>
+    <ul>
+      <li>Wat is 'n fabel en waarvoor word dit gebruik? <span class="bladsy-verwysing">bl. 62</span></li>
+      <li>Slawerny voor die Europeërs — hoe het mense slawe geword? <span class="bladsy-verwysing">bl. 64</span></li>
+      <li>Trans-Sahara en Trans-Atlantiese slawehandel — ken datums <span class="bladsy-verwysing">bl. 65</span></li>
+      <li>Plantasies in die Amerikaanse Suide en redes vir die gebruik van slawe <span class="bladsy-verwysing">bl. 66</span></li>
+      <li>Verskil tussen kolonie en setlaar <span class="bladsy-verwysing">bl. 66</span></li>
+      <li>Verduidelik die kondisies op slaweskepe in paragraafvorm (5 feite) <span class="bladsy-verwysing">bl. 67</span></li>
+      <li>Wat is die verskil tussen 'n primêre- en sekondêre bron? <span class="bladsy-verwysing">bl. 67</span></li>
+      <li>Beraamde getal slawe wat na Amerika geneem was <span class="bladsy-verwysing">bl. 68</span></li>
+      <li>Beskryf die driehoekige/driesydige handel oor die Atlantiese Oseaan in paragraafvorm (6 feite) <span class="bladsy-verwysing">bl. 69</span></li>
+      <li>Die lewe van 'n plantasieslaaf <span class="bladsy-verwysing">bl. 70–71</span></li>
+      <li>Hoe het slawe onopsigtelik weerstand gebied teen slawerny <span class="bladsy-verwysing">bl. 72</span></li>
+      <li>Stories oor slawerny: Nat Turner; Joseph Cinque; Die ondergrondse spoorweg; Harriet Tubman; John Brown <span class="bladsy-verwysing">bl. 73–75</span></li>
+      <li>Hoe was elk van die volgende vastelande geraak deur die Trans-Atlantiese Slawehandel: Afrika, Amerika's, Europa <span class="bladsy-verwysing">bl. 76–77</span></li>
+      <li>Amerikaanse Burgeroorlog 1861–1865 <span class="bladsy-verwysing">bl. 77</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===================== ENGELS EAT ===================== -->
+<div id="engels" class="tab-inhoud">
+  <div class="vak-titel">Engels Eerste Addisionele Taal (EAT)</div>
+  <div class="eksamendatum">Eksamen: 08/06/2026</div>
+
+  <div class="afdeling">
+    <div class="afdeling-opskrif">
+      Taal (Language)
+      <span class="kwartaal-etiket">Kwartaal 1 &amp; 2</span>
+    </div>
+    <ul>
+      <li>Synonyms &amp; Antonyms (Sinonieme &amp; Antonieme)</li>
+      <li>Subject &amp; Predicate, Direct and Indirect object</li>
+      <li>ALL Parts of speech: Nouns, Verbs, Adverbs, Adjectives, Prepositions, Conjunctions, Interjections, Articles, Pronouns</li>
+      <li>Simple present and simple past tense</li>
+      <li>Punctuation (Leestekens)</li>
+      <li>Types and Kinds of sentences</li>
+    </ul>
+  </div>
+
+  <div class="afdeling kwartaal2">
+    <div class="afdeling-opskrif">
+      Visuele Teks (Visual Text)
+      <span class="kwartaal-etiket">Kwartaal 2</span>
+    </div>
+    <ul>
+      <li>Understanding visual text page — Literature books</li>
+      <li>Understanding terminology like: slogan, logo, target market</li>
+      <li>Understanding AIDA principle</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===================== LEWENSVAARDIGHEDE ===================== -->
+<div id="lewens" class="tab-inhoud">
+  <div class="vak-titel">Lewensvaardighede</div>
+
+  <div class="afdeling">
+    <div class="afdeling-opskrif">
+      Kwartaal 1
+      <span class="kwartaal-etiket">Kwartaal 1</span>
+    </div>
+    <div class="onderafdeling">
+      <div class="onderafdeling-titel">Eenheid 1: Selfontwikkeling in die samelewing — Selfbeeld <span class="bladsy-verwysing">bl. 8–13</span></div>
+      <ul>
+        <li>Identifiseer en dink na oor positiewe persoonlike eienskappe <span class="bladsy-verwysing">bl. 8</span></li>
+        <li>Nuwe woorde <span class="bladsy-verwysing">bl. 10</span></li>
+      </ul>
+    </div>
+    <div class="onderafdeling">
+      <div class="onderafdeling-titel">Eenheid 3: Selfontwikkeling in die samelewing — Verandering in seuns en meisies <span class="bladsy-verwysing">bl. 15–20</span></div>
+      <ul>
+        <li>Nuwe woorde</li>
+        <li>Veranderinge in seuns en meisies: liggaamlike veranderinge tydens puberteit <span class="bladsy-verwysing">bl. 15</span></li>
+      </ul>
+    </div>
+    <div class="onderafdeling">
+      <div class="onderafdeling-titel">Eenheid 7: Wêreld van werk — Lees en studeer <span class="bladsy-verwysing">bl. 30–35</span></div>
+      <ul>
+        <li>Vaardighede om geheue te ontwikkel <span class="bladsy-verwysing">bl. 34–35</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="afdeling kwartaal2">
+    <div class="afdeling-opskrif">
+      Kwartaal 2
+      <span class="kwartaal-etiket">Kwartaal 2</span>
+    </div>
+    <div class="onderafdeling">
+      <div class="onderafdeling-titel">Eenheid 1: Grondwetlike regte en verantwoordelikhede — Menseregte <span class="bladsy-verwysing">bl. 40–45</span></div>
+      <ul>
+        <li>Menseregte soos in die Suid-Afrikaanse grondwet bepaal <span class="bladsy-verwysing">bl. 41–42</span></li>
+        <li>Toepassing van verantwoordelikhede ten opsigte van menseregte <span class="bladsy-verwysing">bl. 42</span></li>
+      </ul>
+    </div>
+    <div class="onderafdeling">
+      <div class="onderafdeling-titel">Eenheid 3: Grondwetlike regte en verantwoordelikhede — Mishandeling <span class="bladsy-verwysing">bl. 49–55</span></div>
+      <ul>
+        <li>Leerders fokus op die hele eenheid oor mishandeling</li>
+      </ul>
+    </div>
+    <div class="onderafdeling">
+      <div class="onderafdeling-titel">Eenheid 5: Wêreld van werk — Loopbaanvelde <span class="bladsy-verwysing">bl. 58–65</span></div>
+      <ul>
+        <li>Loopbaanvelde <span class="bladsy-verwysing">bl. 58</span></li>
+        <li>Skoolvakke wat met loopbaanvelde verband hou <span class="bladsy-verwysing">bl. 60</span></li>
+        <li>Vlak van onderrig <span class="bladsy-verwysing">bl. 63</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  function wysOortjie(id) {
+    document.querySelectorAll('.tab-inhoud').forEach(function(el) {
+      el.classList.remove('aktief');
+    });
+    document.querySelectorAll('.tab-btn').forEach(function(el) {
+      el.classList.remove('aktief');
+    });
+    document.getElementById(id).classList.add('aktief');
+    event.currentTarget.classList.add('aktief');
+  }
+</script>
+
+</body>
+</html>
