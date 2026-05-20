@@ -225,6 +225,154 @@
       margin-left: 3px;
     }
 
+    /* ===== FLITSKAARTE ===== */
+    .fk-dag-opskrif {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #7c3aed;
+      margin: 18px 0 10px;
+      padding-bottom: 4px;
+      border-bottom: 2px solid #ede9fe;
+    }
+
+    .fk-rooster {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    .fk-kaart {
+      height: 180px;
+      perspective: 900px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .fk-binnekant {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .fk-kaart.omgedraai .fk-binnekant {
+      transform: rotateY(-180deg);
+    }
+
+    .fk-voor, .fk-agter {
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      padding: 16px;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      overflow-y: auto;
+    }
+
+    .fk-voor {
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .fk-agter {
+      background: white;
+      border: 2px solid #ede9fe;
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .fk-nommer {
+      font-size: 0.7rem;
+      opacity: 0.7;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .fk-vraag {
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .fk-wenk {
+      font-size: 0.72rem;
+      opacity: 0.75;
+      font-style: italic;
+    }
+
+    .fk-antwoord {
+      font-size: 0.82rem;
+      color: #1a1a2e;
+      line-height: 1.5;
+    }
+
+    .fk-tipes {
+      font-size: 0.78rem;
+      color: #4a4a6a;
+      line-height: 1.5;
+    }
+
+    .fk-truuk {
+      font-size: 0.75rem;
+      background: #faf5ff;
+      border-left: 3px solid #7c3aed;
+      padding: 5px 8px;
+      border-radius: 4px;
+      color: #5b21b6;
+      margin-top: 4px;
+    }
+
+    .fk-vordering-balk-omhulsel {
+      background: #ede9fe;
+      border-radius: 20px;
+      height: 8px;
+      margin-bottom: 6px;
+      overflow: hidden;
+    }
+
+    .fk-vordering-balk {
+      height: 100%;
+      background: linear-gradient(90deg, #7c3aed, #4f46e5);
+      border-radius: 20px;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .fk-teller {
+      font-size: 0.75rem;
+      color: #7c3aed;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .fk-herstel-knoppie {
+      display: block;
+      margin: 18px auto 4px;
+      background: #ede9fe;
+      color: #5b21b6;
+      border: none;
+      border-radius: 22px;
+      padding: 10px 22px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .fk-herstel-knoppie:active { background: #ddd6fe; }
+
     /* LARGER SCREENS */
     @media (min-width: 600px) {
       header h1 { font-size: 2rem; }
@@ -235,12 +383,10 @@
       .tab-inhoud { padding: 28px 20px 40px; }
       .afdeling { padding: 20px 24px; }
       ul li { padding: 5px 0 5px 22px; font-size: 0.9rem; }
+      .fk-rooster { grid-template-columns: 1fr 1fr; }
+      .fk-kaart { height: 200px; }
     }
-  
-    .toets-uitslag { margin: 12px 0 8px 0; padding: 10px 14px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; }
-    .toets-uitslag.geslaag { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-    .toets-uitslag.gedruip { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-    </style>
+  </style>
 </head>
 <body>
 
@@ -470,13 +616,243 @@
       <li>Die Verhoog</li>
       <li>Wat is drama?</li>
       <li>Spreekkoor</li>
-      <li>Persepktief</li>
+      <li>Perspektief</li>
       <li>George Pemba</li>
       <li>Maggie Laubser</li>
       <li>MC Escher</li>
     </ul>
   </div>
-<div id="kuns-toets-uitslag" class="toets-uitslag geslaag">Kuns Toets | Punte: 14/15 | Datum: 19 Mei 2026 | ✅ Geslaag</div>
+
+  <!-- FLITSKAARTE -->
+  <div class="afdeling" style="border-top-color:#7c3aed;">
+    <div class="afdeling-opskrif" style="color:#7c3aed;">
+      🃏 Flitskaarte — Kuns Hersien
+      <span class="kwartaal-etiket" style="background:#7c3aed;">Kwartaal 1 &amp; 2</span>
+    </div>
+    <p style="font-size:0.85rem;color:#555;margin-bottom:16px;">Tik op 'n kaart om dit om te draai en die antwoord te sien.</p>
+
+    <!-- PROGRESS BAR -->
+    <div class="fk-vordering-balk-omhulsel">
+      <div class="fk-vordering-balk" id="fkVordering"></div>
+    </div>
+    <div class="fk-teller" id="fkTeller">0 / 13 geleer</div>
+
+    <!-- DAY 1: ELEMENTE VAN VISUELE KUNS -->
+    <div class="fk-dag-opskrif">Dag 1 — Elemente van Visuele Kuns</div>
+    <div class="fk-rooster">
+
+      <div class="fk-kaart" onclick="draaiKaart(this)">
+        <div class="fk-binnekant">
+          <div class="fk-voor">
+            <span class="fk-nommer">1</span>
+            <div class="fk-vraag">Wat is 'n <strong>Lyn</strong> in kuns?</div>
+            <div class="fk-wenk">Element van Visuele Kuns</div>
+          </div>
+          <div class="fk-agter">
+            <div class="fk-antwoord">Lyn is die <strong>MEES BASIESE element</strong> van kuns. Dit kan die fatsoen van 'n voorwerp wys, en ook digtheid, perspektief, skaduwee en tekstuur aandui.</div>
+            <div class="fk-tipes"><strong>Tipes:</strong> Krom · Dik · Dun · Geboe · Reguit</div>
+            <div class="fk-truuk">💡 Dink aan 'n potlood — elke streep is 'n lyn. Kuns begin met daardie eerste streep!</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fk-kaart" onclick="draaiKaart(this)">
+        <div class="fk-binnekant">
+          <div class="fk-voor">
+            <span class="fk-nommer">2</span>
+            <div class="fk-vraag">Wat is <strong>Fatsoen</strong>?</div>
+            <div class="fk-wenk">Element van Visuele Kuns</div>
+          </div>
+          <div class="fk-agter">
+            <div class="fk-antwoord">Fatsoen is die <strong>PLAT AREA</strong> (2D) op die oppervlakte van die kunswerk. Wanneer jy net die buitelyn teken, teken jy die fatsoen.</div>
+            <div class="fk-truuk">💡 Fatsoen klink soos "fase" — dit is die eerste fase van jou tekening: net die buitelyne.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fk-kaart" onclick="draaiKaart(this)">
+        <div class="fk-binnekant">
+          <div class="fk-voor">
+            <span class="fk-nommer">3</span>
+            <div class="fk-vraag">Wat is <strong>Vorm</strong> en noem die 4 basiese vorms?</div>
+            <div class="fk-wenk">Element van Visuele Kuns</div>
+          </div>
+          <div class="fk-agter">
+            <div class="fk-antwoord">Vorm is die <strong>3D effek</strong> van 'n voorwerp. Fatsoen = 2D, Vorm = 3D.</div>
+            <div class="fk-tipes"><strong>4 Basiese Vorms:</strong> Sfeer (bol) · Kubus (blok) · Kegel (keël) · Silinder (buis)</div>
+            <div class="fk-truuk">💡 SKSK: Sfeer, Kubus, Silinder, Kegel!</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fk-kaart" onclick="draaiKaart(this)">
+        <div class="fk-binnekant">
+          <div class="fk-voor">
+            <span class="fk-nommer">4</span>
+            <div class="fk-vraag">Wat is <strong>Kleur</strong> en wat is wit lig?</div>
+            <div class="fk-wenk">Element van Visuele Kuns</div>
+          </div>
+          <div class="fk-agter">
+            <div class="fk-antwoord">Wit lig van die son is 'n <strong>mengsel van ALLE kleure</strong>. 'n Prisma versprei dit in 'n spektrum: Rooi, Oranje, Geel, Groen, Blou, Pers. Ons oë onderskei net <strong>3 basiese kleure</strong>.</div>
+            <div class="fk-truuk">💡 ROG-BP: Rooi, Oranje, Geel — Blou, Pers. Die reënboog!</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fk-kaart" onclick="draaiKaart(this)">
+        <div class="fk-binnekant">
+          <div class="fk-voor">
+            <span class="fk-nommer">5</span>
+            <div class="fk-vraag">Noem die <strong>Primêre, Sekondêre en Tersiêre</strong> kleure.</div>
+            <div class="fk-wenk">Die Kleurwiel</div>
+          </div>
+          <div class="fk-agter">
+            <div class="fk-tipes"><strong>Primêr:</strong> Rooi · Blou · Geel (kan nie gemeng word nie)</div>
+            <div class="fk-tipes"><strong>Sekondêr:</strong> Groen (B+G) · Oranje (R+G) · Pers (R+B)</div>
+            <div class="fk-tipes"><strong>Tersiêr:</strong> Rooi-oranje · Geel-oranje · Geel-groen · Blou-groen · Blou-pers · Rooi-pers</div>
+            <div class="fk-truuk">💡 Pri-Sek-Ter: Drie lae van die kleurwiel soos 'n uie!</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fk-kaart" onclick="draaiKaart(this)">
+        <div class="fk-binnekant">
+          <div class="fk-voor">
+            <span class="fk-nommer">6</span>
+            <div class="fk-vraag">Wat is <strong>Kleurwaarde</strong> en <strong>Tekstuur</strong>?</div>
+            <div class="fk-wenk">Elemente van Visuele Kuns</div>
+          </div>
+          <div class="fk-agter">
+            <div class="fk-antwoord"><strong>Kleurwaarde</strong> = hoe lig of donker 'n kleur is. Wit by = Tint. Swart by = Skaduwee.<br><br><strong>Tekstuur</strong> = illusie van hoe 'n oppervlak voel (glad, grof, skerp, korrelrig). Geteken met lynpatrone.</div>
+            <div class="fk-tipes"><strong>Tekstuur voorbeelde:</strong> Hout · Dorre aarde · Teerpad · Gebreekte glas · Blaar · Waaiende gras</div>
+            <div class="fk-truuk">💡 W-T: Waarde = Wit/sWart skaal. Tekstuur = Taktiel (voel).</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fk-kaart" onclick="draaiKaart(this)">
+        <div class="fk-binnekant">
+          <div class="fk-voor">
+            <span class="fk-nommer">7</span>
+            <div class="fk-vraag">Wat is <strong>Perspektief</strong> en 'n <strong>Verdwynpunt</strong>?</div>
+            <div class="fk-wenk">Element van Visuele Kuns</div>
+          </div>
+          <div class="fk-agter">
+            <div class="fk-antwoord"><strong>Perspektief</strong> = tegniek om die illusie van 3D ruimte, diepte en afstand op 'n plat (2D) oppervlak te skep.<br><br><strong>Verdwynpunt</strong> = spesifieke punt op die horison waar parallelle lyne mekaar blyk te ontmoet en "verdwyn".</div>
+            <div class="fk-truuk">💡 Dink aan 'n pad wat in die verte verdwyn — alle parallelle lyne loop na EEN punt!</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /fk-rooster dag1 -->
+
+    <!-- DAY 2: DRAMA & KUNSTENAARS -->
+    <div class="fk-dag-opskrif">Dag 2 — Drama &amp; Kunstenaars</div>
+    <div class="fk-rooster">
+
+      <div class="fk-kaart" onclick="draaiKaart(this)">
+        <div class="fk-binnekant">
+          <div class="fk-voor">
+            <span class="fk-nommer">8</span>
+            <div class="fk-vraag">Wat is <strong>Drama</strong>? Noem die sleutelterme.</div>
+            <div class="fk-wenk">Drama</div>
+          </div>
+          <div class="fk-agter">
+            <div class="fk-antwoord">Drama kom van die Griekse woord vir <strong>"OM TE DOEN"</strong>. Dit is 'n storie vertel deur rolspel.</div>
+            <div class="fk-tipes"><strong>Dramaturg</strong> = skrywer · <strong>Intrige</strong> = konflik/probleem · <strong>Bedryf</strong> → <strong>Toneel</strong> (groot na klein)</div>
+            <div class="fk-tipes"><strong>3 Fases:</strong> Openingstoneel (stel voor) · Middel-tonele (aksie/komplikasie) · Finale toneel (opgelos)</div>
+            <div class="fk-truuk">💡 D-D-I-B-T: Drama, Dramaturg, Intrige, Bedryf, Toneel.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fk-kaart" onclick="draaiKaart(this)">
+        <div class="fk-binnekant">
+          <div class="fk-voor">
+            <span class="fk-nommer">9</span>
+            <div class="fk-vraag">Verduidelik die geskiedenis van <strong>Die Verhoog</strong>.</div>
+            <div class="fk-wenk">Drama</div>
+          </div>
+          <div class="fk-agter">
+            <div class="fk-tipes"><strong>Antieke Griekeland:</strong> Op heuwelhellings, tot 20 000 mense.</div>
+            <div class="fk-tipes"><strong>Middeleeuse Europa:</strong> In kerke, later buitekant (AD 500–1500).</div>
+            <div class="fk-tipes"><strong>Renaissance (1300–1500):</strong> Groot geboude teaters, vir ryk mense.</div>
+            <div class="fk-tipes"><strong>Globe Theatre (1590s):</strong> Londen, Shakespeare, gewone mense staan in binnehof.</div>
+            <div class="fk-tipes"><strong>Poppeteater:</strong> Klein, draagbaar, akteurs se hande onsigbaar.</div>
+            <div class="fk-truuk">💡 GMRG: Griekeland → Middeleeue → Renaissance → Globe.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fk-kaart" onclick="draaiKaart(this)">
+        <div class="fk-binnekant">
+          <div class="fk-voor">
+            <span class="fk-nommer">10</span>
+            <div class="fk-vraag">Verskil tussen <strong>Komedie</strong> en <strong>Tragedie</strong>. Wat is Katarsis?</div>
+            <div class="fk-wenk">Drama</div>
+          </div>
+          <div class="fk-agter">
+            <div class="fk-tipes"><strong>Komedie</strong> = eindig GELUKKIG (liefdesverhaal, snaaks)</div>
+            <div class="fk-tipes"><strong>Tragedie</strong> = eindig hartseer, gewoonlik met die AFSTERWE van die hoofkarakter</div>
+            <div class="fk-antwoord"><strong>Katarsis</strong> = emosionele reiniging — Aristoteles het gesê mense kyk tragedies om emosies uit te laat.</div>
+            <div class="fk-truuk">💡 Ko-Tra: KOmedie = OK (gelukkig). TRAgedie = TRAne.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fk-kaart" onclick="draaiKaart(this)">
+        <div class="fk-binnekant">
+          <div class="fk-voor">
+            <span class="fk-nommer">11</span>
+            <div class="fk-vraag">Wat is <strong>Spreekkoor</strong>? Noem die opvoerings-elemente.</div>
+            <div class="fk-wenk">Drama</div>
+          </div>
+          <div class="fk-agter">
+            <div class="fk-antwoord">Spreekkoor = 'n <strong>groep mense</strong> wat 'n gedig of dramatiese werk <strong>saam voordra</strong>.</div>
+            <div class="fk-tipes"><strong>Crescendo</strong> = al harder · <strong>Decrescendo</strong> = al sagter</div>
+            <div class="fk-tipes"><strong>Staccato</strong> = skerp en apart · <strong>Legato</strong> = glad en aaneen</div>
+            <div class="fk-tipes"><strong>Antiphon</strong> = groepe wissel · <strong>Sololyne</strong> = een persoon · <strong>Enkellyne</strong> = elke lid een lyn</div>
+            <div class="fk-truuk">💡 C-D-S-L: Crescendo-Decrescendo (volume), Staccato-Legato (styl). Teenoorgesteldes!</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fk-kaart" onclick="draaiKaart(this)">
+        <div class="fk-binnekant">
+          <div class="fk-voor">
+            <span class="fk-nommer">12</span>
+            <div class="fk-vraag">Wie is <strong>George Pemba</strong> en <strong>Maggie Laubser</strong>?</div>
+            <div class="fk-wenk">Suid-Afrikaanse Kunstenaars</div>
+          </div>
+          <div class="fk-agter">
+            <div class="fk-tipes"><strong>George Pemba (1912–2001):</strong> Gebore in Port Elizabeth. Sosiale boodskap — skilder gewone mense se lewens. Begin waterverf, later olieverf. Bekende werk: "Gelvandale" (1957).</div>
+            <div class="fk-tipes"><strong>Maggie Laubser (1886–1973):</strong> Gebore in Malmesbury-distrik. Studeer in Europa. Ekspressionisme styl — sterk kleure, eenvoudige lyne. Skilder mense en plattelandse tonele van SA.</div>
+            <div class="fk-truuk">💡 P-L: Pemba = People (mense). Laubser = Lewendige kleure.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fk-kaart" onclick="draaiKaart(this)">
+        <div class="fk-binnekant">
+          <div class="fk-voor">
+            <span class="fk-nommer">13</span>
+            <div class="fk-vraag">Wie is <strong>M.C. Escher</strong>? Wat is Tesselasie?</div>
+            <div class="fk-wenk">Nederlandse Kunstenaar</div>
+          </div>
+          <div class="fk-agter">
+            <div class="fk-antwoord"><strong>Maurits Cornelis Escher (1898, Nederland)</strong> — bekend vir ongewone perspektief van alledaagse voorwerpe. Sy illustrasies wys ruimtes wat ONMOONTLIK is in die regte lewe.</div>
+            <div class="fk-tipes"><strong>Optiese illusie</strong> = die oog word gekul. Hierdie ontwerpe lyk anders afhangende van hoe jy daarna kyk.</div>
+            <div class="fk-tipes"><strong>Tesselasie</strong> = patrone van fatsoene wat 'n area TOEMAAK sonder gapings of oorvleueling. (Inspireer deur Spaanse dekoratiewe teëls.)</div>
+            <div class="fk-truuk">💡 E-O-T: Escher, Optiese illusie, Tesselasie.</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /fk-rooster dag2 -->
+
+    <button class="fk-herstel-knoppie" onclick="herstelKaarte()">↺ Herstel alle kaarte</button>
+
+  </div><!-- /afdeling flitskaarte -->
 </div>
 
 <!-- ===================== NATUURWETENSKAP ===================== -->
@@ -702,6 +1078,36 @@
 </div>
 
 <script>
+  var geleerdeKaarte = new Set();
+
+  function draaiKaart(kaart) {
+    var wasOmgedraai = kaart.classList.contains('omgedraai');
+    kaart.classList.toggle('omgedraai');
+    var id = kaart.querySelector('.fk-nommer').textContent;
+    if (!wasOmgedraai) {
+      geleerdeKaarte.add(id);
+    } else {
+      geleerdeKaarte.delete(id);
+    }
+    dateerVorderingOp();
+  }
+
+  function dateerVorderingOp() {
+    var totaal = 13;
+    var geleerd = geleerdeKaarte.size;
+    var persentasie = Math.round((geleerd / totaal) * 100);
+    document.getElementById('fkVordering').style.width = persentasie + '%';
+    document.getElementById('fkTeller').textContent = geleerd + ' / ' + totaal + ' geleer';
+  }
+
+  function herstelKaarte() {
+    document.querySelectorAll('.fk-kaart.omgedraai').forEach(function(k) {
+      k.classList.remove('omgedraai');
+    });
+    geleerdeKaarte.clear();
+    dateerVorderingOp();
+  }
+
   function wysOortjie(e, id) {
     document.querySelectorAll('.tab-inhoud').forEach(function(el) {
       el.classList.remove('aktief');
