@@ -386,11 +386,6 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* Kaarte met prente kry meer hoogte sodat foto pas */
-    .fk-kaart.met-prent {
-      height: 340px;
-    }
-
     .fk-binnekant {
       position: relative;
       width: 100%;
@@ -471,62 +466,6 @@
       border-radius: 4px;
       color: #5b21b6;
       margin-top: 4px;
-    }
-
-    /* Werkboek-foto op flitskaarte */
-    .fk-prent {
-      width: 100%;
-      max-height: 110px;
-      object-fit: cover;
-      object-position: center top;
-      border-radius: 6px;
-      margin-top: 6px;
-      border: 1px solid #ede9fe;
-      cursor: zoom-in;
-      background: #f9fafb;
-    }
-    .fk-prent-byskrif {
-      font-size: 0.7rem;
-      color: #888;
-      font-style: italic;
-      text-align: center;
-      margin-top: 2px;
-    }
-
-    /* Modal vir vergroting van prente */
-    .prent-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.92);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      cursor: zoom-out;
-    }
-    .prent-modal.aktief { display: flex; }
-    .prent-modal img {
-      max-width: 100%;
-      max-height: 90vh;
-      object-fit: contain;
-      border-radius: 4px;
-    }
-    .prent-modal-toemaak {
-      position: absolute;
-      top: 16px;
-      right: 20px;
-      color: white;
-      font-size: 1.8rem;
-      background: rgba(255,255,255,0.15);
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
     }
 
     .fk-vordering-balk-omhulsel {
@@ -1511,10 +1450,10 @@
           </div>
         </div>
 
-        <div class="fk-kaart met-prent" onclick="draaiNwKaart(this)">
+        <div class="fk-kaart" onclick="draaiNwKaart(this)">
           <div class="fk-binnekant">
             <div class="fk-voor"><span class="fk-nommer">2</span><div class="fk-vraag">Noem die <strong>3 dele</strong> van die biosfeer.</div><div class="fk-wenk">Hfst 1</div></div>
-            <div class="fk-agter"><div class="fk-tipes"><strong>1. Hidrosfeer</strong> — water (oseane, mere, riviere, ondergrondse water)</div><div class="fk-tipes"><strong>2. Litosfeer</strong> — grond en rotse</div><div class="fk-tipes"><strong>3. Atmosfeer</strong> — gaslaag om die aarde</div><img src="img/nw/biosfeer.jpeg" loading="lazy" class="fk-prent" alt="Biosfeer diagram" onclick="wysPrent('img/nw/biosfeer.jpeg')" /><div class="fk-prent-byskrif">Jou werkboek-skets · tik om te vergroot</div><div class="fk-truuk">💡 H-L-A: Water, Grond, Lug.</div></div>
+            <div class="fk-agter"><div class="fk-tipes"><strong>1. Hidrosfeer</strong> — water (oseane, mere, riviere, ondergrondse water)</div><div class="fk-tipes"><strong>2. Litosfeer</strong> — grond en rotse</div><div class="fk-tipes"><strong>3. Atmosfeer</strong> — gaslaag om die aarde</div><div class="fk-truuk">💡 H-L-A: Water, Grond, Lug.</div></div>
           </div>
         </div>
 
@@ -1539,10 +1478,10 @@
           </div>
         </div>
 
-        <div class="fk-kaart met-prent" onclick="draaiNwKaart(this)">
+        <div class="fk-kaart" onclick="draaiNwKaart(this)">
           <div class="fk-binnekant">
             <div class="fk-voor"><span class="fk-nommer">6</span><div class="fk-vraag">Noem die <strong>7 Lewensprosesse</strong>.</div><div class="fk-wenk">Hfst 2</div></div>
-            <div class="fk-agter"><div class="fk-tipes"><strong>1. Voeding</strong></div><div class="fk-tipes"><strong>2. Voortplanting</strong></div><div class="fk-tipes"><strong>3. Uitskeiding</strong></div><div class="fk-tipes"><strong>4. Groei</strong></div><div class="fk-tipes"><strong>5. Sensitiwiteit</strong></div><div class="fk-tipes"><strong>6. Beweging</strong></div><div class="fk-tipes"><strong>7. Asemhaling</strong></div><img src="img/nw/lewensprosesse.jpeg" loading="lazy" class="fk-prent" alt="Lewensprosesse notas" onclick="wysPrent('img/nw/lewensprosesse.jpeg')" /><div class="fk-prent-byskrif">Jou notas · tik om te vergroot</div><div class="fk-truuk">💡 VVUGSBA — sê dit hardop!</div></div>
+            <div class="fk-agter"><div class="fk-tipes"><strong>1. Voeding</strong></div><div class="fk-tipes"><strong>2. Voortplanting</strong></div><div class="fk-tipes"><strong>3. Uitskeiding</strong></div><div class="fk-tipes"><strong>4. Groei</strong></div><div class="fk-tipes"><strong>5. Sensitiwiteit</strong></div><div class="fk-tipes"><strong>6. Beweging</strong></div><div class="fk-tipes"><strong>7. Asemhaling</strong></div><div class="fk-truuk">💡 VVUGSBA — sê dit hardop!</div></div>
           </div>
         </div>
 
@@ -1551,10 +1490,10 @@
       <div class="fk-dag-opskrif">Dag 2 — Vereistes vir Lewe</div>
       <div class="fk-rooster">
 
-        <div class="fk-kaart met-prent" onclick="draaiNwKaart(this)">
+        <div class="fk-kaart" onclick="draaiNwKaart(this)">
           <div class="fk-binnekant">
             <div class="fk-voor"><span class="fk-nommer">7</span><div class="fk-vraag">Noem die <strong>5 Vereistes vir die Volhouding van Lewe</strong>.</div><div class="fk-wenk">Hfst 3</div></div>
-            <div class="fk-agter"><div class="fk-tipes"><strong>1.</strong> Energiebron (Son vir plante; voedsel vir diere)</div><div class="fk-tipes"><strong>2.</strong> Gasse uit die atmosfeer (O₂ &amp; CO₂)</div><div class="fk-tipes"><strong>3.</strong> Water</div><div class="fk-tipes"><strong>4.</strong> Grond</div><div class="fk-tipes"><strong>5.</strong> Temperatuur</div><img src="img/nw/vereistes.jpeg" loading="lazy" class="fk-prent" alt="Vereistes vir lewe notas" onclick="wysPrent('img/nw/vereistes.jpeg')" /><div class="fk-prent-byskrif">Jou notas · tik om te vergroot</div><div class="fk-truuk">💡 E-G-W-G-T (Energie-Gasse-Water-Grond-Temp).</div></div>
+            <div class="fk-agter"><div class="fk-tipes"><strong>1.</strong> Energiebron (Son vir plante; voedsel vir diere)</div><div class="fk-tipes"><strong>2.</strong> Gasse uit die atmosfeer (O₂ &amp; CO₂)</div><div class="fk-tipes"><strong>3.</strong> Water</div><div class="fk-tipes"><strong>4.</strong> Grond</div><div class="fk-tipes"><strong>5.</strong> Temperatuur</div><div class="fk-truuk">💡 E-G-W-G-T (Energie-Gasse-Water-Grond-Temp).</div></div>
           </div>
         </div>
 
@@ -1591,10 +1530,10 @@
           </div>
         </div>
 
-        <div class="fk-kaart met-prent" onclick="draaiNwKaart(this)">
+        <div class="fk-kaart" onclick="draaiNwKaart(this)">
           <div class="fk-binnekant">
             <div class="fk-voor"><span class="fk-nommer">12</span><div class="fk-vraag">Noem die <strong>5 Ryke</strong> van lewende organismes.</div><div class="fk-wenk">Hfst 4</div></div>
-            <div class="fk-agter"><div class="fk-tipes"><strong>1. Bakterieë</strong></div><div class="fk-tipes"><strong>2. Protiste</strong></div><div class="fk-tipes"><strong>3. Swamme (Fungi)</strong></div><div class="fk-tipes"><strong>4. Plante</strong></div><div class="fk-tipes"><strong>5. Diere</strong></div><img src="img/nw/klassifikasie.jpeg" loading="lazy" class="fk-prent" alt="Klassifikasie notas" onclick="wysPrent('img/nw/klassifikasie.jpeg')" /><div class="fk-prent-byskrif">Jou notas · tik om te vergroot</div><div class="fk-truuk">💡 BPSPD — klein na groot kompleksiteit.</div></div>
+            <div class="fk-agter"><div class="fk-tipes"><strong>1. Bakterieë</strong></div><div class="fk-tipes"><strong>2. Protiste</strong></div><div class="fk-tipes"><strong>3. Swamme (Fungi)</strong></div><div class="fk-tipes"><strong>4. Plante</strong></div><div class="fk-tipes"><strong>5. Diere</strong></div><div class="fk-truuk">💡 BPSPD — klein na groot kompleksiteit.</div></div>
           </div>
         </div>
 
@@ -1605,10 +1544,10 @@
           </div>
         </div>
 
-        <div class="fk-kaart met-prent" onclick="draaiNwKaart(this)">
+        <div class="fk-kaart" onclick="draaiNwKaart(this)">
           <div class="fk-binnekant">
             <div class="fk-voor"><span class="fk-nommer">14</span><div class="fk-vraag">Wat is die <strong>wetenskaplike naam</strong> van die LEEU?</div><div class="fk-wenk">Hfst 4</div></div>
-            <div class="fk-agter"><div class="fk-antwoord" style="text-align:center;font-style:italic;font-size:1.05rem;"><strong>Panthera leo</strong></div><div class="fk-tipes"><em>Panthera</em> = Genus (hoofletter)<br><em>leo</em> = spesie (kleinletter)</div><div class="fk-tipes">Luiperd = <em>Panthera pardus</em></div><img src="img/nw/klassifikasie.jpeg" loading="lazy" class="fk-prent" alt="Klassifikasie met Panthera leo voorbeeld" onclick="wysPrent('img/nw/klassifikasie.jpeg')" /><div class="fk-prent-byskrif">Onderste deel van notas wys voorbeeld · tik om te vergroot</div><div class="fk-truuk">💡 Genus hoofletter, spesie kleinletter — onthou by die toets!</div></div>
+            <div class="fk-agter"><div class="fk-antwoord" style="text-align:center;font-style:italic;font-size:1.05rem;"><strong>Panthera leo</strong></div><div class="fk-tipes"><em>Panthera</em> = Genus (hoofletter)<br><em>leo</em> = spesie (kleinletter)</div><div class="fk-tipes">Luiperd = <em>Panthera pardus</em></div><div class="fk-truuk">💡 Genus hoofletter, spesie kleinletter — onthou by die toets!</div></div>
           </div>
         </div>
 
@@ -1617,10 +1556,10 @@
       <div class="fk-dag-opskrif">Dag 4 — Diversiteit van Diere</div>
       <div class="fk-rooster">
 
-        <div class="fk-kaart met-prent" onclick="draaiNwKaart(this)">
+        <div class="fk-kaart" onclick="draaiNwKaart(this)">
           <div class="fk-binnekant">
             <div class="fk-voor"><span class="fk-nommer">15</span><div class="fk-vraag">Wat is 'n <strong>GEWERWELDE</strong> dier?</div><div class="fk-wenk">Hfst 5</div></div>
-            <div class="fk-agter"><div class="fk-antwoord">'n Dier met 'n <strong>endoskelet</strong> (binneskelet / ruggraat).</div><div class="fk-tipes">Voorbeelde: visse, paddas, slange, voëls, mense, leeus.</div><img src="img/nw/diere.jpeg" loading="lazy" class="fk-prent" alt="Gewerwelde diere notas" onclick="wysPrent('img/nw/diere.jpeg')" /><div class="fk-prent-byskrif">Bo-aan notas verduidelik gewerweld vs ongewerweld</div><div class="fk-truuk">💡 "Gewerwel" = met werwels (ruggraat).</div></div>
+            <div class="fk-agter"><div class="fk-antwoord">'n Dier met 'n <strong>endoskelet</strong> (binneskelet / ruggraat).</div><div class="fk-tipes">Voorbeelde: visse, paddas, slange, voëls, mense, leeus.</div><div class="fk-truuk">💡 "Gewerwel" = met werwels (ruggraat).</div></div>
           </div>
         </div>
 
@@ -1638,10 +1577,10 @@
           </div>
         </div>
 
-        <div class="fk-kaart met-prent" onclick="draaiNwKaart(this)">
+        <div class="fk-kaart" onclick="draaiNwKaart(this)">
           <div class="fk-binnekant">
             <div class="fk-voor"><span class="fk-nommer">18</span><div class="fk-vraag">Noem <strong>6 eienskappe van VISSE</strong>.</div><div class="fk-wenk">Hfst 5 ★ Eksamen</div></div>
-            <div class="fk-agter"><div class="fk-tipes"><strong>1.</strong> Wisseltemperatuur (koudbloedig)</div><div class="fk-tipes"><strong>2.</strong> Kan nie eie liggaamstemperatuur beheer nie</div><div class="fk-tipes"><strong>3.</strong> Vel met skubbe bedek; vel het slym</div><div class="fk-tipes"><strong>4.</strong> Ledemate aangepas as vinne</div><div class="fk-tipes"><strong>5.</strong> Haal asem deur kieue</div><div class="fk-tipes"><strong>6.</strong> Lê eiers in water</div><img src="img/nw/diere.jpeg" loading="lazy" class="fk-prent" alt="Eienskappe van visse" onclick="wysPrent('img/nw/diere.jpeg')" /><div class="fk-prent-byskrif">Boonste deel van notas wys visse · tik om te vergroot</div></div>
+            <div class="fk-agter"><div class="fk-tipes"><strong>1.</strong> Wisseltemperatuur (koudbloedig)</div><div class="fk-tipes"><strong>2.</strong> Kan nie eie liggaamstemperatuur beheer nie</div><div class="fk-tipes"><strong>3.</strong> Vel met skubbe bedek; vel het slym</div><div class="fk-tipes"><strong>4.</strong> Ledemate aangepas as vinne</div><div class="fk-tipes"><strong>5.</strong> Haal asem deur kieue</div><div class="fk-tipes"><strong>6.</strong> Lê eiers in water</div></div>
           </div>
         </div>
 
@@ -1652,10 +1591,10 @@
           </div>
         </div>
 
-        <div class="fk-kaart met-prent" onclick="draaiNwKaart(this)">
+        <div class="fk-kaart" onclick="draaiNwKaart(this)">
           <div class="fk-binnekant">
             <div class="fk-voor"><span class="fk-nommer">20</span><div class="fk-vraag">Noem <strong>6 eienskappe van AMFIBIEË</strong>.</div><div class="fk-wenk">Hfst 5 ★ Eksamen</div></div>
-            <div class="fk-agter"><div class="fk-tipes"><strong>1.</strong> Leef op land EN in water</div><div class="fk-tipes"><strong>2.</strong> Wisseltemperatuur (koudbloedig)</div><div class="fk-tipes"><strong>3.</strong> Vogtige vel, sonder hare/skubbe/vere</div><div class="fk-tipes"><strong>4.</strong> Vel het slym</div><div class="fk-tipes"><strong>5.</strong> Lê eiers in water</div><div class="fk-tipes"><strong>6.</strong> Larwes = kieue; volwassenes = longe + vel + mukus</div><img src="img/nw/diere.jpeg" loading="lazy" class="fk-prent" alt="Eienskappe van amfibieë" onclick="wysPrent('img/nw/diere.jpeg')" /><div class="fk-prent-byskrif">Onderste deel van notas wys amfibieë · tik om te vergroot</div></div>
+            <div class="fk-agter"><div class="fk-tipes"><strong>1.</strong> Leef op land EN in water</div><div class="fk-tipes"><strong>2.</strong> Wisseltemperatuur (koudbloedig)</div><div class="fk-tipes"><strong>3.</strong> Vogtige vel, sonder hare/skubbe/vere</div><div class="fk-tipes"><strong>4.</strong> Vel het slym</div><div class="fk-tipes"><strong>5.</strong> Lê eiers in water</div><div class="fk-tipes"><strong>6.</strong> Larwes = kieue; volwassenes = longe + vel + mukus</div></div>
           </div>
         </div>
 
@@ -1855,24 +1794,7 @@
   </div>
 </div>
 
-<!-- Prent-vergroter modal -->
-<div class="prent-modal" id="prentModal" onclick="maakPrentToe()">
-  <span class="prent-modal-toemaak">×</span>
-  <img id="prentModalImg" src="" alt="" />
-</div>
-
 <script>
-  function wysPrent(src) {
-    var modal = document.getElementById('prentModal');
-    document.getElementById('prentModalImg').src = src;
-    modal.classList.add('aktief');
-    // Stop event so card doesn't flip back when image is tapped
-    if (window.event) window.event.stopPropagation();
-  }
-  function maakPrentToe() {
-    document.getElementById('prentModal').classList.remove('aktief');
-  }
-
   function wisselInklap(inhoudsId, knoppie) {
     var inhoud = document.getElementById(inhoudsId);
     inhoud.classList.toggle('oop');
