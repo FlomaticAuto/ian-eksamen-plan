@@ -113,6 +113,63 @@
       line-height: 1.3;
     }
 
+    /* ===== KPI TELLING BUBBEL ===== */
+    .kpi-telling {
+      display: none;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      border: 2px solid #f59e0b;
+      border-radius: 16px;
+      padding: 12px 18px;
+      margin: 10px 0 16px;
+      box-shadow: 0 3px 12px rgba(245,158,11,0.25);
+    }
+    .kpi-telling.wys { display: flex; }
+    .kpi-telling.geslaag {
+      background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+      border-color: #10b981;
+      box-shadow: 0 3px 12px rgba(16,185,129,0.25);
+    }
+    .kpi-telling.druip {
+      background: linear-gradient(135deg, #fee2e2, #fecaca);
+      border-color: #ef4444;
+      box-shadow: 0 3px 12px rgba(239,68,68,0.25);
+    }
+    .kpi-telling-ikoon { font-size: 1.7rem; line-height: 1; }
+    .kpi-telling-teks { flex: 1; }
+    .kpi-telling-etiket {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #92400e;
+      text-transform: uppercase;
+    }
+    .kpi-telling.geslaag .kpi-telling-etiket { color: #065f46; }
+    .kpi-telling.druip .kpi-telling-etiket { color: #991b1b; }
+    .kpi-telling-waarde {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #0f3460;
+      line-height: 1.1;
+    }
+    .kpi-telling-datum {
+      font-size: 0.72rem;
+      color: #555;
+      margin-top: 2px;
+    }
+    .kpi-telling-vee {
+      background: none;
+      border: none;
+      color: #555;
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 6px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .kpi-telling-vee:active { background: rgba(0,0,0,0.08); }
+
     .eksamendatum {
       font-size: 0.82rem;
       color: #e94560;
@@ -554,6 +611,7 @@
 <!-- ===================== WISKUNDE VRAESTEL 1 ===================== -->
 <div id="wiskunde1" class="tab-inhoud aktief">
   <div class="vak-titel">Wiskunde — Vraestel 1</div>
+  <div class="kpi-telling" data-vak="wiskunde1"></div>
 
   <div class="afdeling">
     <div class="afdeling-opskrif">
@@ -588,6 +646,7 @@
 <!-- ===================== WISKUNDE VRAESTEL 2 ===================== -->
 <div id="wiskunde2" class="tab-inhoud">
   <div class="vak-titel">Wiskunde — Vraestel 2</div>
+  <div class="kpi-telling" data-vak="wiskunde2"></div>
   <div class="eksamendatum">Eksamen: 04/06/2026</div>
 
   <div class="afdeling">
@@ -664,6 +723,7 @@
 <!-- ===================== AFRIKAANS HUISTAAL ===================== -->
 <div id="afrikaans" class="tab-inhoud">
   <div class="vak-titel">Afrikaans Huistaal</div>
+  <div class="kpi-telling" data-vak="afrikaans"></div>
   <div class="eksamendatum">Eksamen: 03/06/2026</div>
 
   <div class="afdeling">
@@ -698,6 +758,7 @@
 <!-- ===================== TEGNOLOGIE ===================== -->
 <div id="tegnologie" class="tab-inhoud">
   <div class="vak-titel">Tegnologie</div>
+  <div class="kpi-telling" data-vak="tegnologie"></div>
 
   <div class="afdeling">
     <div class="afdeling-opskrif">
@@ -725,6 +786,7 @@
 <!-- ===================== EBW ===================== -->
 <div id="ebw" class="tab-inhoud">
   <div class="vak-titel">Ekonomiese en Bestuurswetenskappe (EBW)</div>
+  <div class="kpi-telling" data-vak="ebw"></div>
 
   <!-- JOTFORM TOETSKNOPPIE -->
   <a href="https://form.jotform.com/261404882092053" target="_blank" class="jf-toets-knoppie">
@@ -1115,6 +1177,7 @@
 <!-- ===================== KUNS ===================== -->
 <div id="kuns" class="tab-inhoud">
   <div class="vak-titel">Kuns en Kultuur</div>
+  <div class="kpi-telling" data-vak="kuns"></div>
 
   <!-- JOTFORM TOETSKNOPPIE -->
   <a href="https://form.jotform.com/261386011520042" target="_blank" class="jf-toets-knoppie">
@@ -1271,6 +1334,7 @@
 <!-- ===================== NATUURWETENSKAP ===================== -->
 <div id="natuur" class="tab-inhoud">
   <div class="vak-titel">Natuurwetenskappe</div>
+  <div class="kpi-telling" data-vak="natuur"></div>
   <div class="eksamendatum">⚠️ Eksamen: 29/05/2026 — eerste eksamen!</div>
 
   <!-- JOTFORM TOETSKNOPPIE -->
@@ -1606,6 +1670,7 @@
 <!-- ===================== GEOGRAFIE ===================== -->
 <div id="geografie" class="tab-inhoud">
   <div class="vak-titel">Sosiale Wetenskappe — Geografie</div>
+  <div class="kpi-telling" data-vak="geografie"></div>
   <div class="eksamendatum">Eksamen: 05/06/2026</div>
 
   <div class="afdeling">
@@ -1647,6 +1712,7 @@
 <!-- ===================== GESKIEDENIS ===================== -->
 <div id="geskiedenis" class="tab-inhoud">
   <div class="vak-titel">Sosiale Wetenskappe — Geskiedenis</div>
+  <div class="kpi-telling" data-vak="geskiedenis"></div>
   <div class="eksamendatum">Eksamen: 02/06/2026</div>
 
   <div class="afdeling">
@@ -1697,6 +1763,7 @@
 <!-- ===================== ENGELS EAT ===================== -->
 <div id="engels" class="tab-inhoud">
   <div class="vak-titel">Engels Eerste Addisionele Taal (EAT)</div>
+  <div class="kpi-telling" data-vak="engels"></div>
   <div class="eksamendatum">Eksamen: 08/06/2026</div>
 
   <div class="afdeling">
@@ -1730,6 +1797,7 @@
 <!-- ===================== LEWENSVAARDIGHEDE ===================== -->
 <div id="lewens" class="tab-inhoud">
   <div class="vak-titel">Lewensvaardighede</div>
+  <div class="kpi-telling" data-vak="lewens"></div>
 
   <div class="afdeling">
     <div class="afdeling-opskrif">
@@ -1909,6 +1977,97 @@
     e.currentTarget.classList.add('aktief');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  /* ===== KPI TELLING: Jotform redirect-vangs + localStorage + bubbel render =====
+     Jotform "Thank You" stuur Ian terug na:
+       https://flomaticauto.github.io/ian-eksamen-plan/?vak=ebw&telling=85&uitOf=100
+     Velde wat ondersteun word:
+       vak      — pas by data-vak attribuut (wiskunde1, ebw, kuns, ...)
+       telling  — die punt (% of rou getal)
+       uitOf    — opsioneel, totaal punte
+  */
+  var BERG_SLEUTEL = 'ian-eksamen-tellings-v1';
+
+  function laaiTellings() {
+    try { return JSON.parse(localStorage.getItem(BERG_SLEUTEL) || '{}'); }
+    catch (err) { return {}; }
+  }
+
+  function stoorTellings(data) {
+    try { localStorage.setItem(BERG_SLEUTEL, JSON.stringify(data)); } catch (err) {}
+  }
+
+  function vangUrlTelling() {
+    var params = new URLSearchParams(window.location.search);
+    var vak = params.get('vak');
+    var telling = params.get('telling');
+    if (!vak || telling === null || telling === '') return false;
+    var n = parseFloat(String(telling).replace(',', '.'));
+    if (isNaN(n)) return false;
+    var uitOf = params.get('uitOf');
+    var u = uitOf ? parseFloat(String(uitOf).replace(',', '.')) : null;
+    var data = laaiTellings();
+    data[vak] = {
+      telling: n,
+      uitOf: (u && !isNaN(u)) ? u : null,
+      datum: new Date().toISOString()
+    };
+    stoorTellings(data);
+    // Maak skoon URL sodat herlaai nie weer opslaan nie
+    var skoonUrl = window.location.pathname + window.location.hash;
+    window.history.replaceState({}, '', skoonUrl);
+    // Wys die ooreenstemmende oortjie outomaties
+    var knoppie = document.querySelector('.tab-btn[onclick*="\'' + vak + '\'"]');
+    if (knoppie) knoppie.click();
+    return true;
+  }
+
+  function persentasie(t) {
+    if (t.uitOf && t.uitOf > 0) return Math.round((t.telling / t.uitOf) * 100);
+    return Math.round(t.telling);
+  }
+
+  function rendiTellings() {
+    var data = laaiTellings();
+    document.querySelectorAll('.kpi-telling').forEach(function(bubbel) {
+      var vak = bubbel.getAttribute('data-vak');
+      var rec = data[vak];
+      bubbel.classList.remove('wys', 'geslaag', 'druip');
+      if (!rec) { bubbel.innerHTML = ''; return; }
+      var p = persentasie(rec);
+      var klas = p >= 50 ? 'geslaag' : 'druip';
+      var ikoon = p >= 80 ? '🏆' : (p >= 50 ? '✅' : '📚');
+      var waarde = rec.uitOf
+        ? (rec.telling + ' / ' + rec.uitOf + '  (' + p + '%)')
+        : (p + '%');
+      var datum = '';
+      try {
+        var d = new Date(rec.datum);
+        datum = d.toLocaleDateString('af-ZA', { day: '2-digit', month: 'short', year: 'numeric' });
+      } catch (err) {}
+      bubbel.classList.add('wys', klas);
+      bubbel.innerHTML =
+        '<div class="kpi-telling-ikoon">' + ikoon + '</div>' +
+        '<div class="kpi-telling-teks">' +
+          '<div class="kpi-telling-etiket">Toets Uitslag</div>' +
+          '<div class="kpi-telling-waarde">' + waarde + '</div>' +
+          (datum ? '<div class="kpi-telling-datum">Geskryf: ' + datum + '</div>' : '') +
+        '</div>' +
+        '<button class="kpi-telling-vee" title="Vee uitslag uit" onclick="veeTelling(\'' + vak + '\')">✕</button>';
+    });
+  }
+
+  function veeTelling(vak) {
+    if (!confirm('Vee uitslag vir hierdie vak uit?')) return;
+    var data = laaiTellings();
+    delete data[vak];
+    stoorTellings(data);
+    rendiTellings();
+  }
+
+  // Hardloop op laai: vang URL, dan render
+  vangUrlTelling();
+  rendiTellings();
 </script>
 
 </body>
