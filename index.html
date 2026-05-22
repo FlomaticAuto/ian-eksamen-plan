@@ -215,6 +215,16 @@
       letter-spacing: 0.3px;
     }
 
+    .geen-eksamen {
+      font-size: 0.78rem;
+      color: #666;
+      font-weight: 600;
+      padding-left: 18px;
+      margin-bottom: 18px;
+      letter-spacing: 0.3px;
+      font-style: italic;
+    }
+
     .afdeling {
       background: white;
       border-radius: 12px;
@@ -317,6 +327,22 @@
       font-size: 0.78rem;
       margin-left: 3px;
     }
+
+    /* ===== RESET-KNOPPIE ===== */
+    .vee-alles-knoppie {
+      display: block;
+      margin: 0 auto 14px;
+      background: #f3f4f6;
+      color: #6b7280;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .vee-alles-knoppie:active { background: #e5e7eb; }
 
     /* ===== JOTFORM TOETS KNOPPIE ===== */
     .jf-toets-knoppie {
@@ -582,12 +608,14 @@
   <button class="tab-btn" onclick="wysOortjie(event,'lewens')">Lewensvaardighede</button>
 </div>
 <div class="tab-nav-hint">← Swipe vir meer vakke →</div>
+<button class="vee-alles-knoppie" onclick="veeAlleTellings()">🧹 Vee alle toets-uitslae uit</button>
 
 <!-- ===================== WISKUNDE VRAESTEL 1 ===================== -->
 <div id="wiskunde1" class="tab-inhoud aktief">
   <div class="vak-titel">Wiskunde — Vraestel 1</div>
+  <div class="geen-eksamen">📋 Geen formele eksamen-datum op skoolbrief — kyk by skool vir bevestiging</div>
   <div class="kpi-telling" data-vak="wiskunde1"></div>
-  <a class="hertoets-knoppie" data-vak="wiskunde1" data-hertoets="" href="#"></a>
+  <a class="hertoets-knoppie" data-vak="wiskunde1" data-hertoets-2="" data-hertoets-3="" href="#"></a>
 
   <div class="afdeling">
     <div class="afdeling-opskrif">
@@ -623,8 +651,8 @@
 <div id="wiskunde2" class="tab-inhoud">
   <div class="vak-titel">Wiskunde — Vraestel 2</div>
   <div class="kpi-telling" data-vak="wiskunde2"></div>
-  <a class="hertoets-knoppie" data-vak="wiskunde2" data-hertoets="" href="#"></a>
-  <div class="eksamendatum">Eksamen: 04/06/2026</div>
+  <a class="hertoets-knoppie" data-vak="wiskunde2" data-hertoets-2="" data-hertoets-3="" href="#"></a>
+  <div class="eksamendatum">📅 Eksamen: Donderdag, 04 Junie 2026</div>
 
   <div class="afdeling">
     <div class="afdeling-opskrif">
@@ -701,8 +729,8 @@
 <div id="afrikaans" class="tab-inhoud">
   <div class="vak-titel">Afrikaans Huistaal</div>
   <div class="kpi-telling" data-vak="afrikaans"></div>
-  <a class="hertoets-knoppie" data-vak="afrikaans" data-hertoets="" href="#"></a>
-  <div class="eksamendatum">Eksamen: 03/06/2026</div>
+  <a class="hertoets-knoppie" data-vak="afrikaans" data-hertoets-2="" data-hertoets-3="" href="#"></a>
+  <div class="eksamendatum">📅 Eksamen: Woensdag, 03 Junie 2026</div>
 
   <div class="afdeling">
     <div class="afdeling-opskrif">
@@ -737,7 +765,8 @@
 <div id="tegnologie" class="tab-inhoud">
   <div class="vak-titel">Tegnologie</div>
   <div class="kpi-telling" data-vak="tegnologie"></div>
-  <a class="hertoets-knoppie" data-vak="tegnologie" data-hertoets="" href="#"></a>
+  <a class="hertoets-knoppie" data-vak="tegnologie" data-hertoets-2="" data-hertoets-3="" href="#"></a>
+  <div class="geen-eksamen">📋 Geen formele eksamen-datum op skoolbrief — kyk by skool vir bevestiging</div>
 
   <div class="afdeling">
     <div class="afdeling-opskrif">
@@ -766,7 +795,8 @@
 <div id="ebw" class="tab-inhoud">
   <div class="vak-titel">Ekonomiese en Bestuurswetenskappe (EBW)</div>
   <div class="kpi-telling" data-vak="ebw"></div>
-  <a class="hertoets-knoppie" data-vak="ebw" data-hertoets="261405190467052" href="#"></a>
+  <a class="hertoets-knoppie" data-vak="ebw" data-hertoets-2="261405190467052" data-hertoets-3="" href="#"></a>
+  <div class="geen-eksamen">📋 Geen formele eksamen-datum op skoolbrief — kyk by skool vir bevestiging</div>
 
   <!-- JOTFORM TOETSKNOPPIE -->
   <a href="https://form.jotform.com/261404882092053" target="_blank" class="jf-toets-knoppie">
@@ -1158,7 +1188,8 @@
 <div id="kuns" class="tab-inhoud">
   <div class="vak-titel">Kuns en Kultuur</div>
   <div class="kpi-telling" data-vak="kuns"></div>
-  <a class="hertoets-knoppie" data-vak="kuns" data-hertoets="" href="#"></a>
+  <a class="hertoets-knoppie" data-vak="kuns" data-hertoets-2="" data-hertoets-3="" href="#"></a>
+  <div class="geen-eksamen">📋 Geen formele eksamen-datum op skoolbrief — kyk by skool vir bevestiging</div>
 
   <!-- JOTFORM TOETSKNOPPIE -->
   <a href="https://form.jotform.com/261386011520042" target="_blank" class="jf-toets-knoppie">
@@ -1316,8 +1347,8 @@
 <div id="natuur" class="tab-inhoud">
   <div class="vak-titel">Natuurwetenskappe</div>
   <div class="kpi-telling" data-vak="natuur"></div>
-  <a class="hertoets-knoppie" data-vak="natuur" data-hertoets="" href="#"></a>
-  <div class="eksamendatum">⚠️ Eksamen: 29/05/2026 — eerste eksamen!</div>
+  <a class="hertoets-knoppie" data-vak="natuur" data-hertoets-2="" data-hertoets-3="" href="#"></a>
+  <div class="eksamendatum">⚠️ Eksamen: Vrydag, 29 Mei 2026 — EERSTE EKSAMEN!</div>
 
   <!-- JOTFORM TOETSKNOPPIE -->
   <a href="https://form.jotform.com/261404801128044" target="_blank" class="jf-toets-knoppie">
@@ -1653,8 +1684,8 @@
 <div id="geografie" class="tab-inhoud">
   <div class="vak-titel">Sosiale Wetenskappe — Geografie</div>
   <div class="kpi-telling" data-vak="geografie"></div>
-  <a class="hertoets-knoppie" data-vak="geografie" data-hertoets="" href="#"></a>
-  <div class="eksamendatum">Eksamen: 05/06/2026</div>
+  <a class="hertoets-knoppie" data-vak="geografie" data-hertoets-2="" data-hertoets-3="" href="#"></a>
+  <div class="eksamendatum">📅 Eksamen: Vrydag, 05 Junie 2026</div>
 
   <div class="afdeling">
     <div class="afdeling-opskrif">
@@ -1696,8 +1727,8 @@
 <div id="geskiedenis" class="tab-inhoud">
   <div class="vak-titel">Sosiale Wetenskappe — Geskiedenis</div>
   <div class="kpi-telling" data-vak="geskiedenis"></div>
-  <a class="hertoets-knoppie" data-vak="geskiedenis" data-hertoets="" href="#"></a>
-  <div class="eksamendatum">Eksamen: 02/06/2026</div>
+  <a class="hertoets-knoppie" data-vak="geskiedenis" data-hertoets-2="" data-hertoets-3="" href="#"></a>
+  <div class="eksamendatum">📅 Eksamen: Dinsdag, 02 Junie 2026</div>
 
   <div class="afdeling">
     <div class="afdeling-opskrif">
@@ -1748,8 +1779,8 @@
 <div id="engels" class="tab-inhoud">
   <div class="vak-titel">Engels Eerste Addisionele Taal (EAT)</div>
   <div class="kpi-telling" data-vak="engels"></div>
-  <a class="hertoets-knoppie" data-vak="engels" data-hertoets="" href="#"></a>
-  <div class="eksamendatum">Eksamen: 08/06/2026</div>
+  <a class="hertoets-knoppie" data-vak="engels" data-hertoets-2="" data-hertoets-3="" href="#"></a>
+  <div class="eksamendatum">📅 Eksamen: Maandag, 08 Junie 2026</div>
 
   <div class="afdeling">
     <div class="afdeling-opskrif">
@@ -1783,7 +1814,8 @@
 <div id="lewens" class="tab-inhoud">
   <div class="vak-titel">Lewensvaardighede</div>
   <div class="kpi-telling" data-vak="lewens"></div>
-  <a class="hertoets-knoppie" data-vak="lewens" data-hertoets="" href="#"></a>
+  <a class="hertoets-knoppie" data-vak="lewens" data-hertoets-2="" data-hertoets-3="" href="#"></a>
+  <div class="geen-eksamen">📋 Geen formele eksamen-datum op skoolbrief — kyk by skool vir bevestiging</div>
 
   <div class="afdeling">
     <div class="afdeling-opskrif">
@@ -1947,18 +1979,78 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  /* ===== KPI TELLING + HERTOETS: Jotform redirect-vangs + pogings-geskiedenis =====
-     Jotform "Thank You" stuur Ian terug na:
-       https://flomaticauto.github.io/ian-eksamen-plan/?vak=ebw&telling=85&uitOf=100
-     URL-velde:
-       vak      — pas by data-vak (wiskunde1, ebw, kuns, ...)
-       telling  — die punt (% of rou getal)
-       uitOf    — opsioneel, totaal punte
-     Datastruktuur in localStorage:
-       { ebw: { pogings: [{telling, uitOf, datum}, ...] }, ... }
+  /* ===== KPI TELLING + HERTOETS: Google Sheet CSV → pogings-geskiedenis =====
+     Master sheet (gepubliseer as CSV) is die bron-van-waarheid.
+     Kolomme: Timestamp, Vak, Poging, Telling, UitOf
+     localStorage is net 'n vinnige cache vir offline-vertoning terwyl die fetch loop.
+
+     Vul MASTER_CSV_URL in nadat jy google-forms-setup.gs in Apps Script gehardloop het
+     en die sheet via File → Share → Publish to web → CSV gepubliseer het.
   */
+  var MASTER_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTfs9uaHkP4KNFVAxUXm5OMgCw17-rh6F5_JYYsEzHuFumpz4roU2uivW-M-SZ2RqnrhoHD872hbxcw/pub?output=csv'; // <-- plak hier die gepubliseerde CSV URL in
+  var FORM_URLS = {
+    wiskunde1: {
+      1: 'https://docs.google.com/forms/d/e/1FAIpQLSeZnq18uqsclQy4PFySvaSBa-tuBNusD_yRkkvc3kFSCX-MbQ/viewform',
+      2: 'https://docs.google.com/forms/d/e/1FAIpQLSeL08V4qDIfFDhKrOfWNqQTcsvtR9Fb3oFPxvtWA4w2HA6rvA/viewform',
+      3: 'https://docs.google.com/forms/d/e/1FAIpQLSd4SlQmBhWpgydBF8dgRJnKGqXKTBeh1O3gi-np2w_SWcSjRw/viewform'
+    },
+    wiskunde2: {
+      1: 'https://docs.google.com/forms/d/e/1FAIpQLSekDOIw6hIiv6QaVCgzZILCjWQwuEh2x-lTJ9PvWeOxOKKp2w/viewform',
+      2: 'https://docs.google.com/forms/d/e/1FAIpQLSesWr3f0dicGP5IZ3Sg8Wiu7CXyS_z4TGMPd1PhQdzNpGqHgA/viewform',
+      3: 'https://docs.google.com/forms/d/e/1FAIpQLSc5PMXvLvKKs12XsAgR_wwR7c9CZTw4lPaUVWuMjH7MONjEoQ/viewform'
+    },
+    afrikaans: {
+      1: 'https://docs.google.com/forms/d/e/1FAIpQLSdMQF_nQyeneFFXNubftOmFEvy6pXXtlLiNQrSDQsnrPiaHmQ/viewform',
+      2: 'https://docs.google.com/forms/d/e/1FAIpQLScIswAJcOhIG9SaU86V_cTSlJCu7dveM_8WHzXWRpyv8U1tGA/viewform',
+      3: 'https://docs.google.com/forms/d/e/1FAIpQLSchLu6GUMfFzdcIu_Sag055WxJ6LSuUpwZLWHEBfaW_7QUATQ/viewform'
+    },
+    tegnologie: {
+      1: 'https://docs.google.com/forms/d/e/1FAIpQLSdSzM4R0i1w6YVgnVOd8qUFMDrLdA-HCZNGK9VeH_MWZgHQEg/viewform',
+      2: 'https://docs.google.com/forms/d/e/1FAIpQLSds3aSuJ8aYfWqNUhRFrqS94xv-fu7NT_je4K3N_5Ty2a0jfg/viewform',
+      3: 'https://docs.google.com/forms/d/e/1FAIpQLSdVlJ-CPK67J3xmk2h0ozOtTEyaMnB3yPrKQ9AaiNCVcZuhqw/viewform'
+    },
+    ebw: {
+      1: 'https://docs.google.com/forms/d/e/1FAIpQLScYgtxSNQqMG-m-3FVl2x3ixSycNoYRcrD2HJRP04M1UeiKNw/viewform',
+      2: 'https://docs.google.com/forms/d/e/1FAIpQLScX5wTJDCv7irGWeZMH4lhxxo0P7TIhQ6XsLcByVXYj4eXTOw/viewform',
+      3: 'https://docs.google.com/forms/d/e/1FAIpQLScX7i1sG4Gv__TDei5ALXrtwOPIkJAJTHEIadnzv8Wc98rGrw/viewform'
+    },
+    kuns: {
+      1: 'https://docs.google.com/forms/d/e/1FAIpQLSfjldfhfIMbDyzYOAo29uSUcem4ua4MfVqWMlWlv8KMKylsHg/viewform',
+      2: 'https://docs.google.com/forms/d/e/1FAIpQLSfuHo2SWMuHzacDdqOA9AKwAPR0a_OWdSDICVaI_cT_dwazwg/viewform',
+      3: 'https://docs.google.com/forms/d/e/1FAIpQLSd4jGnSWyrshN_g9zZDhCcbGiAqwnpOkJvE86rO2EUWbE-ZgA/viewform'
+    },
+    natuur: {
+      1: 'https://docs.google.com/forms/d/e/1FAIpQLSddIedyyOMz3oHXntl4LHU7ERuGLBfZVDXfLhMi898qSu0jLw/viewform',
+      2: 'https://docs.google.com/forms/d/e/1FAIpQLSeC3YbdF0dyrfOPx08JsfsQZI2MEbrn5iYdJMW4k-1vHYM_gA/viewform',
+      3: 'https://docs.google.com/forms/d/e/1FAIpQLScNqoL3Htp9PODixvPnYiG07nSgzVeBN8IZ44rnmehDkIo_mQ/viewform'
+    },
+    geografie: {
+      1: 'https://docs.google.com/forms/d/e/1FAIpQLSd0ZzOI0Ep9O80AEvgQKZFBVmVFnl9qjjsPhSTwy5-Nmly3ww/viewform',
+      2: 'https://docs.google.com/forms/d/e/1FAIpQLSd3QnxjW7CYm5-cUCufTof9VGqKAD1AHRamcM8NypFu2Mp_ug/viewform',
+      3: 'https://docs.google.com/forms/d/e/1FAIpQLSegczt81AgDhnFf-IVLPcCtkZhQpMZqfEcnsOpLeVjKsLdLcg/viewform'
+    },
+    geskiedenis: {
+      1: 'https://docs.google.com/forms/d/e/1FAIpQLSdLGlfMToB3ZkzqFThVn1sJp6Z_zZ0MNZ1hnSnFFahX_SLFiA/viewform',
+      2: 'https://docs.google.com/forms/d/e/1FAIpQLSd8q3LcksKUJh6aFCAgubTktx2Trfl3LzMzRyeF8itcmJngjw/viewform',
+      3: 'https://docs.google.com/forms/d/e/1FAIpQLScAsm6b3T04J4EkNe2db51u4L-EGLNN79tWcUwDtW_0ef0TCw/viewform'
+    },
+    engels: {
+      1: 'https://docs.google.com/forms/d/e/1FAIpQLSd3r2Jwqloi2KAdOQoL5MdeI3752edIwPqPuMmXkAwwysMWNw/viewform',
+      2: 'https://docs.google.com/forms/d/e/1FAIpQLSeqIJGCJtq06R4zjAqJgO_OA_4eBfOu7C74rfQqFH5TK-q_-A/viewform',
+      3: 'https://docs.google.com/forms/d/e/1FAIpQLSf-eeVquSjBttpJGD7hTxzPkHZfGb5KKyX-pRNm7peI4nGkLA/viewform'
+    },
+    lewens: {
+      1: 'https://docs.google.com/forms/d/e/1FAIpQLScMi_AxBxVK-Rt8g1Q-t6YZbLe8weYm6CJTmf35lVT7kSgn_w/viewform',
+      2: 'https://docs.google.com/forms/d/e/1FAIpQLSeACQe9i4cPaCDcbVJvM3z-QZBuY4VV-xna3RdnAvqOAzL1Mg/viewform',
+      3: 'https://docs.google.com/forms/d/e/1FAIpQLSc64HgZHG1OSw5Sx2D9tkgF3XJexs8xEauoUi__XRRhcEyHCQ/viewform'
+    }
+  };
   var BERG_SLEUTEL = 'ian-eksamen-tellings-v1';
-  var SLAAGPUNT = 50;
+  // Slaagpunt is 80% op ELKE poging. Geen leer nie.
+  // Maks 3 pogings; daarna "kry hulp".
+  var SLAAGPUNT = 80;
+  var MAKS_POGINGS = 3;
+  function slaagpuntVir(/* pogingNommer */) { return SLAAGPUNT; }
 
   function laaiTellings() {
     try { return JSON.parse(localStorage.getItem(BERG_SLEUTEL) || '{}'); }
@@ -1983,28 +2075,95 @@
     return data;
   }
 
-  function vangUrlTelling() {
-    var params = new URLSearchParams(window.location.search);
-    var vak = params.get('vak');
-    var telling = params.get('telling');
-    if (!vak || telling === null || telling === '') return false;
-    var n = parseFloat(String(telling).replace(',', '.'));
-    if (isNaN(n)) return false;
-    var uitOf = params.get('uitOf');
-    var u = uitOf ? parseFloat(String(uitOf).replace(',', '.')) : null;
-    var data = laaiTellings();
-    if (!data[vak] || !Array.isArray(data[vak].pogings)) data[vak] = { pogings: [] };
-    data[vak].pogings.push({
-      telling: n,
-      uitOf: (u && !isNaN(u)) ? u : null,
-      datum: new Date().toISOString()
+  // Parse 'n CSV-string na rye. Hanteer aanhalings + ontsnapte aanhalings.
+  function parseCSV(teks) {
+    var rye = [];
+    var ry = [];
+    var veld = '';
+    var inAanhaling = false;
+    for (var i = 0; i < teks.length; i++) {
+      var c = teks[i];
+      if (inAanhaling) {
+        if (c === '"' && teks[i + 1] === '"') { veld += '"'; i++; }
+        else if (c === '"') { inAanhaling = false; }
+        else { veld += c; }
+      } else {
+        if (c === '"') { inAanhaling = true; }
+        else if (c === ',') { ry.push(veld); veld = ''; }
+        else if (c === '\n') { ry.push(veld); rye.push(ry); ry = []; veld = ''; }
+        else if (c === '\r') { /* skip */ }
+        else { veld += c; }
+      }
+    }
+    if (veld !== '' || ry.length > 0) { ry.push(veld); rye.push(ry); }
+    return rye;
+  }
+
+  // Soek 'n kolomindeks deur naam (hoofletter-onsensitief, ondersteun sinonieme)
+  function kolomIndeks(opskrif, kandidate) {
+    for (var i = 0; i < opskrif.length; i++) {
+      var naam = String(opskrif[i] || '').trim().toLowerCase();
+      for (var j = 0; j < kandidate.length; j++) {
+        if (naam === kandidate[j].toLowerCase()) return i;
+      }
+    }
+    return -1;
+  }
+
+  function ryeNaTellings(rye) {
+    if (!rye || rye.length < 2) return {};
+    var kop = rye[0];
+    var iTs    = kolomIndeks(kop, ['Timestamp', 'Tydstempel']);
+    var iVak   = kolomIndeks(kop, ['Vak (moenie verander nie)', 'Vak']);
+    var iPog   = kolomIndeks(kop, ['Poging-nommer (moenie verander nie)', 'Poging', 'Poging-nommer']);
+    var iPunt  = kolomIndeks(kop, ['Score', 'Telling', 'Punt']);
+    var iUit   = kolomIndeks(kop, ['UitOf', 'Uit Of', 'Totaal']);
+    var data = {};
+    for (var r = 1; r < rye.length; r++) {
+      var ry = rye[r];
+      if (!ry || ry.length < 2) continue;
+      var vak = iVak >= 0 ? String(ry[iVak] || '').trim().toLowerCase() : '';
+      if (!vak) continue;
+      var puntRaw = iPunt >= 0 ? String(ry[iPunt] || '').trim() : '';
+      // Google Forms quiz score is dikwels "8 / 10" — parse beide vorms
+      var telling = NaN, uitOf = null;
+      var deel = puntRaw.match(/^\s*([\d.,]+)\s*\/\s*([\d.,]+)\s*$/);
+      if (deel) {
+        telling = parseFloat(deel[1].replace(',', '.'));
+        uitOf   = parseFloat(deel[2].replace(',', '.'));
+      } else {
+        telling = parseFloat(puntRaw.replace(',', '.'));
+        if (iUit >= 0 && ry[iUit]) {
+          var u = parseFloat(String(ry[iUit]).replace(',', '.'));
+          if (!isNaN(u)) uitOf = u;
+        }
+      }
+      if (isNaN(telling)) continue;
+      var datum = iTs >= 0 ? ry[iTs] : '';
+      var pogingNr = iPog >= 0 ? parseInt(ry[iPog], 10) : NaN;
+      if (!data[vak] || !Array.isArray(data[vak].pogings)) data[vak] = { pogings: [] };
+      data[vak].pogings.push({
+        telling: telling,
+        uitOf: uitOf,
+        datum: datum || new Date().toISOString(),
+        pogingNr: isNaN(pogingNr) ? null : pogingNr
+      });
+    }
+    // Sorteer elke vak se pogings chronologies
+    Object.keys(data).forEach(function(vak) {
+      data[vak].pogings.sort(function(a, b) {
+        return new Date(a.datum).getTime() - new Date(b.datum).getTime();
+      });
     });
-    stoorTellings(data);
-    var skoonUrl = window.location.pathname + window.location.hash;
-    window.history.replaceState({}, '', skoonUrl);
-    var knoppie = document.querySelector('.tab-btn[onclick*="\'' + vak + '\'"]');
-    if (knoppie) knoppie.click();
-    return true;
+    return data;
+  }
+
+  function laaiVanCSV() {
+    if (!MASTER_CSV_URL) return Promise.resolve(null);
+    return fetch(MASTER_CSV_URL + (MASTER_CSV_URL.indexOf('?') >= 0 ? '&' : '?') + '_t=' + Date.now())
+      .then(function(r) { if (!r.ok) throw new Error('CSV fetch faal: ' + r.status); return r.text(); })
+      .then(function(teks) { return ryeNaTellings(parseCSV(teks)); })
+      .catch(function(err) { console.warn('Kon nie CSV laai nie:', err); return null; });
   }
 
   function persentasie(t) {
@@ -2028,10 +2187,13 @@
       }
       if (!rec || !rec.pogings || rec.pogings.length === 0) return;
       var pogings = rec.pogings;
-      var laaste = pogings[pogings.length - 1];
+      var pogingNommer = pogings.length;
+      var laaste = pogings[pogingNommer - 1];
       var p = persentasie(laaste);
-      var klas = p >= SLAAGPUNT ? 'geslaag' : 'druip';
-      var ikoon = p >= 80 ? '🏆' : (p >= SLAAGPUNT ? '✅' : '📚');
+      var slaagpunt = slaagpuntVir(pogingNommer);
+      var geslaag = p >= slaagpunt;
+      var klas = geslaag ? 'geslaag' : 'druip';
+      var ikoon = geslaag ? '🏆' : '📚';
       var waarde = laaste.uitOf
         ? (laaste.telling + ' / ' + laaste.uitOf + '  (' + p + '%)')
         : (p + '%');
@@ -2040,7 +2202,9 @@
         var d = new Date(laaste.datum);
         datum = d.toLocaleDateString('af-ZA', { day: '2-digit', month: 'short', year: 'numeric' });
       } catch (err) {}
-      var pogingTeks = pogings.length > 1 ? ('Poging ' + pogings.length) : 'Eerste poging';
+      var pogingTeks = geslaag
+        ? '✓ Geslaag op Poging ' + pogingNommer
+        : 'Poging ' + pogingNommer + ' van ' + MAKS_POGINGS + ' — doel: ' + SLAAGPUNT + '%';
       bubbel.classList.add('wys', klas);
       bubbel.innerHTML =
         '<div class="kpi-telling-ikoon">' + ikoon + '</div>' +
@@ -2052,17 +2216,33 @@
         '</div>' +
         '<button class="kpi-telling-vee" title="Vee geskiedenis uit" onclick="veeTelling(\'' + vak + '\')">✕</button>';
 
-      if (hertoetsKnoppie && p < SLAAGPUNT) {
-        var hertoetsId = hertoetsKnoppie.getAttribute('data-hertoets');
-        if (hertoetsId) {
-          hertoetsKnoppie.setAttribute('href', 'https://form.jotform.com/' + hertoetsId);
-          hertoetsKnoppie.setAttribute('target', '_blank');
-          hertoetsKnoppie.textContent = '🔄 Doen die Hertoets';
-          hertoetsKnoppie.classList.add('wys');
-        } else {
+      // Kies die regte hertoets-vorm op grond van hoeveel pogings reeds gedoen is.
+      // pogings.length = 1 (Toets 1 klaar, gedruip) -> wys Toets 2
+      // pogings.length = 2 (Toets 2 klaar, gedruip) -> wys Toets 3
+      // pogings.length >= MAKS_POGINGS en steeds gedruip -> "kry hulp"
+      if (hertoetsKnoppie && !geslaag) {
+        if (pogingNommer >= MAKS_POGINGS) {
           hertoetsKnoppie.setAttribute('href', '#');
-          hertoetsKnoppie.textContent = '⏳ Hertoets kom binnekort';
+          hertoetsKnoppie.textContent = '🆘 Kry hulp — al ' + MAKS_POGINGS + ' pogings is gedoen';
           hertoetsKnoppie.classList.add('wys', 'gestrem');
+        } else {
+          var volgendePogingNr = pogingNommer + 1;
+          var hertoetsVeld = 'data-hertoets-' + volgendePogingNr;
+          var hertoetsUrl = hertoetsKnoppie.getAttribute(hertoetsVeld) || '';
+          // As die waarde 'n bare ID is (ou Jotform-data), gooi die Jotform-prefix daarvoor.
+          if (hertoetsUrl && !/^https?:\/\//i.test(hertoetsUrl)) {
+            hertoetsUrl = 'https://form.jotform.com/' + hertoetsUrl;
+          }
+          if (hertoetsUrl) {
+            hertoetsKnoppie.setAttribute('href', hertoetsUrl);
+            hertoetsKnoppie.setAttribute('target', '_blank');
+            hertoetsKnoppie.textContent = '🔄 Doen Toets ' + volgendePogingNr + ' (jy moet 80% kry)';
+            hertoetsKnoppie.classList.add('wys');
+          } else {
+            hertoetsKnoppie.setAttribute('href', '#');
+            hertoetsKnoppie.textContent = '⏳ Toets ' + volgendePogingNr + ' kom binnekort';
+            hertoetsKnoppie.classList.add('wys', 'gestrem');
+          }
         }
       }
     });
@@ -2076,8 +2256,44 @@
     rendiTellings();
   }
 
-  vangUrlTelling();
+  function veeAlleTellings() {
+    if (!confirm('Vee ALLE toets-uitslae vir ALLE vakke uit? Hierdie kan nie ongedaan gemaak word nie.')) return;
+    try { localStorage.removeItem(BERG_SLEUTEL); } catch (err) {}
+    rendiTellings();
+  }
+  window.veeAlleTellings = veeAlleTellings;
+
+  // Stel die Google Forms URLs op vir die toets- en hertoets-knoppies.
+  // Dit oorskryf die ou Jotform-skakels in die HTML.
+  function bedraadKnoppies() {
+    Object.keys(FORM_URLS).forEach(function(vak) {
+      var urls = FORM_URLS[vak];
+      // Hoof-toetsknoppie (Toets 1)
+      var hoofKnoppies = document.querySelectorAll('.jf-toets-knoppie[data-vak="' + vak + '"], #' + vak + ' .jf-toets-knoppie');
+      hoofKnoppies.forEach(function(k) {
+        if (urls[1]) {
+          k.setAttribute('href', urls[1]);
+          k.setAttribute('target', '_blank');
+        }
+      });
+      // Hertoets-knoppie kry URL-tabel as data-attribute; rendiTellings kies die regte een
+      var her = document.querySelector('.hertoets-knoppie[data-vak="' + vak + '"]');
+      if (her) {
+        if (urls[2]) her.setAttribute('data-hertoets-2', urls[2]);
+        if (urls[3]) her.setAttribute('data-hertoets-3', urls[3]);
+      }
+    });
+  }
+
+  // Eerste render uit cache (vinnig), dan vervang met die werklike CSV-data
   rendiTellings();
+  bedraadKnoppies();
+  laaiVanCSV().then(function(data) {
+    if (data) {
+      stoorTellings(data);
+      rendiTellings();
+    }
+  });
 </script>
 
 </body>
