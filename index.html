@@ -890,6 +890,187 @@
 
     </div>
   </div>
+
+  <!-- INKLAP 2: FLITSKAARTE -->
+  <div class="inklap-afdeling" id="inklap-teg-flitskaarte" style="border-top-color:#7c3aed;">
+    <button class="inklap-kop" onclick="wisselInklap('teg-flitskaarte-inhoud', this)" style="color:#7c3aed;">
+      <span class="inklap-ikoon">▶</span>
+      <span class="inklap-kop-teks">
+        🃏 Flitskaarte — Hersien alles
+        <span class="kwartaal-etiket" style="background:#7c3aed;">20 kaarte</span>
+      </span>
+    </button>
+    <div class="inklap-inhoud" id="teg-flitskaarte-inhoud">
+      <p style="font-size:0.82rem;color:#555;margin-bottom:14px;padding-top:4px;">Tik op 'n kaart om dit om te draai en die antwoord te sien.</p>
+
+      <div class="fk-vordering-balk-omhulsel">
+        <div class="fk-vordering-balk" id="tegVordering"></div>
+      </div>
+      <div class="fk-teller" id="tegTeller">0 / 20 geleer</div>
+
+      <div class="fk-dag-opskrif">Dag 1 — Die Ontwerpproses (OOMEK)</div>
+      <div class="fk-rooster">
+
+        <div class="fk-kaart" onclick="draaiTegKaart(this)">
+          <div class="fk-binnekant">
+            <div class="fk-voor"><span class="fk-nommer">1</span><div class="fk-vraag">Wat is die <strong>5 stappe</strong> van die ontwerpproses?</div><div class="fk-wenk">Onthou: OOMEK</div></div>
+            <div class="fk-agter"><div class="fk-antwoord"><strong>O</strong>ndersoek → <strong>O</strong>ntwerp → <strong>M</strong>aak → <strong>E</strong>valueer → <strong>K</strong>ommunikeer</div><div class="fk-truuk">💡 OOMEK = 5 stappe in volgorde.</div></div>
+          </div>
+        </div>
+
+        <div class="fk-kaart" onclick="draaiTegKaart(this)">
+          <div class="fk-binnekant">
+            <div class="fk-voor"><span class="fk-nommer">2</span><div class="fk-vraag">Wat doen jy tydens die <strong>Ondersoek</strong>-stap?</div><div class="fk-wenk">Stap 1</div></div>
+            <div class="fk-agter"><div class="fk-antwoord">Stel die feite vas: <strong>wat is die probleem</strong> en watter oplossings het ander reeds probeer.</div><div class="fk-tipes">Spaar tyd &amp; geld deur uit ander se voorbeelde te leer.</div></div>
+          </div>
+        </div>
+
+        <div class="fk-kaart" onclick="draaiTegKaart(this)">
+          <div class="fk-binnekant">
+            <div class="fk-voor"><span class="fk-nommer">3</span><div class="fk-vraag">Wat is 'n <strong>Ontwerpopdrag</strong>?</div><div class="fk-wenk">In die Ontwerp-stap</div></div>
+            <div class="fk-agter"><div class="fk-antwoord">'n <strong>Duidelike stelling</strong> wat sê wat die probleem is en wat die ontwerper wil bereik.</div><div class="fk-tipes">Spesifikasies vra: Wie? Veilig? Koste? Natuur?</div></div>
+          </div>
+        </div>
+
+        <div class="fk-kaart" onclick="draaiTegKaart(this)">
+          <div class="fk-binnekant">
+            <div class="fk-voor"><span class="fk-nommer">4</span><div class="fk-vraag">Wat doen jy tydens die <strong>Evalueer</strong>-stap?</div><div class="fk-wenk">Stap 4</div></div>
+            <div class="fk-agter"><div class="fk-antwoord">Kyk <strong>hoe goed</strong> die produk die probleem oplos en of daar maniere is om dit te verbeter.</div><div class="fk-tipes">Ondersoek ook die vervaardigingsproses.</div></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="fk-dag-opskrif">Dag 2 — Kommunikasievaardighede &amp; Tekenkonvensies</div>
+      <div class="fk-rooster">
+
+        <div class="fk-kaart" onclick="draaiTegKaart(this)">
+          <div class="fk-binnekant">
+            <div class="fk-voor"><span class="fk-nommer">5</span><div class="fk-vraag">Wat is <strong>omtreklyne</strong> (sigbare lyne)?</div><div class="fk-wenk">Tekenkonvensies</div></div>
+            <div class="fk-agter"><div class="fk-antwoord"><strong>Dik, donker, volle lyne</strong> wat die rand van die produk wys.</div><div class="fk-truuk">💡 Onthou: dik &amp; donker = wat jy KAN sien.</div></div>
+          </div>
+        </div>
+
+        <div class="fk-kaart" onclick="draaiTegKaart(this)">
+          <div class="fk-binnekant">
+            <div class="fk-voor"><span class="fk-nommer">6</span><div class="fk-vraag">Wat is <strong>verborge lyne</strong>?</div><div class="fk-wenk">Stippellyne</div></div>
+            <div class="fk-agter"><div class="fk-antwoord">Kort <strong>gebreekte lyne</strong> (stippellyne) wat dele wys wat <strong>nie sigbaar</strong> is nie.</div><div class="fk-tipes">Reël: eerste stippie moet die sigbare lyn raak.</div></div>
+          </div>
+        </div>
+
+        <div class="fk-kaart" onclick="draaiTegKaart(this)">
+          <div class="fk-binnekant">
+            <div class="fk-voor"><span class="fk-nommer">7</span><div class="fk-vraag">Wat is <strong>konstruksielyne</strong>?</div><div class="fk-wenk">Tekenkonvensies</div></div>
+            <div class="fk-agter"><div class="fk-antwoord"><strong>Dun, lig</strong> hulp-lyne wat NIE in die finale skets sigbaar is nie. Help om die middel of vorm te bepaal.</div><div class="fk-truuk">💡 Lig = nie sigbaar in finaal nie.</div></div>
+          </div>
+        </div>
+
+        <div class="fk-kaart" onclick="draaiTegKaart(this)">
+          <div class="fk-binnekant">
+            <div class="fk-voor"><span class="fk-nommer">8</span><div class="fk-vraag">Wat is die <strong>3 afmetings</strong> van 'n 3D-voorwerp?</div><div class="fk-wenk">Dimensies</div></div>
+            <div class="fk-agter"><div class="fk-antwoord"><strong>Lengte, breedte, hoogte</strong></div><div class="fk-tipes">2D-skets het net 2: breedte en hoogte.</div></div>
+          </div>
+        </div>
+
+        <div class="fk-kaart" onclick="draaiTegKaart(this)">
+          <div class="fk-binnekant">
+            <div class="fk-voor"><span class="fk-nommer">9</span><div class="fk-vraag">Wat is 'n <strong>Verdwynpunt</strong>?</div><div class="fk-wenk">Perspektief</div></div>
+            <div class="fk-agter"><div class="fk-antwoord">Die punt in die <strong>verte</strong> waar <strong>parallelle lyne</strong> mekaar ontmoet.</div><div class="fk-tipes">Wys diepte en afstand. Goed wat ver is, lyk asof hulle 'n enkele punt vorm.</div></div>
+          </div>
+        </div>
+
+        <div class="fk-kaart" onclick="draaiTegKaart(this)">
+          <div class="fk-binnekant">
+            <div class="fk-voor"><span class="fk-nommer">10</span><div class="fk-vraag">Wat is die <strong>3 tegnieke</strong> vir 3D Artistieke tekeninge?</div><div class="fk-wenk">Emosionele reaksie</div></div>
+            <div class="fk-agter"><div class="fk-tipes"><strong>1. Kleur</strong> — verder weg = donkerder of ligter</div><div class="fk-tipes"><strong>2. Tekstuur</strong> — minder duidelik hoe verder weg</div><div class="fk-tipes"><strong>3. Beskaduwing</strong> — wys diepte &amp; 3D-aspekte</div><div class="fk-truuk">💡 K-T-B: Kleur, Tekstuur, Beskaduwing.</div></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="fk-dag-opskrif">Dag 3 — Strukture</div>
+      <div class="fk-rooster">
+
+        <div class="fk-kaart" onclick="draaiTegKaart(this)">
+          <div class="fk-binnekant">
+            <div class="fk-voor"><span class="fk-nommer">11</span><div class="fk-vraag">Wat is 'n <strong>struktuur</strong>?</div><div class="fk-wenk">Definisie</div></div>
+            <div class="fk-agter"><div class="fk-antwoord">Iets wat gemaak is om iets anders te <strong>beskerm, ondersteun en/of op te bring</strong>.</div><div class="fk-tipes">Kan natuurlik (voëlnes) of mensgemaak (huis) wees.</div></div>
+          </div>
+        </div>
+
+        <div class="fk-kaart" onclick="draaiTegKaart(this)">
+          <div class="fk-binnekant">
+            <div class="fk-voor"><span class="fk-nommer">12</span><div class="fk-vraag">Noem die <strong>3 soorte strukture</strong>.</div><div class="fk-wenk">Tipes</div></div>
+            <div class="fk-agter"><div class="fk-tipes"><strong>1. Dop-strukture</strong> — gebuig, skil (eier, koepel)</div><div class="fk-tipes"><strong>2. Raamstrukture</strong> — skelet (tent, spinnerak)</div><div class="fk-tipes"><strong>3. Soliede / Massa-strukture</strong> — opgestapelde materiaal (baksteenmuur)</div><div class="fk-truuk">💡 D-R-S: Dop, Raam, Soliede.</div></div>
+          </div>
+        </div>
+
+        <div class="fk-kaart" onclick="draaiTegKaart(this)">
+          <div class="fk-binnekant">
+            <div class="fk-voor"><span class="fk-nommer">13</span><div class="fk-vraag">Wat is 'n voordeel van 'n <strong>Dop-struktuur</strong>?</div><div class="fk-wenk">Dop = skil</div></div>
+            <div class="fk-agter"><div class="fk-antwoord"><strong>Baie sterk</strong> — kan 'n groot oppervlakte oorhaak <strong>sonder pilare</strong> en kan baie stres/druk hanteer.</div><div class="fk-tipes">Voorbeelde: eier, koepel, igloo, skilpad-dop, boot-romp.</div></div>
+          </div>
+        </div>
+
+        <div class="fk-kaart" onclick="draaiTegKaart(this)">
+          <div class="fk-binnekant">
+            <div class="fk-voor"><span class="fk-nommer">14</span><div class="fk-vraag">Wat is die sterkste <strong>vorm</strong> in 'n struktuur?</div><div class="fk-wenk">Triangulering</div></div>
+            <div class="fk-agter"><div class="fk-antwoord">'n <strong>Driehoek</strong> — druk word eweredig tussen die 3 sye versprei.</div><div class="fk-tipes"><strong>Triangulering</strong> = driehoeke byvoeg om 'n struktuur sterker te maak.</div></div>
+          </div>
+        </div>
+
+        <div class="fk-kaart" onclick="draaiTegKaart(this)">
+          <div class="fk-binnekant">
+            <div class="fk-voor"><span class="fk-nommer">15</span><div class="fk-vraag">Wat maak 'n struktuur <strong>stabiel</strong>?</div><div class="fk-wenk">Swaartepunt &amp; basis</div></div>
+            <div class="fk-agter"><div class="fk-antwoord"><strong>Lae swaartepunt</strong> + <strong>groot basis</strong>.</div><div class="fk-tipes">Groot basis = moeiliker om om te val. Sirkulêre swaartepunt = gelyke massa aan elke kant van die middel.</div></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="fk-dag-opskrif">Dag 4 — Hefbome, Hidroulies &amp; Pneumaties</div>
+      <div class="fk-rooster">
+
+        <div class="fk-kaart" onclick="draaiTegKaart(this)">
+          <div class="fk-binnekant">
+            <div class="fk-voor"><span class="fk-nommer">16</span><div class="fk-vraag">Wat is die <strong>3 klasse hefbome</strong>?</div><div class="fk-wenk">Steunpunt, Las, Mag</div></div>
+            <div class="fk-agter"><div class="fk-tipes"><strong>Klas 1:</strong> Steunpunt tussen mag &amp; las (wipplank)</div><div class="fk-tipes"><strong>Klas 2:</strong> Las tussen steunpunt &amp; mag (kruiwa)</div><div class="fk-tipes"><strong>Klas 3:</strong> Mag tussen las &amp; steunpunt (haartangetjie)</div><div class="fk-truuk">💡 1-2-3 = waar die ding in die middel sit (Steunpunt, Las, Mag).</div></div>
+          </div>
+        </div>
+
+        <div class="fk-kaart" onclick="draaiTegKaart(this)">
+          <div class="fk-binnekant">
+            <div class="fk-voor"><span class="fk-nommer">17</span><div class="fk-vraag">Wat is <strong>Meganiese Voordeel (MV)</strong>?</div><div class="fk-wenk">MV &gt; 1, &lt; 1, = 1</div></div>
+            <div class="fk-agter"><div class="fk-tipes"><strong>MV &gt; 1</strong> (positief) — magafstand &gt; lasafstand → MINDER mag nodig</div><div class="fk-tipes"><strong>MV &lt; 1</strong> (negatief) — meer mag nodig</div><div class="fk-tipes"><strong>MV = 1</strong> — geen voordeel; mag = las</div></div>
+          </div>
+        </div>
+
+        <div class="fk-kaart" onclick="draaiTegKaart(this)">
+          <div class="fk-binnekant">
+            <div class="fk-voor"><span class="fk-nommer">18</span><div class="fk-vraag">Wat is 'n <strong>gekoppelde hefboom</strong>?</div><div class="fk-wenk">Verbind by steunpunt</div></div>
+            <div class="fk-agter"><div class="fk-antwoord"><strong>Twee hefbome</strong> wat by die steunpunt verbind is.</div><div class="fk-tipes">Klas 1: skêr, tang · Klas 2: kruiwa, neutkraker · Klas 3: kramdrukker, haartangetjie.</div></div>
+          </div>
+        </div>
+
+        <div class="fk-kaart" onclick="draaiTegKaart(this)">
+          <div class="fk-binnekant">
+            <div class="fk-voor"><span class="fk-nommer">19</span><div class="fk-vraag">Verskil tussen <strong>Hidroulies</strong> en <strong>Pneumaties</strong>?</div><div class="fk-wenk">Vloeistof vs Lug</div></div>
+            <div class="fk-agter"><div class="fk-tipes"><strong>Hidroulies</strong> — gebruik <strong>nie-saamparbare vloeistof</strong> (olie, nie water nie)</div><div class="fk-tipes"><strong>Pneumaties</strong> — gebruik <strong>saamgeperste lug</strong></div><div class="fk-truuk">💡 Hidro = water/vloeistof. Pneu = lug.</div></div>
+          </div>
+        </div>
+
+        <div class="fk-kaart" onclick="draaiTegKaart(this)">
+          <div class="fk-binnekant">
+            <div class="fk-voor"><span class="fk-nommer">20</span><div class="fk-vraag">Wanneer kry hidrouliese koppelings die <strong>grootste meganiese voordeel</strong>?</div><div class="fk-wenk">Silindergrootte</div></div>
+            <div class="fk-agter"><div class="fk-antwoord">Wanneer die <strong>insetspuit kleiner</strong> is as die <strong>uitsetspuit</strong>.</div><div class="fk-tipes">Bv. uitsetspuit 100× groter → 1/100 van die werk nodig.</div></div>
+          </div>
+        </div>
+
+      </div>
+
+      <button class="fk-herstel-knoppie" onclick="herstelTegKaarte()">↺ Herstel alle kaarte</button>
+    </div>
+  </div>
 </div>
 
 <!-- ===================== EBW ===================== -->
@@ -2066,6 +2247,34 @@
     geleerdeNwKaarte.clear();
     document.getElementById('nwVordering').style.width = '0%';
     document.getElementById('nwTeller').textContent = '0 / 20 geleer';
+  }
+
+  // Tegnologie het sy eie set
+  var geleerdeTegKaarte = new Set();
+
+  function draaiTegKaart(kaart) {
+    var wasOmgedraai = kaart.classList.contains('omgedraai');
+    kaart.classList.toggle('omgedraai');
+    var id = kaart.querySelector('.fk-nommer').textContent;
+    if (!wasOmgedraai) {
+      geleerdeTegKaarte.add(id);
+    } else {
+      geleerdeTegKaarte.delete(id);
+    }
+    var totaal = 20;
+    var geleerd = geleerdeTegKaarte.size;
+    var persentasie = Math.round((geleerd / totaal) * 100);
+    document.getElementById('tegVordering').style.width = persentasie + '%';
+    document.getElementById('tegTeller').textContent = geleerd + ' / ' + totaal + ' geleer';
+  }
+
+  function herstelTegKaarte() {
+    document.querySelectorAll('#teg-flitskaarte-inhoud .fk-kaart.omgedraai').forEach(function(k) {
+      k.classList.remove('omgedraai');
+    });
+    geleerdeTegKaarte.clear();
+    document.getElementById('tegVordering').style.width = '0%';
+    document.getElementById('tegTeller').textContent = '0 / 20 geleer';
   }
 
   function wysOortjie(e, id) {
