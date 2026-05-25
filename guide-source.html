@@ -256,7 +256,7 @@
   <div class="badge">Complete Tutorial</div>
   <h1>Building an Exam Study Website for Your Child</h1>
   <div class="subtitle">
-    A complete step-by-step guide to creating an interactive, mobile-friendly study site with flashcards and online tests — using Visual Studio Code, GitHub Pages, and Jotform.
+    A complete step-by-step guide to creating an interactive, mobile-friendly study site with flashcards and auto-marked online tests — using Visual Studio Code, GitHub Pages, and your choice of Jotform or Google Forms.
   </div>
   <div class="meta">
     Based on a real-world build for a Grade 7 Afrikaans learner at Laerskool Jeffreysbaai. No prior coding experience required — just willingness to follow instructions carefully.
@@ -274,7 +274,9 @@
     <li>Part 4 — Build the HTML Skeleton (Tabbed Subject Layout)</li>
     <li>Part 5 — Transcribing Textbook Photos into Study Plans</li>
     <li>Part 6 — Designing Flashcards (The Card-Flip Pattern)</li>
-    <li>Part 7 — Creating Online Tests with Jotform</li>
+    <li>Part 7A — Creating Online Tests with Jotform</li>
+    <li>Part 7B — Creating Online Tests with Google Forms (Free Alternative)</li>
+    <li>Part 7C — Choosing Between Jotform &amp; Google Forms</li>
     <li>Part 8 — Mobile-Friendly Styling for Android Phones</li>
     <li>Part 9 — Adding Collapsible Sections &amp; Exam Dates</li>
     <li>Part 10 — Publishing to GitHub Pages (Free Hosting)</li>
@@ -381,12 +383,23 @@
 </div>
 
 <div class="step">
-  <span class="step-num">1.5</span><span class="step-title">Create a Jotform Account</span>
+  <span class="step-num">1.5</span><span class="step-title">Create a Jotform Account (Option A for tests)</span>
   <ol>
     <li>Go to <span class="inline-code">https://www.jotform.com/signup</span></li>
     <li>Sign up free — the free tier allows up to 5 forms with 100 submissions per month, more than enough</li>
     <li>Verify your email</li>
   </ol>
+</div>
+
+<div class="step">
+  <span class="step-num">1.6</span><span class="step-title">Make Sure You Have a Google Account (Option B for tests)</span>
+  <p>If you already use Gmail, YouTube, or any Google service, you have one. If not:</p>
+  <ol>
+    <li>Go to <span class="inline-code">https://accounts.google.com/signup</span></li>
+    <li>Sign up free — Google Forms is included with every Google account, unlimited forms, unlimited responses</li>
+    <li>Verify your phone number when prompted</li>
+  </ol>
+  <p>You can use EITHER Jotform OR Google Forms (or both for different subjects). Part 7C compares them so you can choose.</p>
 </div>
 
 <div class="tip">
@@ -396,7 +409,8 @@
     <li>Git installed (<span class="inline-code">git --version</span> works)</li>
     <li>GitHub account created</li>
     <li>GitHub CLI installed and logged in (<span class="inline-code">gh auth status</span> shows "Logged in")</li>
-    <li>Jotform account created</li>
+    <li>Jotform account created (Option A)</li>
+    <li>Google account ready (Option B)</li>
   </ul>
 </div>
 
@@ -632,7 +646,9 @@ function updateProgress() {
 <p>10–20 is the sweet spot. Less than 10 feels thin; more than 20 is overwhelming. Group them visually by "day" or "topic" with header dividers.</p>
 
 <!-- ===================== 8. JOTFORM ===================== -->
-<h2>8. Part 7 — Creating Online Tests with Jotform</h2>
+<h2>8. Part 7A — Creating Online Tests with Jotform</h2>
+
+<p>You have two great options for the auto-marked tests: <strong>Jotform</strong> (this part) or <strong>Google Forms</strong> (Part 7B). Both are free. Part 7C compares them so you can pick — read all three before building your first test.</p>
 
 <p>Jotform handles the test rendering, multiple-choice randomisation, auto-marking, and result emails. You just write the questions.</p>
 
@@ -724,6 +740,235 @@ function updateProgress() {
 <div class="tip">
   <strong>Tip:</strong> The <span class="inline-code">target="_blank"</span> opens the test in a new tab, so your child doesn't lose their place on the study site.
 </div>
+
+<!-- ===================== 8B. GOOGLE FORMS ===================== -->
+<h2>8B. Part 7B — Creating Online Tests with Google Forms (Free Alternative)</h2>
+
+<p>Google Forms is built into every Google account. Unlimited forms, unlimited responses, no monthly cap. The auto-marking feature is called <strong>"Quiz mode"</strong> and is included free.</p>
+
+<div class="step">
+  <span class="step-num">7B.1</span><span class="step-title">Start a New Form</span>
+  <ol>
+    <li>Go to <span class="inline-code">https://forms.google.com</span></li>
+    <li>Sign in with your Google account if prompted</li>
+    <li>Click the big <strong>+ Blank form</strong> tile at the top left</li>
+    <li>A new untitled form opens in the editor</li>
+  </ol>
+</div>
+
+<div class="step">
+  <span class="step-num">7B.2</span><span class="step-title">Set the Title and Description</span>
+  <ol>
+    <li>Click "Untitled form" at the top → rename to e.g. <span class="inline-code">EBW Kwartaal 1 Toets — Graad 7</span></li>
+    <li>Click "Form description" below it → write a short intro, e.g. <span class="inline-code">Beantwoord al die vrae. Jou punt sal aan die einde gewys word.</span></li>
+  </ol>
+</div>
+
+<div class="step">
+  <span class="step-num">7B.3</span><span class="step-title">Turn on Quiz Mode (Auto-Marking)</span>
+  <p>This is the most important step — without it, Google Forms collects answers but does not mark them.</p>
+  <ol>
+    <li>Click the <strong>Settings</strong> tab at the top of the form (next to "Questions" and "Responses")</li>
+    <li>Find the <strong>"Make this a quiz"</strong> section at the top</li>
+    <li>Toggle the switch to <strong>ON</strong></li>
+    <li>Below the toggle, choose how grades are released:
+      <ul>
+        <li><strong>"Immediately after each submission"</strong> — recommended; child sees score right away</li>
+        <li>"Later, after manual review" — only useful if you want to grade essays manually</li>
+      </ul>
+    </li>
+    <li>Tick the boxes for what the child can see after submitting:
+      <ul>
+        <li>☑ "Missed questions"</li>
+        <li>☑ "Correct answers"</li>
+        <li>☑ "Point values"</li>
+      </ul>
+    </li>
+    <li>Click back to the <strong>Questions</strong> tab to keep building</li>
+  </ol>
+</div>
+
+<div class="step">
+  <span class="step-num">7B.4</span><span class="step-title">Add Name &amp; Date Fields (Optional)</span>
+  <p>If your child shares the link from school or you want to track who submitted what:</p>
+  <ol>
+    <li>Click the <strong>+</strong> button on the right floating toolbar to add a question</li>
+    <li>Change the question type dropdown to <strong>"Short answer"</strong></li>
+    <li>Type the question: <span class="inline-code">Naam en Van</span></li>
+    <li>Toggle <strong>"Required"</strong> ON (bottom right of the question card)</li>
+    <li>Add another question — type <strong>"Date"</strong> — label it <span class="inline-code">Datum</span></li>
+  </ol>
+  <p>Important: Name and Date fields should NOT be marked as quiz questions. Click the question, click "Answer key" at the bottom, set points to <strong>0</strong>.</p>
+</div>
+
+<div class="step">
+  <span class="step-num">7B.5</span><span class="step-title">Add Multiple-Choice Questions</span>
+  <ol>
+    <li>Click <strong>+</strong> on the floating toolbar to add a question</li>
+    <li>Change the question type to <strong>"Multiple choice"</strong> (single-answer) or <strong>"Checkboxes"</strong> (multi-answer). For most exam questions, use Multiple choice.</li>
+    <li>Type the question text, e.g. <span class="inline-code">Wat is rekeningkunde?</span></li>
+    <li>Click <strong>"Option 1"</strong> and type the first answer choice</li>
+    <li>Click <strong>"Add option"</strong> to add more choices (aim for 4 total — 1 correct + 3 wrong)</li>
+    <li>Optional: click the three-dot menu at the bottom of the question → <strong>"Shuffle option order"</strong> — this randomises the order each time the form opens, so the correct answer isn't always in the same place</li>
+  </ol>
+</div>
+
+<div class="step">
+  <span class="step-num">7B.6</span><span class="step-title">Mark the Correct Answer + Assign Points</span>
+  <p>This is what makes Quiz mode actually mark anything.</p>
+  <ol>
+    <li>Click on the question to select it</li>
+    <li>At the bottom of the question card, click <strong>"Answer key"</strong> (only visible because Quiz mode is on)</li>
+    <li>Tick the correct option — it gets a green check mark</li>
+    <li>Set the point value (top right): <strong>1 point</strong> per question is standard for a 20-question test</li>
+    <li>Optional: click <strong>"Add answer feedback"</strong> to write a short hint shown when the answer is wrong, e.g. <span class="inline-code">Onthou: rekeningkunde is 'n sistematiese proses, nie 'n tipe besigheid nie.</span></li>
+    <li>Click <strong>"Done"</strong></li>
+  </ol>
+</div>
+
+<div class="step">
+  <span class="step-num">7B.7</span><span class="step-title">Duplicate Questions to Save Time</span>
+  <p>Rather than building 20 questions from scratch:</p>
+  <ol>
+    <li>Build one question fully — text, options, correct answer, points</li>
+    <li>Click the question to select it</li>
+    <li>Click the <strong>duplicate icon</strong> (two overlapping squares) on the floating toolbar</li>
+    <li>Edit the duplicated question's text and options — point value and structure are already set up</li>
+  </ol>
+  <p>Repeat until you have all 15–20 questions.</p>
+</div>
+
+<div class="step">
+  <span class="step-num">7B.8</span><span class="step-title">Customise the Appearance (Optional but Recommended)</span>
+  <ol>
+    <li>Click the <strong>palette icon</strong> in the top toolbar (looks like an artist's palette)</li>
+    <li>Pick a header image — Google supplies free ones, or upload your own (e.g. a school logo)</li>
+    <li>Choose a theme colour — try a calm blue or green; bright reds can be stressful during a test</li>
+    <li>Pick a font style — <strong>"Basic"</strong> works best for young learners</li>
+  </ol>
+</div>
+
+<div class="step">
+  <span class="step-num">7B.9</span><span class="step-title">Preview the Form</span>
+  <ol>
+    <li>Click the <strong>eye icon</strong> (👁) at the top of the editor</li>
+    <li>The form opens in a new tab as the child will see it</li>
+    <li>Fill it in as a test — make sure questions display correctly and Submit works</li>
+    <li>After submitting, click <strong>"View score"</strong> — confirm the auto-marking returns the right percentage</li>
+    <li>Go back to the editor tab to fix any issues</li>
+  </ol>
+</div>
+
+<div class="step">
+  <span class="step-num">7B.10</span><span class="step-title">Get the Shareable Link</span>
+  <ol>
+    <li>Click the <strong>Send</strong> button in the top right of the editor</li>
+    <li>Click the <strong>link icon</strong> (🔗) tab in the popup</li>
+    <li>Tick <strong>"Shorten URL"</strong> — gives a clean link like <span class="inline-code">https://forms.gle/abcdefXYZ</span></li>
+    <li>Click <strong>Copy</strong></li>
+    <li>This is the URL you'll use in your HTML test button</li>
+  </ol>
+</div>
+
+<div class="step">
+  <span class="step-num">7B.11</span><span class="step-title">Configure Result Notifications</span>
+  <p>If you want to be emailed when your child submits:</p>
+  <ol>
+    <li>Click the <strong>Responses</strong> tab at the top of the form</li>
+    <li>Click the three-dot menu (top right of the tab area)</li>
+    <li>Choose <strong>"Get email notifications for new responses"</strong></li>
+    <li>You'll get an email every time the form is submitted</li>
+  </ol>
+</div>
+
+<div class="step">
+  <span class="step-num">7B.12</span><span class="step-title">View Results Spreadsheet</span>
+  <p>Google Forms can pipe every submission into a Google Sheet automatically — great for tracking progress over time:</p>
+  <ol>
+    <li>Click the <strong>Responses</strong> tab</li>
+    <li>Click <strong>"Link to Sheets"</strong> (green spreadsheet icon)</li>
+    <li>Choose <strong>"Create a new spreadsheet"</strong> — name it e.g. <span class="inline-code">EBW Toets Antwoorde</span></li>
+    <li>Click <strong>Create</strong></li>
+    <li>From now on, every submission appears as a new row in that sheet, with timestamp, name, score, and every answer</li>
+  </ol>
+</div>
+
+<h3>Adding the Google Forms Test Button to Your HTML</h3>
+<p>The HTML is identical to the Jotform version — only the URL changes:</p>
+<pre>&lt;a href="https://forms.gle/YOUR-FORM-CODE"
+   target="_blank"
+   class="test-button"&gt;
+  ✏️ Doen die EBW Toets
+&lt;/a&gt;</pre>
+
+<div class="tip">
+  <strong>Tip:</strong> Want to embed the form directly in your study site instead of linking out? Use Google's embed code:
+  <ol>
+    <li>Click <strong>Send</strong> in the form editor</li>
+    <li>Click the <strong>&lt;&gt;</strong> (embed) tab</li>
+    <li>Copy the <span class="inline-code">&lt;iframe&gt;</span> code</li>
+    <li>Paste it into your <span class="inline-code">index.html</span> wherever you want the form to appear</li>
+  </ol>
+  Caveat: embedded forms can feel cramped on small phone screens. The linked-out version usually works better for kids.
+</div>
+
+<h3>Google Forms Quiz: Quick Reference</h3>
+<table>
+  <tr><th>Feature</th><th>Where to Find It</th></tr>
+  <tr><td>Turn on quiz mode</td><td>Settings tab → "Make this a quiz" → ON</td></tr>
+  <tr><td>Set correct answer</td><td>Click question → "Answer key" at bottom</td></tr>
+  <tr><td>Randomise answer order</td><td>Question → three-dot menu → "Shuffle option order"</td></tr>
+  <tr><td>Randomise question order</td><td>Settings tab → "Presentation" → "Shuffle question order"</td></tr>
+  <tr><td>Time limit</td><td>Not built-in — use a "Quiz Timer" add-on from Workspace Marketplace</td></tr>
+  <tr><td>Image in question</td><td>Question → image icon (top right of question card)</td></tr>
+  <tr><td>Required vs optional</td><td>Toggle at bottom right of each question card</td></tr>
+  <tr><td>Re-submit attempts</td><td>Settings → "Responses" → "Limit to 1 response" toggle (off = unlimited)</td></tr>
+</table>
+
+<!-- ===================== 8C. JOTFORM VS GOOGLE FORMS ===================== -->
+<h2>8C. Part 7C — Choosing Between Jotform &amp; Google Forms</h2>
+
+<p>Both tools auto-mark tests, both are free, both work. Here's how to decide:</p>
+
+<table>
+  <tr><th>Feature</th><th>Jotform</th><th>Google Forms</th></tr>
+  <tr><td>Free tier limit</td><td>5 forms, 100 submissions/month</td><td>Unlimited forms &amp; submissions</td></tr>
+  <tr><td>Account needed</td><td>Jotform signup</td><td>Any Gmail account</td></tr>
+  <tr><td>Auto-marking</td><td>✓ Quiz add-on</td><td>✓ Built-in Quiz mode</td></tr>
+  <tr><td>Question shuffle</td><td>✓ Per-question option</td><td>✓ Per-question option</td></tr>
+  <tr><td>Question order shuffle</td><td>✓ Yes</td><td>✓ Yes (Settings)</td></tr>
+  <tr><td>Visual design control</td><td>★★★★★ Very flexible</td><td>★★★ Limited themes</td></tr>
+  <tr><td>Builds tests via API/automation</td><td>✓ Public REST API</td><td>Limited (Apps Script needed)</td></tr>
+  <tr><td>Results spreadsheet</td><td>Export CSV</td><td>✓ Live Google Sheet</td></tr>
+  <tr><td>Email notifications</td><td>✓ Yes</td><td>✓ Yes</td></tr>
+  <tr><td>Embed in your site</td><td>✓ iframe code</td><td>✓ iframe code</td></tr>
+  <tr><td>Mobile-friendly</td><td>★★★★ Good</td><td>★★★★★ Excellent (built by Google for mobile)</td></tr>
+  <tr><td>Speed to build</td><td>~25 min per test</td><td>~15 min per test</td></tr>
+</table>
+
+<h3>When to Choose Jotform</h3>
+<ul>
+  <li>You want a more polished, branded look (custom colours, fonts, themes)</li>
+  <li>You only plan to build 1–5 tests total (fits in the free tier)</li>
+  <li>You may want to automate test creation later via API</li>
+  <li>You already use Jotform for other forms</li>
+</ul>
+
+<h3>When to Choose Google Forms</h3>
+<ul>
+  <li>You want unlimited tests across all subjects with zero limits</li>
+  <li>You already have a Gmail account (no new signup)</li>
+  <li>You want results to flow into a Google Sheet for progress tracking</li>
+  <li>You value the cleanest mobile experience (Google Forms is best in class on phones)</li>
+  <li>You prefer simpler, faster building over visual polish</li>
+</ul>
+
+<div class="keypoint">
+  <strong>Mix and match:</strong> Nothing stops you from using Jotform for some subjects and Google Forms for others. They're just URLs in your HTML — your child won't know the difference, only that one button opens a different-looking test page.
+</div>
+
+<h3>Common Question: "Can I move tests from one to the other?"</h3>
+<p>There's no automatic import/export between the two. If you decide to switch, you re-create the questions in the new platform — but with duplicate-and-edit, this takes about 10 minutes for a 20-question test.</p>
 
 <!-- ===================== 9. MOBILE STYLING ===================== -->
 <h2>9. Part 8 — Mobile-Friendly Styling for Android Phones</h2>
@@ -925,6 +1170,22 @@ git push</pre>
     <td>Check the URL has <span class="inline-code">https://</span> at the start, no trailing space, and <span class="inline-code">target="_blank"</span>.</td>
   </tr>
   <tr>
+    <td>Google Forms isn't auto-marking</td>
+    <td>You forgot to enable Quiz mode. Click Settings → "Make this a quiz" → ON. Then go back and click "Answer key" on each question to tick the correct option.</td>
+  </tr>
+  <tr>
+    <td>Google Forms shows "This form is no longer accepting responses"</td>
+    <td>Click Responses tab → toggle "Accepting responses" back ON. Sometimes this gets switched off accidentally.</td>
+  </tr>
+  <tr>
+    <td>Score is 0/X even though answers are right (Google Forms)</td>
+    <td>You set points to 0 on every question, or you never clicked "Answer key" to tick the correct option. Edit each question, click "Answer key", tick the correct option, set points to 1, click Done.</td>
+  </tr>
+  <tr>
+    <td>Child can't re-take a Google Forms test</td>
+    <td>Settings → toggle "Limit to 1 response" OFF. With this on, only one submission per Google account is allowed.</td>
+  </tr>
+  <tr>
     <td>Collapse animation closes very slowly</td>
     <td>You set <span class="inline-code">max-height: 99999px</span>. Lower to <span class="inline-code">4000px</span> — the animation interpolates the full range even if the content is shorter.</td>
   </tr>
@@ -1046,7 +1307,7 @@ git push</pre>
   <li>Photograph all relevant textbook pages</li>
   <li>Transcribe into a structured study plan</li>
   <li>Write 10–20 flashcards (question on front, answer on back, memory hook)</li>
-  <li>Create a Jotform test (15–20 multiple-choice questions, auto-marked)</li>
+  <li>Create an auto-marked test (Jotform OR Google Forms — 15–20 multiple-choice questions)</li>
   <li>Add the tab button to the tab bar</li>
   <li>Add the tab content panel with study plan, flashcards, and test button</li>
   <li>Add unique flip function for this subject (<span class="inline-code">flipXKaart</span>, learned set)</li>
@@ -1074,6 +1335,8 @@ git push</pre>
   <li><strong>Git problems:</strong> Stack Overflow — search the exact error message</li>
   <li><strong>VS Code questions:</strong> <span class="inline-code">https://code.visualstudio.com/docs</span></li>
   <li><strong>Jotform support:</strong> <span class="inline-code">https://www.jotform.com/help/</span></li>
+  <li><strong>Google Forms help:</strong> <span class="inline-code">https://support.google.com/docs/topic/9055404</span></li>
+  <li><strong>Google Forms quiz feature:</strong> <span class="inline-code">https://support.google.com/docs/answer/7032287</span></li>
   <li><strong>GitHub Pages docs:</strong> <span class="inline-code">https://docs.github.com/en/pages</span></li>
 </ul>
 
