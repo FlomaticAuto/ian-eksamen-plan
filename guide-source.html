@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Building an Exam Study Site for Your Child — Complete Step-by-Step Guide</title>
+<style>
+  @page {
+    size: A4;
+    margin: 18mm 16mm 18mm 16mm;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    color: #1a1a2e;
+    font-size: 10.5pt;
+    line-height: 1.55;
+    background: white;
+  }
+
+  .cover {
+    page-break-after: always;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: white;
+    padding: 70mm 18mm 30mm;
+    height: 100vh;
+    position: relative;
+  }
+  .cover .badge {
+    display: inline-block;
+    background: #e94560;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 9pt;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .cover h1 {
+    font-size: 32pt;
+    line-height: 1.15;
+    margin: 0 0 16px;
+    font-weight: 800;
+  }
+  .cover .subtitle {
+    font-size: 14pt;
+    opacity: 0.85;
+    line-height: 1.4;
+    max-width: 130mm;
+  }
+  .cover .meta {
+    position: absolute;
+    bottom: 30mm;
+    left: 18mm;
+    right: 18mm;
+    font-size: 9pt;
+    opacity: 0.7;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 12px;
+  }
+
+  h1, h2, h3, h4 {
+    color: #0f3460;
+    page-break-after: avoid;
+    line-height: 1.25;
+  }
+  h2 {
+    font-size: 20pt;
+    margin: 24px 0 6px;
+    padding-bottom: 4px;
+    border-bottom: 3px solid #e94560;
+    page-break-before: always;
+  }
+  h2:first-of-type, .no-break { page-break-before: auto; }
+  h3 {
+    font-size: 14pt;
+    margin: 18px 0 6px;
+    color: #16213e;
+  }
+  h4 {
+    font-size: 11.5pt;
+    margin: 14px 0 4px;
+    color: #4a4a6a;
+  }
+  p { margin: 6px 0 10px; }
+
+  .step {
+    background: #f7f9fc;
+    border-left: 4px solid #e94560;
+    border-radius: 4px;
+    padding: 10px 14px 10px 18px;
+    margin: 10px 0 14px;
+    page-break-inside: avoid;
+  }
+  .step-num {
+    display: inline-block;
+    background: #e94560;
+    color: white;
+    font-weight: 800;
+    font-size: 9pt;
+    padding: 2px 9px;
+    border-radius: 10px;
+    margin-right: 8px;
+    letter-spacing: 0.5px;
+  }
+  .step-title {
+    font-weight: 700;
+    color: #0f3460;
+    font-size: 11pt;
+  }
+
+  ul, ol { padding-left: 20px; margin: 4px 0 10px; }
+  li { margin: 3px 0; }
+
+  code, .inline-code {
+    background: #f1f4f9;
+    border: 1px solid #dce3ee;
+    border-radius: 3px;
+    padding: 1px 5px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 9.5pt;
+    color: #0f3460;
+  }
+  pre {
+    background: #1a1a2e;
+    color: #e0e6f5;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 9pt;
+    line-height: 1.5;
+    overflow-x: auto;
+    margin: 8px 0 12px;
+    page-break-inside: avoid;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  pre .comment { color: #8a9bb5; font-style: italic; }
+  pre .keyword { color: #e94560; font-weight: bold; }
+
+  .tip {
+    background: #fff8e1;
+    border-left: 4px solid #f9a825;
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin: 10px 0;
+    font-size: 9.8pt;
+    page-break-inside: avoid;
+  }
+  .tip strong { color: #b76e00; }
+
+  .warning {
+    background: #ffebee;
+    border-left: 4px solid #c62828;
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin: 10px 0;
+    font-size: 9.8pt;
+    page-break-inside: avoid;
+  }
+  .warning strong { color: #c62828; }
+
+  .info {
+    background: #e3f2fd;
+    border-left: 4px solid #1565c0;
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin: 10px 0;
+    font-size: 9.8pt;
+    page-break-inside: avoid;
+  }
+  .info strong { color: #1565c0; }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 10px 0;
+    font-size: 9.5pt;
+    page-break-inside: avoid;
+  }
+  th, td {
+    border: 1px solid #c9d2e2;
+    padding: 6px 9px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: #0f3460;
+    color: white;
+    font-weight: 700;
+  }
+  tr:nth-child(even) td { background: #f7f9fc; }
+
+  .toc {
+    background: #f7f9fc;
+    border: 1px solid #dce3ee;
+    border-radius: 6px;
+    padding: 18px 24px;
+    margin: 16px 0 30px;
+    page-break-after: always;
+  }
+  .toc h2 {
+    page-break-before: auto;
+    border-bottom: 2px solid #e94560;
+    margin-top: 0;
+    font-size: 16pt;
+  }
+  .toc ol { list-style: none; padding-left: 0; counter-reset: tocitem; }
+  .toc li { counter-increment: tocitem; padding: 4px 0; border-bottom: 1px dotted #c9d2e2; }
+  .toc li::before {
+    content: counter(tocitem) ". ";
+    font-weight: 700;
+    color: #e94560;
+    margin-right: 6px;
+  }
+
+  .keypoint {
+    background: linear-gradient(135deg, #ede9fe, #ddd6fe);
+    border: 1px solid #c4b5fd;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-size: 9.8pt;
+    page-break-inside: avoid;
+  }
+  .keypoint strong { color: #6d28d9; }
+
+  .small { font-size: 9pt; color: #555; }
+  .center { text-align: center; }
+  .mono { font-family: 'Consolas', 'Courier New', monospace; font-size: 9.5pt; }
+
+  .checklist {
+    list-style: none;
+    padding-left: 0;
+  }
+  .checklist li {
+    padding: 4px 0 4px 24px;
+    position: relative;
+  }
+  .checklist li::before {
+    content: "☐";
+    position: absolute;
+    left: 0;
+    color: #e94560;
+    font-size: 13pt;
+    line-height: 1;
+    top: 2px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== COVER ===================== -->
+<div class="cover">
+  <div class="badge">Complete Tutorial</div>
+  <h1>Building an Exam Study Website for Your Child</h1>
+  <div class="subtitle">
+    A complete step-by-step guide to creating an interactive, mobile-friendly study site with flashcards and online tests — using Visual Studio Code, GitHub Pages, and Jotform.
+  </div>
+  <div class="meta">
+    Based on a real-world build for a Grade 7 Afrikaans learner at Laerskool Jeffreysbaai. No prior coding experience required — just willingness to follow instructions carefully.
+  </div>
+</div>
+
+<!-- ===================== TOC ===================== -->
+<div class="toc">
+  <h2>Table of Contents</h2>
+  <ol>
+    <li>What You Will Build &amp; What You Need</li>
+    <li>Part 1 — Software &amp; Accounts You Must Install</li>
+    <li>Part 2 — Capture the Source Material (Photos of Textbook)</li>
+    <li>Part 3 — Project Setup in Visual Studio Code</li>
+    <li>Part 4 — Build the HTML Skeleton (Tabbed Subject Layout)</li>
+    <li>Part 5 — Transcribing Textbook Photos into Study Plans</li>
+    <li>Part 6 — Designing Flashcards (The Card-Flip Pattern)</li>
+    <li>Part 7 — Creating Online Tests with Jotform</li>
+    <li>Part 8 — Mobile-Friendly Styling for Android Phones</li>
+    <li>Part 9 — Adding Collapsible Sections &amp; Exam Dates</li>
+    <li>Part 10 — Publishing to GitHub Pages (Free Hosting)</li>
+    <li>Part 11 — Updating the Site After Launch</li>
+    <li>Part 12 — Troubleshooting Common Problems</li>
+    <li>Appendix — Reusable Code Templates &amp; Checklists</li>
+  </ol>
+</div>
+
+<!-- ===================== 1. WHAT YOU WILL BUILD ===================== -->
+<h2 class="no-break">1. What You Will Build &amp; What You Need</h2>
+
+<h3>The End Result</h3>
+<p>
+  A single-page website hosted free on GitHub Pages where your child can:
+</p>
+<ul>
+  <li>Tap a tab for each school subject</li>
+  <li>See a study plan with exam date and topic breakdown</li>
+  <li>Flip through interactive flashcards with a progress bar</li>
+  <li>Click a button to take an online test (auto-marked via Jotform)</li>
+  <li>Browse comfortably on an Android phone</li>
+</ul>
+<p>
+  See the live reference site: <span class="inline-code">https://flomaticauto.github.io/ian-eksamen-plan/</span>
+</p>
+
+<h3>Skill Level Required</h3>
+<p>None. If you can follow instructions and copy-paste text into the right places, you can build this. The hardest part is patience.</p>
+
+<h3>How Long It Takes</h3>
+<table>
+  <tr><th>Stage</th><th>Time</th></tr>
+  <tr><td>Installing software (Part 1)</td><td>30–45 minutes</td></tr>
+  <tr><td>Photographing 1 subject's textbook pages</td><td>10 minutes per subject</td></tr>
+  <tr><td>Building the first subject tab</td><td>1–2 hours</td></tr>
+  <tr><td>Each additional subject (after the first)</td><td>30–45 minutes</td></tr>
+  <tr><td>Creating a Jotform test</td><td>20 minutes per subject</td></tr>
+  <tr><td>Publishing to GitHub Pages</td><td>15 minutes (one-time)</td></tr>
+</table>
+
+<h3>What You Will Need</h3>
+<ul>
+  <li>A Windows laptop or desktop (Mac works too — paths differ slightly)</li>
+  <li>A smartphone to photograph textbook pages</li>
+  <li>An email address (to register for GitHub and Jotform)</li>
+  <li>About 4–6 hours total for a full subject build-out</li>
+</ul>
+
+<div class="keypoint">
+  <strong>Why this stack?</strong> Visual Studio Code is free and the most widely used code editor in the world. GitHub Pages gives you free hosting forever with a public web address. Jotform's free tier lets you build proper auto-marked tests without learning to code a backend. Together they cost ZERO rand per month.
+</div>
+
+<!-- ===================== 2. SOFTWARE & ACCOUNTS ===================== -->
+<h2>2. Part 1 — Software &amp; Accounts You Must Install</h2>
+
+<div class="step">
+  <span class="step-num">1.1</span><span class="step-title">Install Visual Studio Code (VS Code)</span>
+  <ol>
+    <li>Go to <span class="inline-code">https://code.visualstudio.com/</span></li>
+    <li>Click the big blue "Download for Windows" button</li>
+    <li>Run the downloaded <span class="inline-code">.exe</span> file</li>
+    <li>Accept all default options during installation</li>
+    <li>When asked, tick "Add 'Open with Code' action to Windows Explorer file context menu" — this is very useful</li>
+  </ol>
+</div>
+
+<div class="step">
+  <span class="step-num">1.2</span><span class="step-title">Install Git (version control)</span>
+  <p>Git is the tool that pushes your files to GitHub.</p>
+  <ol>
+    <li>Go to <span class="inline-code">https://git-scm.com/download/win</span></li>
+    <li>The download starts automatically</li>
+    <li>Run the installer; accept all defaults</li>
+    <li>When prompted for default editor, choose <strong>"Use Visual Studio Code as Git's default editor"</strong></li>
+  </ol>
+  <p>Open Command Prompt (press Windows key, type "cmd", Enter) and check:</p>
+<pre>git --version</pre>
+  <p>You should see something like <span class="inline-code">git version 2.52.0.windows.1</span>.</p>
+</div>
+
+<div class="step">
+  <span class="step-num">1.3</span><span class="step-title">Create a GitHub Account</span>
+  <ol>
+    <li>Go to <span class="inline-code">https://github.com/signup</span></li>
+    <li>Sign up with an email — pick a username you don't mind being public (it will appear in your site's URL)</li>
+    <li>Verify the email</li>
+    <li>Skip all the optional onboarding steps</li>
+  </ol>
+  <div class="tip"><strong>Tip:</strong> Your future site URL will look like <span class="inline-code">https://YOUR-USERNAME.github.io/PROJECT-NAME/</span>. Choose a username that looks neat to share.</div>
+</div>
+
+<div class="step">
+  <span class="step-num">1.4</span><span class="step-title">Install the GitHub CLI (Command Line Interface)</span>
+  <p>This tool makes pushing code to GitHub far easier than the manual method.</p>
+  <ol>
+    <li>Go to <span class="inline-code">https://cli.github.com/</span></li>
+    <li>Click "Download for Windows"</li>
+    <li>Run the installer, accept defaults</li>
+    <li>Open Command Prompt and run:</li>
+  </ol>
+<pre>gh auth login</pre>
+  <p>Follow the prompts: choose <strong>GitHub.com → HTTPS → Login with a web browser</strong>. A one-time code appears; copy it. Your browser opens — paste the code and approve.</p>
+</div>
+
+<div class="step">
+  <span class="step-num">1.5</span><span class="step-title">Create a Jotform Account</span>
+  <ol>
+    <li>Go to <span class="inline-code">https://www.jotform.com/signup</span></li>
+    <li>Sign up free — the free tier allows up to 5 forms with 100 submissions per month, more than enough</li>
+    <li>Verify your email</li>
+  </ol>
+</div>
+
+<div class="tip">
+  <strong>End of Part 1 checklist:</strong>
+  <ul class="checklist">
+    <li>VS Code installed and opens</li>
+    <li>Git installed (<span class="inline-code">git --version</span> works)</li>
+    <li>GitHub account created</li>
+    <li>GitHub CLI installed and logged in (<span class="inline-code">gh auth status</span> shows "Logged in")</li>
+    <li>Jotform account created</li>
+  </ul>
+</div>
+
+<!-- ===================== 3. CAPTURE SOURCE MATERIAL ===================== -->
+<h2>3. Part 2 — Capture the Source Material (Photos of Textbook)</h2>
+
+<p>Before you write any code, you need clear photos of every page from your child's textbook that you want included.</p>
+
+<h3>Photography Best Practice</h3>
+<ul>
+  <li><strong>Lighting:</strong> Take photos near a window during the day. Avoid direct sun glare on the page.</li>
+  <li><strong>Angle:</strong> Hold the phone directly above the page, not at an angle. The text must be straight.</li>
+  <li><strong>Focus:</strong> Tap the screen on the text before pressing the shutter so the camera focuses correctly.</li>
+  <li><strong>One page at a time:</strong> Don't try to fit two pages in one photo. Resolution suffers.</li>
+  <li><strong>Format:</strong> Save as JPEG — smaller file size than PNG and good enough quality for text.</li>
+</ul>
+
+<h3>Organising the Photos on Your Computer</h3>
+<p>Create a clean folder structure. For the reference build, the structure was:</p>
+<pre>OneDrive\Resources\Ian\Kwartaal 1\
+    ├── Wiskunde\
+    │   ├── page-1.jpeg
+    │   ├── page-2.jpeg
+    │   └── ...
+    ├── Afrikaans\
+    │   └── ...
+    ├── EBW\
+    │   └── ...
+    └── (one folder per subject)</pre>
+
+<div class="tip">
+  <strong>Tip:</strong> WhatsApp-to-self is a fast way to move photos from phone to PC. Send the photos to yourself on WhatsApp Web, then save the images to your subject folders.
+</div>
+
+<!-- ===================== 4. PROJECT SETUP ===================== -->
+<h2>4. Part 3 — Project Setup in Visual Studio Code</h2>
+
+<div class="step">
+  <span class="step-num">3.1</span><span class="step-title">Create a Project Folder</span>
+  <ol>
+    <li>Open File Explorer</li>
+    <li>Go to <span class="inline-code">C:\Users\YOUR-USERNAME\</span></li>
+    <li>Right-click → New Folder</li>
+    <li>Name it something like <span class="inline-code">eksamen-plan</span> or your child's name (e.g. <span class="inline-code">ian-eksamen-plan</span>)</li>
+  </ol>
+</div>
+
+<div class="step">
+  <span class="step-num">3.2</span><span class="step-title">Open the Folder in VS Code</span>
+  <ol>
+    <li>Right-click on the folder → "Open with Code" (this option appeared because you ticked it during VS Code install)</li>
+    <li>VS Code opens with the folder visible on the left sidebar</li>
+  </ol>
+</div>
+
+<div class="step">
+  <span class="step-num">3.3</span><span class="step-title">Initialise Git in the Folder</span>
+  <p>In VS Code, open the integrated terminal: <strong>View → Terminal</strong> (or press <span class="inline-code">Ctrl+`</span>).</p>
+  <p>Type these commands one at a time, pressing Enter after each:</p>
+<pre>git init
+git checkout -b main</pre>
+  <p>This creates a hidden <span class="inline-code">.git</span> folder that tracks every change you make.</p>
+</div>
+
+<div class="step">
+  <span class="step-num">3.4</span><span class="step-title">Create the Main HTML File</span>
+  <ol>
+    <li>In VS Code, click the "New File" icon in the sidebar (top of file list)</li>
+    <li>Name it exactly: <span class="inline-code">index.html</span></li>
+    <li>The file opens — paste the starter HTML from <strong>Appendix A.1</strong> at the end of this guide</li>
+  </ol>
+  <div class="info"><strong>Why <span class="inline-code">index.html</span>?</strong> Web servers default to serving a file called <span class="inline-code">index.html</span> when someone visits a folder. GitHub Pages follows this same rule.</div>
+</div>
+
+<!-- ===================== 5. HTML SKELETON ===================== -->
+<h2>5. Part 4 — Build the HTML Skeleton (Tabbed Subject Layout)</h2>
+
+<p>The page has three core parts:</p>
+<ol>
+  <li>A <strong>header</strong> at the top with the title</li>
+  <li>A <strong>tab bar</strong> with one button per subject</li>
+  <li>One <strong>content panel</strong> per subject (only the active one is visible)</li>
+</ol>
+
+<h3>The Tab Switching Pattern</h3>
+<p>Every tab button has an <span class="inline-code">onclick</span> attribute calling a JavaScript function that:</p>
+<ol>
+  <li>Hides all content panels (removes the <span class="inline-code">aktief</span> class)</li>
+  <li>Removes the "active" highlight from all tab buttons</li>
+  <li>Shows the chosen panel</li>
+  <li>Highlights the clicked tab button</li>
+  <li>Scrolls back to the top of the page</li>
+</ol>
+
+<h3>The JavaScript Function</h3>
+<pre>&lt;script&gt;
+  function showTab(e, id) {
+    document.querySelectorAll('.tab-content').forEach(function(el) {
+      el.classList.remove('active');
+    });
+    document.querySelectorAll('.tab-btn').forEach(function(el) {
+      el.classList.remove('active');
+    });
+    document.getElementById(id).classList.add('active');
+    e.currentTarget.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+&lt;/script&gt;</pre>
+
+<div class="warning">
+  <strong>Important:</strong> Notice the function takes <span class="inline-code">(e, id)</span> as parameters. Older code uses the global <span class="inline-code">event</span> variable, but this is unreliable on some browsers. Pass the event explicitly from the button: <span class="inline-code">onclick="showTab(event, 'wiskunde1')"</span>.
+</div>
+
+<h3>The HTML for One Tab Button + Content Panel</h3>
+<pre>&lt;!-- The button --&gt;
+&lt;button class="tab-btn active" onclick="showTab(event,'wiskunde1')"&gt;
+  Wiskunde V1
+&lt;/button&gt;
+
+&lt;!-- The panel (shown when the button is clicked) --&gt;
+&lt;div id="wiskunde1" class="tab-content active"&gt;
+  &lt;h2&gt;Wiskunde — Vraestel 1&lt;/h2&gt;
+  &lt;p&gt;Exam date: ...&lt;/p&gt;
+  &lt;!-- study plan goes here --&gt;
+&lt;/div&gt;</pre>
+
+<p>Repeat this pattern for each subject. Only the <strong>first</strong> button and the <strong>first</strong> panel start with the <span class="inline-code">active</span> class.</p>
+
+<!-- ===================== 6. TRANSCRIPTION ===================== -->
+<h2>6. Part 5 — Transcribing Textbook Photos into Study Plans</h2>
+
+<p>This is the most time-consuming step but the most valuable. You're converting the photos into structured digital text.</p>
+
+<h3>Option A — Manual Transcription</h3>
+<p>Open each photo, read it carefully, and type the content into <span class="inline-code">index.html</span> as a list. Best for accuracy on handwritten notes.</p>
+
+<h3>Option B — AI-Assisted Transcription</h3>
+<p>Use Claude (claude.ai), ChatGPT, or another AI with vision support. Upload the photo and ask:</p>
+<pre>Transcribe this textbook page exactly as written. Keep
+the language (Afrikaans/English). Preserve section
+numbers and bullet structure.</pre>
+<p>Review the output for errors — AI sometimes mis-reads handwriting or specialised terms.</p>
+
+<h3>The HTML Structure for a Study Plan</h3>
+<pre>&lt;div class="section"&gt;
+  &lt;h3&gt;5. Inleiding tot Rekeningkunde&lt;/h3&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;strong&gt;5.1&lt;/strong&gt; Rekeningkunde is...&lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;5.2&lt;/strong&gt; Belangrike terme...&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</pre>
+
+<div class="tip">
+  <strong>Tip:</strong> Don't try to copy the textbook word-for-word. Summarise. Your child reads this on a phone — long paragraphs are unreadable. Use bullet points, bold key terms, group related concepts.
+</div>
+
+<!-- ===================== 7. FLASHCARDS ===================== -->
+<h2>7. Part 6 — Designing Flashcards (The Card-Flip Pattern)</h2>
+
+<p>Each flashcard has a <strong>front</strong> (the question) and a <strong>back</strong> (the answer). Tapping the card flips it over in 3D.</p>
+
+<h3>The HTML for One Card</h3>
+<pre>&lt;div class="flashcard" onclick="flipCard(this)"&gt;
+  &lt;div class="card-inner"&gt;
+    &lt;div class="card-front"&gt;
+      &lt;span class="card-number"&gt;1&lt;/span&gt;
+      &lt;div class="question"&gt;What is a Lyn in art?&lt;/div&gt;
+      &lt;div class="hint"&gt;Element of Visual Art&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="card-back"&gt;
+      &lt;div class="answer"&gt;
+        Lyn is the most basic element of art...
+      &lt;/div&gt;
+      &lt;div class="trick"&gt;💡 Memory hook here&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+
+<h3>The CSS That Makes the Flip Work</h3>
+<pre>.flashcard {
+  height: 180px;
+  perspective: 900px;  /* enables 3D effect */
+  cursor: pointer;
+}
+.card-inner {
+  position: relative;
+  width: 100%; height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+.flashcard.flipped .card-inner {
+  transform: rotateY(-180deg);
+}
+.card-front, .card-back {
+  position: absolute; inset: 0;
+  backface-visibility: hidden;
+}
+.card-back {
+  transform: rotateY(180deg);
+  background: white;
+}</pre>
+
+<div class="keypoint">
+  <strong>How the trick works:</strong> Both faces are stacked on top of each other. The back starts rotated 180°, so it's facing AWAY from you. When the card flips, both rotate together — the front spins to face away, the back rotates 180° to face you. <span class="inline-code">backface-visibility: hidden</span> means each face disappears when its back is turned, so you only see one at a time.
+</div>
+
+<h3>The JavaScript</h3>
+<pre>var learned = new Set();
+function flipCard(card) {
+  var wasFlipped = card.classList.contains('flipped');
+  card.classList.toggle('flipped');
+  var id = card.querySelector('.card-number').textContent;
+  if (!wasFlipped) {
+    learned.add(id);
+  } else {
+    learned.delete(id);
+  }
+  updateProgress();
+}
+function updateProgress() {
+  var total = 13;
+  var pct = Math.round((learned.size / total) * 100);
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('counter').textContent =
+    learned.size + ' / ' + total + ' learned';
+}</pre>
+
+<div class="warning">
+  <strong>Important:</strong> Each subject needs its OWN <span class="inline-code">learned</span> Set and its OWN flip function (e.g. <span class="inline-code">flipKunsCard</span>, <span class="inline-code">flipEbwCard</span>). Otherwise progress on one subject overwrites the other.
+</div>
+
+<h3>How Many Cards Per Subject?</h3>
+<p>10–20 is the sweet spot. Less than 10 feels thin; more than 20 is overwhelming. Group them visually by "day" or "topic" with header dividers.</p>
+
+<!-- ===================== 8. JOTFORM ===================== -->
+<h2>8. Part 7 — Creating Online Tests with Jotform</h2>
+
+<p>Jotform handles the test rendering, multiple-choice randomisation, auto-marking, and result emails. You just write the questions.</p>
+
+<div class="step">
+  <span class="step-num">7.1</span><span class="step-title">Start a New Form</span>
+  <ol>
+    <li>Log into Jotform at <span class="inline-code">https://www.jotform.com/myforms/</span></li>
+    <li>Click "Create Form" (top right)</li>
+    <li>Choose "Start from Scratch"</li>
+    <li>Pick "Classic Form" layout (one long page, easier for younger learners)</li>
+  </ol>
+</div>
+
+<div class="step">
+  <span class="step-num">7.2</span><span class="step-title">Add a Form Title</span>
+  <p>At the top, click "Form Title" and rename it to something like <span class="inline-code">EBW Kwartaal 1 Toets — Graad 7</span>.</p>
+</div>
+
+<div class="step">
+  <span class="step-num">7.3</span><span class="step-title">Add Name &amp; Date Fields</span>
+  <ol>
+    <li>Click "Add Form Element" (left panel)</li>
+    <li>Drag a "Short Text" field — rename label to "Naam en Van"</li>
+    <li>Drag a "Date Picker" field — rename label to "Datum"</li>
+  </ol>
+</div>
+
+<div class="step">
+  <span class="step-num">7.4</span><span class="step-title">Add Multiple-Choice Questions</span>
+  <ol>
+    <li>Drag a "Single Choice" element for each question</li>
+    <li>In the question text, type the question (e.g. "Wat is rekeningkunde?")</li>
+    <li>In the options list, put the CORRECT answer first, then the wrong ones</li>
+    <li>Open the field's "Properties" → "Options" tab</li>
+    <li>Enable "Randomize Options" so the correct answer's position changes</li>
+  </ol>
+</div>
+
+<div class="step">
+  <span class="step-num">7.5</span><span class="step-title">Enable Auto-Marking (Quiz Mode)</span>
+  <ol>
+    <li>Click "Settings" in the top bar</li>
+    <li>Find the "Quiz" tab (sometimes under "Add-ons" or "Widgets" depending on Jotform version)</li>
+    <li>Mark each question as a quiz question and tick the correct answer</li>
+    <li>Set a point value (1 point each works fine for a 20-question test)</li>
+    <li>Enable "Show Score After Submission"</li>
+  </ol>
+</div>
+
+<div class="step">
+  <span class="step-num">7.6</span><span class="step-title">Add a Thank-You Message</span>
+  <ol>
+    <li>Click "Settings" → "Thank You Page"</li>
+    <li>Choose "Show Custom Text"</li>
+    <li>Write: <span class="inline-code">Goeie werk! Jou punt is hierbo gewys. Probeer weer as jy minder as 80% gekry het.</span></li>
+  </ol>
+</div>
+
+<div class="step">
+  <span class="step-num">7.7</span><span class="step-title">Get the Form URL</span>
+  <ol>
+    <li>Click "Publish" in the top bar</li>
+    <li>Copy the "Link to Share" — it looks like <span class="inline-code">https://form.jotform.com/261404882092053</span></li>
+    <li>This is what you'll put in your HTML test button</li>
+  </ol>
+</div>
+
+<h3>Adding the Test Button to Your HTML</h3>
+<pre>&lt;a href="https://form.jotform.com/261404882092053"
+   target="_blank"
+   class="test-button"&gt;
+  ✏️ Doen die EBW Toets
+&lt;/a&gt;</pre>
+
+<p>And the CSS:</p>
+<pre>.test-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #059669, #047857);
+  color: white;
+  text-decoration: none;
+  border-radius: 12px;
+  padding: 14px 20px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}</pre>
+
+<div class="tip">
+  <strong>Tip:</strong> The <span class="inline-code">target="_blank"</span> opens the test in a new tab, so your child doesn't lose their place on the study site.
+</div>
+
+<!-- ===================== 9. MOBILE STYLING ===================== -->
+<h2>9. Part 8 — Mobile-Friendly Styling for Android Phones</h2>
+
+<p>The site MUST work well on a phone — that's how most kids will use it.</p>
+
+<h3>The Critical Meta Tag</h3>
+<pre>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;</pre>
+<p>Without this, mobile browsers will render the page as if it were 1000px wide and zoom out, making everything tiny.</p>
+
+<h3>Horizontally Scrollable Tab Bar</h3>
+<p>On mobile, fitting 11 tabs on one row is impossible. Make the tab bar scroll sideways:</p>
+<pre>.tab-nav {
+  display: flex;
+  flex-wrap: nowrap;          /* no wrapping to next row */
+  overflow-x: auto;           /* enable horizontal scroll */
+  -webkit-overflow-scrolling: touch;  /* smooth on iOS */
+  scrollbar-width: none;      /* hide scrollbar */
+}
+.tab-nav::-webkit-scrollbar { display: none; }
+.tab-btn {
+  flex-shrink: 0;             /* don't squish buttons */
+  white-space: nowrap;        /* keep text on one line */
+  min-height: 44px;           /* finger-friendly */
+}</pre>
+
+<div class="keypoint">
+  <strong>Why 44px?</strong> That's Google's and Apple's minimum recommended touch target size. Anything smaller and people mis-tap consistently.
+</div>
+
+<h3>Avoid <span class="inline-code">:hover</span> Styles on Mobile</h3>
+<p>On phones, <span class="inline-code">:hover</span> stays "stuck" after tap — looks broken. Use <span class="inline-code">:active</span> instead (fires only during the tap):</p>
+<pre>.tab-btn:active {  /* not :hover */
+  background: rgba(233,69,96,0.4);
+}</pre>
+
+<h3>Disable the Grey Tap Highlight</h3>
+<pre>.tab-btn { -webkit-tap-highlight-color: transparent; }</pre>
+
+<h3>Responsive Breakpoints</h3>
+<pre>@media (min-width: 600px) {
+  /* styles for tablets and larger */
+  .tab-nav { flex-wrap: wrap; overflow-x: visible; }
+  .flashcard { height: 200px; }
+}</pre>
+
+<!-- ===================== 10. COLLAPSIBLE & DATES ===================== -->
+<h2>10. Part 9 — Adding Collapsible Sections &amp; Exam Dates</h2>
+
+<h3>The Collapse Pattern (Accordion)</h3>
+<p>Some sections (study plan, flashcards) take a lot of vertical space. Hide them behind a click-to-expand button.</p>
+
+<pre>&lt;div class="collapse-section"&gt;
+  &lt;button class="collapse-head" onclick="toggleCollapse('panel1', this)"&gt;
+    &lt;span class="arrow"&gt;▶&lt;/span&gt;
+    &lt;span&gt;📋 Study Plan&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class="collapse-body" id="panel1"&gt;
+    &lt;!-- hidden content --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+
+<p>The CSS uses a <span class="inline-code">max-height</span> trick (you can't transition <span class="inline-code">height: auto</span>, but you can transition <span class="inline-code">max-height</span>):</p>
+
+<pre>.collapse-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.collapse-body.open {
+  max-height: 4000px;  /* large enough for any content */
+}
+.collapse-head.open .arrow {
+  transform: rotate(90deg);   /* points down when open */
+}
+.arrow { transition: transform 0.3s; }</pre>
+
+<p>The JavaScript:</p>
+<pre>function toggleCollapse(panelId, button) {
+  document.getElementById(panelId).classList.toggle('open');
+  button.classList.toggle('open');
+}</pre>
+
+<h3>Exam Date Headers</h3>
+<p>Above the study plan, show the exam date prominently:</p>
+<pre>&lt;div class="exam-date"&gt;📅 Exam: Thursday, 04 June 2026&lt;/div&gt;</pre>
+
+<pre>.exam-date {
+  font-size: 0.82rem;
+  color: #e94560;       /* red — eye-catching */
+  font-weight: 700;
+  margin-bottom: 18px;
+}</pre>
+
+<div class="tip">
+  <strong>Tip:</strong> Include the day of the week (e.g. "Thursday, 04 June"). "04 June" is abstract; "Thursday" is concrete. A 12-year-old responds better to the day name.
+</div>
+
+<!-- ===================== 11. GITHUB PAGES ===================== -->
+<h2>11. Part 10 — Publishing to GitHub Pages (Free Hosting)</h2>
+
+<p>This is where your local files become a public website with a real URL.</p>
+
+<div class="step">
+  <span class="step-num">10.1</span><span class="step-title">Commit Your Files Locally</span>
+  <p>In VS Code's terminal:</p>
+<pre>git add index.html
+git commit -m "Initial study site"</pre>
+</div>
+
+<div class="step">
+  <span class="step-num">10.2</span><span class="step-title">Create the GitHub Repo &amp; Push</span>
+  <p>Still in the terminal:</p>
+<pre>gh repo create my-eksamen-plan --public --source=. --remote=origin --push --description "Grade 7 study site"</pre>
+  <p>Replace <span class="inline-code">my-eksamen-plan</span> with whatever you want the URL to say. The command:</p>
+  <ul>
+    <li>Creates a public repo with that name on GitHub</li>
+    <li>Sets it as your "remote"</li>
+    <li>Pushes your files in one go</li>
+  </ul>
+</div>
+
+<div class="step">
+  <span class="step-num">10.3</span><span class="step-title">Enable GitHub Pages</span>
+  <ol>
+    <li>Go to <span class="inline-code">https://github.com/YOUR-USERNAME/my-eksamen-plan/settings/pages</span></li>
+    <li>Under "Branch", choose <strong>main</strong> from the dropdown</li>
+    <li>Leave the folder as <strong>/ (root)</strong></li>
+    <li>Click <strong>Save</strong></li>
+    <li>Wait 1–2 minutes</li>
+  </ol>
+</div>
+
+<div class="step">
+  <span class="step-num">10.4</span><span class="step-title">Visit Your Live Site</span>
+  <p>Your URL is now:</p>
+<pre>https://YOUR-USERNAME.github.io/my-eksamen-plan/</pre>
+  <p>Refresh after a couple of minutes if it's not live immediately.</p>
+</div>
+
+<div class="info">
+  <strong>How GitHub Pages works:</strong> It's a free static-site host built into GitHub. Every time you push a change to the <span class="inline-code">main</span> branch, GitHub rebuilds your site automatically. No "deploy" step needed.
+</div>
+
+<!-- ===================== 12. UPDATING ===================== -->
+<h2>12. Part 11 — Updating the Site After Launch</h2>
+
+<p>Once a subject is built, updating it takes about a minute. The cycle is:</p>
+
+<ol>
+  <li>Open <span class="inline-code">index.html</span> in VS Code</li>
+  <li>Make your changes (add a flashcard, fix a typo, add a topic)</li>
+  <li>Save (<span class="inline-code">Ctrl+S</span>)</li>
+  <li>In the terminal, run:</li>
+</ol>
+
+<pre>git add index.html
+git commit -m "Add flashcards for Wiskunde V2"
+git push</pre>
+
+<p>Wait 30 seconds. Your live site updates automatically.</p>
+
+<h3>Previewing Locally Before Pushing</h3>
+<p>Before pushing, you can preview your changes:</p>
+<ol>
+  <li>In VS Code, install the extension "Live Server" (by Ritwick Dey)</li>
+  <li>Right-click <span class="inline-code">index.html</span> → "Open with Live Server"</li>
+  <li>Your default browser opens with the site running locally</li>
+  <li>Every time you save, the browser auto-refreshes</li>
+</ol>
+
+<!-- ===================== 13. TROUBLESHOOTING ===================== -->
+<h2>13. Part 12 — Troubleshooting Common Problems</h2>
+
+<table>
+  <tr><th>Problem</th><th>Cause &amp; Fix</th></tr>
+  <tr>
+    <td>Tab buttons all open the same panel</td>
+    <td>The <span class="inline-code">id</span> attribute on the panels must be unique. Check for typos in <span class="inline-code">onclick="showTab(event,'X')"</span> — the <span class="inline-code">X</span> must match an <span class="inline-code">id="X"</span> on a panel.</td>
+  </tr>
+  <tr>
+    <td>Card flip animation is jerky</td>
+    <td>Check that <span class="inline-code">.card-inner</span> has <span class="inline-code">transform-style: preserve-3d</span>. Without it, browsers fall back to a flat flip that looks broken.</td>
+  </tr>
+  <tr>
+    <td>Tapping the page bounces back to top</td>
+    <td>An <span class="inline-code">&lt;a href="#"&gt;</span> link is being used somewhere as a button. Replace with <span class="inline-code">&lt;button&gt;</span> or use <span class="inline-code">href="javascript:void(0)"</span>.</td>
+  </tr>
+  <tr>
+    <td><span class="inline-code">git push</span> fails with HTTP 403</td>
+    <td>You're authenticated as the wrong GitHub user. Run <span class="inline-code">gh auth status</span> and <span class="inline-code">gh auth switch --user YOUR-USERNAME</span>.</td>
+  </tr>
+  <tr>
+    <td>GitHub Pages site shows 404</td>
+    <td>Check Settings → Pages is set to "main" branch. Also wait 2–3 minutes after the first push — GitHub needs time to build.</td>
+  </tr>
+  <tr>
+    <td>Jotform test button doesn't open the form</td>
+    <td>Check the URL has <span class="inline-code">https://</span> at the start, no trailing space, and <span class="inline-code">target="_blank"</span>.</td>
+  </tr>
+  <tr>
+    <td>Collapse animation closes very slowly</td>
+    <td>You set <span class="inline-code">max-height: 99999px</span>. Lower to <span class="inline-code">4000px</span> — the animation interpolates the full range even if the content is shorter.</td>
+  </tr>
+  <tr>
+    <td>Mobile tab bar wraps into multiple ugly rows</td>
+    <td>Add <span class="inline-code">flex-wrap: nowrap; overflow-x: auto</span> to the tab nav. See Part 8.</td>
+  </tr>
+</table>
+
+<!-- ===================== APPENDIX ===================== -->
+<h2>14. Appendix — Reusable Code Templates &amp; Checklists</h2>
+
+<h3>A.1 — Starter <span class="inline-code">index.html</span></h3>
+<p>Copy this into your empty <span class="inline-code">index.html</span> to start:</p>
+
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="af"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;My Eksamen Plan&lt;/title&gt;
+  &lt;style&gt;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f0f4f8;
+      color: #1a1a2e;
+    }
+    header {
+      background: linear-gradient(135deg, #1a1a2e, #0f3460);
+      color: white;
+      text-align: center;
+      padding: 28px 16px;
+    }
+    .tab-nav {
+      display: flex;
+      overflow-x: auto;
+      gap: 6px;
+      padding: 10px;
+      background: #16213e;
+    }
+    .tab-btn {
+      flex-shrink: 0;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border: none;
+      border-radius: 22px;
+      padding: 10px 16px;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 44px;
+      white-space: nowrap;
+    }
+    .tab-btn.active { background: #e94560; }
+    .tab-content {
+      display: none;
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .tab-content.active { display: block; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;header&gt;
+  &lt;h1&gt;My Eksamen Plan&lt;/h1&gt;
+&lt;/header&gt;
+
+&lt;div class="tab-nav"&gt;
+  &lt;button class="tab-btn active" onclick="showTab(event,'subject1')"&gt;Wiskunde&lt;/button&gt;
+  &lt;button class="tab-btn" onclick="showTab(event,'subject2')"&gt;Afrikaans&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;div id="subject1" class="tab-content active"&gt;
+  &lt;h2&gt;Wiskunde&lt;/h2&gt;
+  &lt;p&gt;Content here&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div id="subject2" class="tab-content"&gt;
+  &lt;h2&gt;Afrikaans&lt;/h2&gt;
+  &lt;p&gt;Content here&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  function showTab(e, id) {
+    document.querySelectorAll('.tab-content').forEach(function(el) {
+      el.classList.remove('active');
+    });
+    document.querySelectorAll('.tab-btn').forEach(function(el) {
+      el.classList.remove('active');
+    });
+    document.getElementById(id).classList.add('active');
+    e.currentTarget.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<h3>A.2 — Pre-Launch Checklist</h3>
+<ul class="checklist">
+  <li>VS Code, Git, GitHub CLI, Jotform — all installed and tested</li>
+  <li>One subject completely built: study plan + flashcards + test button</li>
+  <li>Site previewed locally with Live Server</li>
+  <li>All flashcards flip correctly</li>
+  <li>Jotform test opens, accepts answers, and shows score</li>
+  <li>Page looks good on phone (test by visiting on your phone)</li>
+  <li>Pushed to GitHub successfully</li>
+  <li>GitHub Pages enabled (Settings → Pages)</li>
+  <li>Live URL works in an incognito browser window</li>
+  <li>Shared the URL with your child</li>
+</ul>
+
+<h3>A.3 — Per-Subject Build Checklist</h3>
+<p>For each new subject, repeat this routine:</p>
+<ul class="checklist">
+  <li>Photograph all relevant textbook pages</li>
+  <li>Transcribe into a structured study plan</li>
+  <li>Write 10–20 flashcards (question on front, answer on back, memory hook)</li>
+  <li>Create a Jotform test (15–20 multiple-choice questions, auto-marked)</li>
+  <li>Add the tab button to the tab bar</li>
+  <li>Add the tab content panel with study plan, flashcards, and test button</li>
+  <li>Add unique flip function for this subject (<span class="inline-code">flipXKaart</span>, learned set)</li>
+  <li>Test locally with Live Server</li>
+  <li>Commit and push</li>
+  <li>Verify on live URL</li>
+</ul>
+
+<h3>A.4 — Useful Commands Cheat Sheet</h3>
+<table>
+  <tr><th>Command</th><th>Purpose</th></tr>
+  <tr><td><span class="inline-code">git status</span></td><td>See what files have changed</td></tr>
+  <tr><td><span class="inline-code">git add filename</span></td><td>Stage a file for commit</td></tr>
+  <tr><td><span class="inline-code">git add .</span></td><td>Stage all changed files</td></tr>
+  <tr><td><span class="inline-code">git commit -m "message"</span></td><td>Save a snapshot with a description</td></tr>
+  <tr><td><span class="inline-code">git push</span></td><td>Upload commits to GitHub (deploys to Pages)</td></tr>
+  <tr><td><span class="inline-code">git log --oneline</span></td><td>See history of all your changes</td></tr>
+  <tr><td><span class="inline-code">gh auth status</span></td><td>Check which GitHub account is active</td></tr>
+  <tr><td><span class="inline-code">gh repo view --web</span></td><td>Open your repo in the browser</td></tr>
+</table>
+
+<h3>A.5 — Where to Get Help</h3>
+<ul>
+  <li><strong>HTML/CSS reference:</strong> MDN — <span class="inline-code">https://developer.mozilla.org/</span></li>
+  <li><strong>Git problems:</strong> Stack Overflow — search the exact error message</li>
+  <li><strong>VS Code questions:</strong> <span class="inline-code">https://code.visualstudio.com/docs</span></li>
+  <li><strong>Jotform support:</strong> <span class="inline-code">https://www.jotform.com/help/</span></li>
+  <li><strong>GitHub Pages docs:</strong> <span class="inline-code">https://docs.github.com/en/pages</span></li>
+</ul>
+
+<div class="keypoint" style="margin-top: 30px;">
+  <strong>Final word:</strong> The first subject takes longest. By the third subject, you'll be flying through it in 30 minutes. The whole site for 11 subjects took about 12 hours spread over a few sessions. Your child will use this every exam season for years.
+</div>
+
+<div class="center" style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #e94560; font-size: 9pt; color: #888;">
+  <p>Built and documented from the live project at<br/>
+  <strong>https://flomaticauto.github.io/ian-eksamen-plan/</strong></p>
+</div>
+
+</body>
+</html>
