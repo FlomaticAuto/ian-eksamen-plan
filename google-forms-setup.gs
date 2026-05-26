@@ -20,6 +20,11 @@
  *     onmiddellik in die Tellings-blad land — met die korrekte vak en poging.
  *   - Toets dit deur 'n vorm in te dien; die ry behoort binne sekondes in
  *     Tellings te wys (en op die webwerf na die volgende verfris).
+ *
+ * INDIEN Ian reeds toetse ingedien het VOORDAT die sneller geïnstalleer is
+ * (die ou data sit dan vasgevang in 'Form Responses N'-tabbe), hardloop
+ * EEN keer `migreerOuSubmissies()` om dit in Tellings te kopieer. Dedupli-
+ * keer outomaties op (vak, poging, tydstempel), dus veilig om weer te doen.
  */
 
 const SHEET_NAAM = 'Ian — Eksamen Tellings';
@@ -618,6 +623,74 @@ function konsolideerInstellings() {
   Logger.log('Konsolidasie klaar: %s vorms gemap, 1 spreadsheet-sneller geinstalleer. Master sheet: %s',
     gevind, masterSheetFile.getUrl());
   return { gemap: gevind, masterSheetId: masterSheetId };
+}
+
+// ===== EENMALIGE BACK-FILL VAN OU SUBMISSIES =====
+// Loop oor elke geregistreerde vorm se historiese responses (wat in die ou
+// 'Form Responses N'-tabbe vassit) en skryf dit in Tellings met die korrekte
+// vak + poging. Dedupliseer op (vak, poging, timestamp) sodat dit veilig is
+// om weer te hardloop — bv. as jy nuwe submissies sedert konsolidasie het.
+function migreerOuSubmissies() {
+  const props = PropertiesService.getScriptProperties();
+  const masterSheetId = props.getProperty(PROP_MASTER_SHEET_ID);
+  if (!masterSheetId) {
+    throw new Error('Geen master sheet ID gestoor nie. Hardloop konsolideerInstellings() eers.');
+  }
+  const map = JSON.parse(props.getProperty(PROP_FORM_MAP) || '{}');
+  const formIds = Object.keys(map);
+  if (formIds.length === 0) {
+    throw new Error('Geen vorms in die map. Hardloop konsolideerInstellings() eers.');
+  }
+
+  const tellings = verseterTellingsBlad(SpreadsheetApp.openById(masterSheetId));
+
+  // Bou 'n stel bestaande sleutels (vak|poging|tydstempel) om duplikate te vermy.
+  const bestaande = {};
+  const data = tellings.getDataRange().getValues();
+  for (let r = 1; r < data.length; r++) {
+    const ry = data[r];
+    if (!ry[0]) continue;
+    const ts = ry[0] instanceof Date ? ry[0].toISOString() : String(ry[0]);
+    bestaande[ry[1] + '|' + ry[2] + '|' + ts] = true;
+  }
+
+  let bygevoeg = 0, oorgeslaan = 0, mislukte = 0;
+  formIds.forEach(function(formId) {
+    const meta = map[formId];
+    let form;
+    try {
+      form = FormApp.openById(formId);
+    } catch (err) {
+      Logger.log('Kon nie form %s open nie: %s', formId, err);
+      mislukte++;
+      return;
+    }
+    let totaal = 0;
+    form.getItems().forEach(function(item) {
+      try {
+        switch (item.getType()) {
+          case FormApp.ItemType.MULTIPLE_CHOICE:
+            totaal += item.asMultipleChoiceItem().getPoints(); break;
+          case FormApp.ItemType.CHECKBOX:
+            totaal += item.asCheckboxItem().getPoints(); break;
+          case FormApp.ItemType.LIST:
+            totaal += item.asListItem().getPoints(); break;
+        }
+      } catch (err) { /* slaan oor */ }
+    });
+    form.getResponses().forEach(function(response) {
+      const ts = response.getTimestamp();
+      const sleutel = meta.vak + '|' + meta.poging + '|' + ts.toISOString();
+      if (bestaande[sleutel]) { oorgeslaan++; return; }
+      tellings.appendRow([ts, meta.vak, meta.poging, response.getScore(), totaal]);
+      bestaande[sleutel] = true;
+      bygevoeg++;
+    });
+  });
+
+  Logger.log('Back-fill klaar: %s rye bygevoeg, %s oorgeslaan (dedup), %s vorms misluk.',
+    bygevoeg, oorgeslaan, mislukte);
+  return { bygevoeg: bygevoeg, oorgeslaan: oorgeslaan, mislukte: mislukte };
 }
 
 function skommel(arr) {
