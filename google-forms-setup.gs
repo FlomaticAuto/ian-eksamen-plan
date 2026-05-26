@@ -378,10 +378,9 @@ function bouAlles() {
     });
   });
 
-  PropertiesService.getScriptProperties().setProperties({
-    [PROP_FORM_MAP]: JSON.stringify(formMap),
-    [PROP_MASTER_SHEET_ID]: sheet.getId()
-  });
+  const props = PropertiesService.getScriptProperties();
+  props.setProperty(PROP_FORM_MAP, JSON.stringify(formMap));
+  props.setProperty(PROP_MASTER_SHEET_ID, sheet.getId());
   // EEN sneller dek alle 33 vorms (quota = 20, dus per-vorm-snellers werk nie).
   installeerSpreadsheetTrigger(sheet);
 
@@ -610,10 +609,9 @@ function konsolideerInstellings() {
     gevind++;
   }
 
-  PropertiesService.getScriptProperties().setProperties({
-    [PROP_FORM_MAP]: JSON.stringify(formIdToMeta),
-    [PROP_MASTER_SHEET_ID]: masterSheetId
-  });
+  const props = PropertiesService.getScriptProperties();
+  props.setProperty(PROP_FORM_MAP, JSON.stringify(formIdToMeta));
+  props.setProperty(PROP_MASTER_SHEET_ID, masterSheetId);
   // EEN sneller op die spreadsheet dek alle vorms — vermy die 20-snellers-per-script-quota.
   installeerSpreadsheetTrigger(masterSpreadsheet);
 
