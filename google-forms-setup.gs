@@ -12,9 +12,24 @@
  *   - View → Logs vir die nuwe URLs (33 vorms + 1 sheet)
  *   - Plak die nuwe FORM_URLS in c:/Users/quint/ian-eksamen-plan/index.html
  *   - Publiseer die nuwe sheet (File → Share → Publish to web → CSV) en update MASTER_CSV_URL
+ *
+ * INDIEN die 33 vorms reeds bestaan (m.a.w. bouAlles is reeds gehardloop sonder
+ * die onFormSubmit-sneller en die Tellings-blad bly leeg):
+ *   - Hardloop EEN keer `konsolideerInstellings()` in die Apps Script-redakteur.
+ *   - Dit koppel die sneller aan elke bestaande vorm sodat elke submissie
+ *     onmiddellik in die Tellings-blad land — met die korrekte vak en poging.
+ *   - Toets dit deur 'n vorm in te dien; die ry behoort binne sekondes in
+ *     Tellings te wys (en op die webwerf na die volgende verfris).
  */
 
 const SHEET_NAAM = 'Ian — Eksamen Tellings';
+const TELLINGS_BLAD = 'Tellings';
+const TELLINGS_KOP = ['Timestamp', 'Vak', 'Poging', 'Telling', 'UitOf'];
+// Script Properties sleutels — die onFormSubmit-snellermap onthou waar elke form se
+// resultate moet land. Sonder hierdie map sou submissies in 'Form Responses N'-tabbe
+// versuip i.p.v. in Tellings (wat die enigste blad is wat die webwerf lees).
+const PROP_FORM_MAP = 'IAN_FORM_NA_VAK_POGING';
+const PROP_MASTER_SHEET_ID = 'IAN_MASTER_SHEET_ID';
 const VAKKE = [
   { kode: 'wiskunde1',   etiket: 'Wiskunde Vraestel 1',     stub: true  },
   { kode: 'wiskunde2',   etiket: 'Wiskunde Vraestel 2',     stub: true  },
@@ -351,14 +366,22 @@ const QUIZ_DATA = {
 function bouAlles() {
   const sheet = skepMasterSheet();
   const urls = { masterSheet: sheet.getUrl(), forms: {} };
+  const formMap = {};
 
   VAKKE.forEach(vak => {
     urls.forms[vak.kode] = {};
     POGINGS.forEach(poging => {
       const form = skepVormVirVak(vak, poging);
       koppelAanSheet(form, sheet);
+      formMap[form.getId()] = { vak: vak.kode, poging: poging.nommer };
+      installeerOnSubmitTrigger(form);
       urls.forms[vak.kode][poging.nommer] = form.getPublishedUrl();
     });
+  });
+
+  PropertiesService.getScriptProperties().setProperties({
+    [PROP_FORM_MAP]: JSON.stringify(formMap),
+    [PROP_MASTER_SHEET_ID]: sheet.getId()
   });
 
   Logger.log('======================================================');
@@ -380,10 +403,23 @@ function bouAlles() {
 function skepMasterSheet() {
   const sheet = SpreadsheetApp.create(SHEET_NAAM);
   const blad = sheet.getActiveSheet();
-  blad.setName('Tellings');
-  blad.appendRow(['Timestamp', 'Vak', 'Poging', 'Telling', 'UitOf']);
+  blad.setName(TELLINGS_BLAD);
+  blad.appendRow(TELLINGS_KOP);
   blad.getRange('A1:E1').setFontWeight('bold');
   return sheet;
+}
+
+// Maak seker die Tellings-blad bestaan en het 'n kop. Word ook deur die snellerstroom geroep.
+function verseterTellingsBlad(spreadsheet) {
+  let blad = spreadsheet.getSheetByName(TELLINGS_BLAD);
+  if (!blad) {
+    blad = spreadsheet.insertSheet(TELLINGS_BLAD, 0);
+  }
+  if (blad.getLastRow() === 0) {
+    blad.appendRow(TELLINGS_KOP);
+    blad.getRange('A1:E1').setFontWeight('bold');
+  }
+  return blad;
 }
 
 function skepVormVirVak(vak, poging) {
@@ -440,6 +476,123 @@ function skepVormVirVak(vak, poging) {
 
 function koppelAanSheet(form, sheet) {
   form.setDestination(FormApp.DestinationType.SPREADSHEET, sheet.getId());
+}
+
+// ===== KONSOLIDASIE: vorm-submissies → Tellings-blad =====
+// Wanneer 'n Google Form aan 'n spreadsheet gekoppel word, skep dit 'n nuwe
+// 'Form Responses N'-tab — NIE in die Tellings-blad nie. Daarom het Ian se
+// toetsuitslae nooit op die webwerf opgedaag nie. Hierdie snellers vat elke
+// submissie en plaas dit met die korrekte vak + poging in Tellings.
+
+function installeerOnSubmitTrigger(form) {
+  // Verwyder enige bestaande snellers vir hierdie form sodat ons nie dubbele rye skryf nie.
+  ScriptApp.getProjectTriggers().forEach(function(t) {
+    if (t.getHandlerFunction() === 'onFormSubmitNaTellings' &&
+        t.getTriggerSourceId() === form.getId()) {
+      ScriptApp.deleteTrigger(t);
+    }
+  });
+  ScriptApp.newTrigger('onFormSubmitNaTellings')
+    .forForm(form)
+    .onFormSubmit()
+    .create();
+}
+
+function onFormSubmitNaTellings(e) {
+  const props = PropertiesService.getScriptProperties();
+  const masterSheetId = props.getProperty(PROP_MASTER_SHEET_ID);
+  if (!masterSheetId) {
+    console.error('Master sheet ID nie gestoor nie — hardloop konsolideerInstellings() eers.');
+    return;
+  }
+  const map = JSON.parse(props.getProperty(PROP_FORM_MAP) || '{}');
+  const form = e.source;
+  const meta = map[form.getId()];
+  if (!meta) {
+    console.warn('Geen vak/poging-mapping vir form "' + form.getTitle() + '" (' + form.getId() + ').');
+    return;
+  }
+  const response = e.response;
+  // Bereken totale moontlike punte deur alle gradeerbare items se punte op te tel.
+  let totaal = 0;
+  form.getItems().forEach(function(item) {
+    try {
+      switch (item.getType()) {
+        case FormApp.ItemType.MULTIPLE_CHOICE:
+          totaal += item.asMultipleChoiceItem().getPoints(); break;
+        case FormApp.ItemType.CHECKBOX:
+          totaal += item.asCheckboxItem().getPoints(); break;
+        case FormApp.ItemType.LIST:
+          totaal += item.asListItem().getPoints(); break;
+      }
+    } catch (err) { /* item het nie 'n punte-API nie — slaan oor */ }
+  });
+  const blad = verseterTellingsBlad(SpreadsheetApp.openById(masterSheetId));
+  blad.appendRow([
+    response.getTimestamp(),
+    meta.vak,
+    meta.poging,
+    response.getScore(),
+    totaal
+  ]);
+}
+
+// ===== EENMALIGE MIGRASIE VIR BESTAANDE VORMS =====
+// Run hierdie EEN keer in die Apps Script-redakteur as die 33 vorms reeds bestaan
+// (m.a.w. bouAlles is reeds vroeër gehardloop sonder die sneller).
+// Dit vind die master sheet, koppel die sneller aan elke vorm met die regte
+// titel-patroon ("{vak.etiket} — Toets N (slaagpunt: 80%)"), en stoor die
+// formId→{vak,poging}-map sodat onFormSubmitNaTellings weet waar elke rij
+// moet land. Veilig om weer te hardloop.
+function konsolideerInstellings() {
+  // Bou 'n vinnige opsoek-tabel van form-titel na {vak, poging}.
+  const titelNaMeta = {};
+  VAKKE.forEach(function(vak) {
+    POGINGS.forEach(function(poging) {
+      const titel = vak.etiket + ' — ' + poging.etiket + ' (slaagpunt: ' + SLAAGPUNT + '%)';
+      titelNaMeta[titel] = { vak: vak.kode, poging: poging.nommer };
+    });
+  });
+
+  // Vind die master spreadsheet (sou deur bouAlles geskep gewees het).
+  const sheetMatches = DriveApp.getFilesByName(SHEET_NAAM);
+  if (!sheetMatches.hasNext()) {
+    throw new Error("Master sheet '" + SHEET_NAAM + "' nie gevind nie. Hardloop bouAlles() eers.");
+  }
+  const masterSheetFile = sheetMatches.next();
+  const masterSheetId = masterSheetFile.getId();
+  verseterTellingsBlad(SpreadsheetApp.openById(masterSheetId));
+
+  // Loop deur alle Google Forms in jou Drive en vat dié wat by die titel-patroon pas.
+  const formIdToMeta = {};
+  let geinstalleer = 0;
+  const files = DriveApp.getFilesByType(MimeType.GOOGLE_FORMS);
+  while (files.hasNext()) {
+    const file = files.next();
+    const meta = titelNaMeta[file.getName()];
+    if (!meta) continue;
+    const form = FormApp.openById(file.getId());
+    // Maak seker die vorm skryf na ons master sheet (nie 'n ander destination nie).
+    try {
+      if (form.getDestinationId() !== masterSheetId) {
+        form.setDestination(FormApp.DestinationType.SPREADSHEET, masterSheetId);
+      }
+    } catch (err) {
+      form.setDestination(FormApp.DestinationType.SPREADSHEET, masterSheetId);
+    }
+    formIdToMeta[form.getId()] = meta;
+    installeerOnSubmitTrigger(form);
+    geinstalleer++;
+  }
+
+  PropertiesService.getScriptProperties().setProperties({
+    [PROP_FORM_MAP]: JSON.stringify(formIdToMeta),
+    [PROP_MASTER_SHEET_ID]: masterSheetId
+  });
+
+  Logger.log('Konsolidasie klaar: %s vorms aan Tellings gekoppel. Master sheet: %s',
+    geinstalleer, masterSheetFile.getUrl());
+  return { wired: geinstalleer, masterSheetId: masterSheetId };
 }
 
 function skommel(arr) {
