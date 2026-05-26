@@ -374,7 +374,6 @@ function bouAlles() {
       const form = skepVormVirVak(vak, poging);
       koppelAanSheet(form, sheet);
       formMap[form.getId()] = { vak: vak.kode, poging: poging.nommer };
-      installeerOnSubmitTrigger(form);
       urls.forms[vak.kode][poging.nommer] = form.getPublishedUrl();
     });
   });
@@ -383,6 +382,8 @@ function bouAlles() {
     [PROP_FORM_MAP]: JSON.stringify(formMap),
     [PROP_MASTER_SHEET_ID]: sheet.getId()
   });
+  // EEN sneller dek alle 33 vorms (quota = 20, dus per-vorm-snellers werk nie).
+  installeerSpreadsheetTrigger(sheet);
 
   Logger.log('======================================================');
   Logger.log('KLAAR! Slaagpunt is %s%% op elke toets; maks %s pogings.', SLAAGPUNT, POGINGS.length);
@@ -484,16 +485,21 @@ function koppelAanSheet(form, sheet) {
 // toetsuitslae nooit op die webwerf opgedaag nie. Hierdie snellers vat elke
 // submissie en plaas dit met die korrekte vak + poging in Tellings.
 
-function installeerOnSubmitTrigger(form) {
-  // Verwyder enige bestaande snellers vir hierdie form sodat ons nie dubbele rye skryf nie.
+// Google Apps Script beperk 'n script tot 20 installable triggers per gebruiker, en ons
+// het 33 vorms — een sneller per vorm slaan dus die quota dood. In plaas daarvan
+// installeer ons EEN sneller op die master spreadsheet wat vir elke form-submissie
+// vuur (ongeag van watter form), en identifiseer die form via die tab se gekoppelde
+// form-URL.
+function installeerSpreadsheetTrigger(spreadsheet) {
+  // Verwyder ALLE bestaande onFormSubmitNaTellings-snellers (insluitend per-vorm
+  // snellers van vorige weergawes) om die quota vry te maak en duplikate te vermy.
   ScriptApp.getProjectTriggers().forEach(function(t) {
-    if (t.getHandlerFunction() === 'onFormSubmitNaTellings' &&
-        t.getTriggerSourceId() === form.getId()) {
+    if (t.getHandlerFunction() === 'onFormSubmitNaTellings') {
       ScriptApp.deleteTrigger(t);
     }
   });
   ScriptApp.newTrigger('onFormSubmitNaTellings')
-    .forForm(form)
+    .forSpreadsheet(spreadsheet)
     .onFormSubmit()
     .create();
 }
@@ -506,14 +512,27 @@ function onFormSubmitNaTellings(e) {
     return;
   }
   const map = JSON.parse(props.getProperty(PROP_FORM_MAP) || '{}');
-  const form = e.source;
-  const meta = map[form.getId()];
+
+  // Spreadsheet-vlak onFormSubmit gee jou nie e.source as 'n Form nie. Identifiseer
+  // die form deur na die tab te kyk waar die ry geland het — daardie tab is deur
+  // Google Forms outomaties gekoppel aan die form.
+  const responseBlad = e.range.getSheet();
+  let formId = null;
+  try {
+    const formUrl = responseBlad.getFormUrl();
+    if (formUrl) {
+      const m = formUrl.match(/\/forms\/d\/([^\/]+)/);
+      if (m) formId = m[1];
+    }
+  } catch (err) { /* tab het nie 'n form-URL gekoppel nie */ }
+  const meta = formId ? map[formId] : null;
   if (!meta) {
-    console.warn('Geen vak/poging-mapping vir form "' + form.getTitle() + '" (' + form.getId() + ').');
+    console.warn('Geen vak/poging-mapping vir submissie op tab "' + responseBlad.getName() + '" (form ' + formId + ').');
     return;
   }
-  const response = e.response;
-  // Bereken totale moontlike punte deur alle gradeerbare items se punte op te tel.
+
+  // Open die form om die score en totaal te bereken.
+  const form = FormApp.openById(formId);
   let totaal = 0;
   form.getItems().forEach(function(item) {
     try {
@@ -527,12 +546,18 @@ function onFormSubmitNaTellings(e) {
       }
     } catch (err) { /* item het nie 'n punte-API nie — slaan oor */ }
   });
-  const blad = verseterTellingsBlad(SpreadsheetApp.openById(masterSheetId));
-  blad.appendRow([
-    response.getTimestamp(),
+  // Vat die mees onlangse response (Ian is 'n enkel gebruiker, geen race).
+  const responses = form.getResponses();
+  const response = responses[responses.length - 1];
+  const tydstempel = response ? response.getTimestamp() : (e.values && e.values[0] ? new Date(e.values[0]) : new Date());
+  const score = response ? response.getScore() : null;
+
+  const tellings = verseterTellingsBlad(SpreadsheetApp.openById(masterSheetId));
+  tellings.appendRow([
+    tydstempel,
     meta.vak,
     meta.poging,
-    response.getScore(),
+    score,
     totaal
   ]);
 }
@@ -561,11 +586,12 @@ function konsolideerInstellings() {
   }
   const masterSheetFile = sheetMatches.next();
   const masterSheetId = masterSheetFile.getId();
-  verseterTellingsBlad(SpreadsheetApp.openById(masterSheetId));
+  const masterSpreadsheet = SpreadsheetApp.openById(masterSheetId);
+  verseterTellingsBlad(masterSpreadsheet);
 
   // Loop deur alle Google Forms in jou Drive en vat dié wat by die titel-patroon pas.
   const formIdToMeta = {};
-  let geinstalleer = 0;
+  let gevind = 0;
   const files = DriveApp.getFilesByType(MimeType.GOOGLE_FORMS);
   while (files.hasNext()) {
     const file = files.next();
@@ -581,18 +607,19 @@ function konsolideerInstellings() {
       form.setDestination(FormApp.DestinationType.SPREADSHEET, masterSheetId);
     }
     formIdToMeta[form.getId()] = meta;
-    installeerOnSubmitTrigger(form);
-    geinstalleer++;
+    gevind++;
   }
 
   PropertiesService.getScriptProperties().setProperties({
     [PROP_FORM_MAP]: JSON.stringify(formIdToMeta),
     [PROP_MASTER_SHEET_ID]: masterSheetId
   });
+  // EEN sneller op die spreadsheet dek alle vorms — vermy die 20-snellers-per-script-quota.
+  installeerSpreadsheetTrigger(masterSpreadsheet);
 
-  Logger.log('Konsolidasie klaar: %s vorms aan Tellings gekoppel. Master sheet: %s',
-    geinstalleer, masterSheetFile.getUrl());
-  return { wired: geinstalleer, masterSheetId: masterSheetId };
+  Logger.log('Konsolidasie klaar: %s vorms gemap, 1 spreadsheet-sneller geinstalleer. Master sheet: %s',
+    gevind, masterSheetFile.getUrl());
+  return { gemap: gevind, masterSheetId: masterSheetId };
 }
 
 function skommel(arr) {
