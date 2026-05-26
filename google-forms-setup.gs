@@ -537,24 +537,12 @@ function onFormSubmitNaTellings(e) {
 
   // Open die form om die score en totaal te bereken.
   const form = FormApp.openById(formId);
-  let totaal = 0;
-  form.getItems().forEach(function(item) {
-    try {
-      switch (item.getType()) {
-        case FormApp.ItemType.MULTIPLE_CHOICE:
-          totaal += item.asMultipleChoiceItem().getPoints(); break;
-        case FormApp.ItemType.CHECKBOX:
-          totaal += item.asCheckboxItem().getPoints(); break;
-        case FormApp.ItemType.LIST:
-          totaal += item.asListItem().getPoints(); break;
-      }
-    } catch (err) { /* item het nie 'n punte-API nie — slaan oor */ }
-  });
+  const totaal = berekenFormTotaal(form);
   // Vat die mees onlangse response (Ian is 'n enkel gebruiker, geen race).
   const responses = form.getResponses();
   const response = responses[responses.length - 1];
   const tydstempel = response ? response.getTimestamp() : (e.values && e.values[0] ? new Date(e.values[0]) : new Date());
-  const score = response ? response.getScore() : null;
+  const score = response ? kryScoreVeilig(response) : null;
 
   const tellings = verseterTellingsBlad(SpreadsheetApp.openById(masterSheetId));
   tellings.appendRow([
@@ -654,7 +642,7 @@ function migreerOuSubmissies() {
     bestaande[ry[1] + '|' + ry[2] + '|' + ts] = true;
   }
 
-  let bygevoeg = 0, oorgeslaan = 0, mislukte = 0;
+  let bygevoeg = 0, dedup = 0, nieKwis = 0, mislukte = 0;
   formIds.forEach(function(formId) {
     const meta = map[formId];
     let form;
@@ -665,32 +653,61 @@ function migreerOuSubmissies() {
       mislukte++;
       return;
     }
-    let totaal = 0;
-    form.getItems().forEach(function(item) {
-      try {
-        switch (item.getType()) {
-          case FormApp.ItemType.MULTIPLE_CHOICE:
-            totaal += item.asMultipleChoiceItem().getPoints(); break;
-          case FormApp.ItemType.CHECKBOX:
-            totaal += item.asCheckboxItem().getPoints(); break;
-          case FormApp.ItemType.LIST:
-            totaal += item.asListItem().getPoints(); break;
-        }
-      } catch (err) { /* slaan oor */ }
-    });
+    // Stub-vorms is nie kwis-modus nie en het geen graded items nie — slaan oor.
+    let isKwis = false;
+    try { isKwis = form.isQuiz(); } catch (err) { /* ignoreer */ }
+    if (!isKwis) {
+      Logger.log('Slaan vorm "%s" oor — nie kwis-modus nie (%s · %s).',
+        form.getTitle(), meta.vak, meta.poging);
+      nieKwis++;
+      return;
+    }
+    const totaal = berekenFormTotaal(form);
     form.getResponses().forEach(function(response) {
+      const score = kryScoreVeilig(response);
+      if (score === null) return;
       const ts = response.getTimestamp();
       const sleutel = meta.vak + '|' + meta.poging + '|' + ts.toISOString();
-      if (bestaande[sleutel]) { oorgeslaan++; return; }
-      tellings.appendRow([ts, meta.vak, meta.poging, response.getScore(), totaal]);
+      if (bestaande[sleutel]) { dedup++; return; }
+      tellings.appendRow([ts, meta.vak, meta.poging, score, totaal]);
       bestaande[sleutel] = true;
       bygevoeg++;
     });
   });
 
-  Logger.log('Back-fill klaar: %s rye bygevoeg, %s oorgeslaan (dedup), %s vorms misluk.',
-    bygevoeg, oorgeslaan, mislukte);
-  return { bygevoeg: bygevoeg, oorgeslaan: oorgeslaan, mislukte: mislukte };
+  Logger.log('Back-fill klaar: %s rye bygevoeg, %s dedup, %s vorms oorgeslaan (nie-kwis), %s vorms misluk.',
+    bygevoeg, dedup, nieKwis, mislukte);
+  return { bygevoeg: bygevoeg, dedup: dedup, nieKwis: nieKwis, mislukte: mislukte };
+}
+
+// Bereken die totale moontlike punte op 'n vorm deur alle graded items op te tel.
+function berekenFormTotaal(form) {
+  let totaal = 0;
+  form.getItems().forEach(function(item) {
+    try {
+      switch (item.getType()) {
+        case FormApp.ItemType.MULTIPLE_CHOICE:
+          totaal += item.asMultipleChoiceItem().getPoints(); break;
+        case FormApp.ItemType.CHECKBOX:
+          totaal += item.asCheckboxItem().getPoints(); break;
+        case FormApp.ItemType.LIST:
+          totaal += item.asListItem().getPoints(); break;
+      }
+    } catch (err) { /* item is nie graded nie — slaan oor */ }
+  });
+  return totaal;
+}
+
+// FormResponse.getScore() bestaan slegs op kwis-vorms. Op gewone vorms
+// is dit nie 'n funksie nie en gooi 'TypeError'. Gee veilig null terug.
+function kryScoreVeilig(response) {
+  try {
+    if (typeof response.getScore !== 'function') return null;
+    const score = response.getScore();
+    return (typeof score === 'number' && !isNaN(score)) ? score : null;
+  } catch (err) {
+    return null;
+  }
 }
 
 function skommel(arr) {
