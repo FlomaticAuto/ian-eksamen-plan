@@ -4,32 +4,45 @@
  * Reël: Slaagpunt = 80% op ELKE toets. Maks 3 pogings; daarna "kry hulp".
  * Toets 1, 2, 3 toets DIESELFDE konsepte met ander bewoording (variante A/B/C).
  *
- * Hoe om dit te gebruik:
- *   - Gaan na https://script.google.com → open jou bestaande projek (of nuwe)
- *   - VERVANG die hele Code.gs met hierdie leêr
- *   - Hardloop `veeAllesUit_GEVAAR` om die ou vorms na die asblik te stuur
- *   - Hardloop `bouAlles` om die nuwe variant-vorms te skep
- *   - View → Logs vir die nuwe URLs (33 vorms + 1 sheet)
- *   - Plak die nuwe FORM_URLS in c:/Users/quint/ian-eksamen-plan/index.html
- *   - Publiseer die nuwe sheet (File → Share → Publish to web → CSV) en update MASTER_CSV_URL
+ * ── VINNIG BEGIN ──────────────────────────────────────────────────────────────
+ * Om net die Geskiedenisvorms te skep / herbou (ander vakke onaangeraak):
+ *   1. Gaan na https://script.google.com → open die bestaande projek
+ *   2. VERVANG Code.gs met hierdie lêer
+ *   3. Hardloop `herboueGeskiedenisVorms()` — dit bou 3 volledige kwis-vorms
+ *   4. View → Logs vir die 3 nuwe URLs — plak hulle in FORM_URLS.geskiedenis
+ *      in index.html
  *
- * INDIEN die 33 vorms reeds bestaan (m.a.w. bouAlles is reeds gehardloop sonder
- * die onFormSubmit-sneller en die Tellings-blad bly leeg):
- *   - Hardloop EEN keer `konsolideerInstellings()` in die Apps Script-redakteur.
- *   - Dit koppel die sneller aan elke bestaande vorm sodat elke submissie
- *     onmiddellik in die Tellings-blad land — met die korrekte vak en poging.
- *   - Toets dit deur 'n vorm in te dien; die ry behoort binne sekondes in
- *     Tellings te wys (en op die webwerf na die volgende verfris).
+ * ── WHATSAPP-KENNISGEWINGS (CallMeBot — gratis) ──────────────────────────────
+ *   1. Voeg +34 644 33 06 72 by jou WhatsApp-kontakte
+ *   2. Stuur die boodskap: "I allow callmebot to send me messages"
+ *   3. Jy ontvang 'n API-sleutel per WhatsApp (bv. 12345)
+ *   4. Vul WA_FOON en WA_API_KEY onderaan die konstante-afdeling in
+ *   5. Stel WA_AKTIEF = true
+ *   6. Hardloop `toetsWhatsApp()` om te bevestig dit werk
+ *   — Voortaan sal elke toets-indiening 'n WhatsApp-kennisgewing stuur
  *
- * INDIEN Ian reeds toetse ingedien het VOORDAT die sneller geïnstalleer is
- * (die ou data sit dan vasgevang in 'Form Responses N'-tabbe), hardloop
- * EEN keer `migreerOuSubmissies()` om dit in Tellings te kopieer. Dedupli-
- * keer outomaties op (vak, poging, tydstempel), dus veilig om weer te doen.
+ * ── VOLLEDIGE HERBOU (alle vakke) ────────────────────────────────────────────
+ *   - Hardloop `veeAllesUit_GEVAAR` → dan `bouAlles`
+ *   - View → Logs vir alle URLs; plak in FORM_URLS in index.html
+ *   - Publiseer die sheet via File → Share → Publish to web → CSV
+ *
+ * ── BESTAANDE VORMS SONDER SNELLER ───────────────────────────────────────────
+ *   - Hardloop `konsolideerInstellings()` — koppel sneller aan bestaande vorms
+ *   - Hardloop `migreerOuSubmissies()` — kopieer ou antwoorde na Tellings-blad
  */
 
 const SHEET_NAAM = 'Ian — Eksamen Tellings';
 const TELLINGS_BLAD = 'Tellings';
 const TELLINGS_KOP = ['Timestamp', 'Vak', 'Poging', 'Telling', 'UitOf'];
+
+// ===== WHATSAPP CONFIG (CallMeBot — gratis, geen besigheidsrekening nodig) =====
+// Stap 1: Voeg +34 644 33 06 72 by op WhatsApp (CallMeBot se nommer)
+// Stap 2: Stuur die boodskap: "I allow callmebot to send me messages"
+// Stap 3: Jy ontvang 'n API-sleutel via WhatsApp
+// Stap 4: Vul jou foonnommer (met landkode, sonder +) en API-sleutel hieronder in
+const WA_FOON    = '27XXXXXXXXX';  // ← vervang met jou nommer bv. 27821234567
+const WA_API_KEY = 'XXXXX';        // ← vervang met jou CallMeBot API-sleutel
+const WA_AKTIEF  = false;          // ← verander na true sodra bogenoemde ingevul is
 // Script Properties sleutels — die onFormSubmit-snellermap onthou waar elke form se
 // resultate moet land. Sonder hierdie map sou submissies in 'Form Responses N'-tabbe
 // versuip i.p.v. in Tellings (wat die enigste blad is wat die webwerf lees).
@@ -44,7 +57,7 @@ const VAKKE = [
   { kode: 'kuns',        etiket: 'Kuns en Kultuur',         stub: true  },
   { kode: 'natuur',      etiket: 'Natuurwetenskap',         stub: false },
   { kode: 'geografie',   etiket: 'Geografie',               stub: true  },
-  { kode: 'geskiedenis', etiket: 'Geskiedenis',             stub: true  },
+  { kode: 'geskiedenis', etiket: 'Geskiedenis',             stub: false },
   { kode: 'engels',      etiket: 'Engels EAT',              stub: true  },
   { kode: 'lewens',      etiket: 'Lewensvaardighede',       stub: true  }
 ];
@@ -261,6 +274,108 @@ const QUIZ_DATA = {
       A: { vraag: "Watter van die volgende is NIE 'n eienskap van amfibieë nie?", antwoord: "Vel bedek met skubbe", afleiers: ["Wisseltemperatuur (koudbloedig)", "Vogtige vel met slym", "Lê eiers in water"] },
       B: { vraag: "Waar lê amfibieë hul eiers?", antwoord: "In water", afleiers: ["Op droë grond", "In bome", "In sandduine"] },
       C: { vraag: "Hoekom moet 'n padda se vel altyd vogtig bly?", antwoord: "Sy vel help met asemhaling — dit werk net wanneer dit nat is.", afleiers: ["Sy vel is besig om af te skil.", "Sy vel verander van kleur in droë toestande.", "Sy vel is gemaak van skubbe wat water nodig het."] }
+    }}
+  ],
+  geskiedenis: [
+    { konsep: "Kameelkaravane as vervoermiddel", variante: {
+      A: { vraag: "Waarom was kamele die beste vervoermiddel oor die Saharawoestyn?", antwoord: "Kamele loop makliker oor sand, kan lank sonder kos en water gaan, en kan baie handelware dra.", afleiers: ["Kamele is die vinnigste diere ter wêreld.", "Kamele het nie water nodig nie en kan vlieg.", "Kamele is goedkoop om te koop en mees algemeen in Europa."] },
+      B: { vraag: "Hoeveel kamele was soms in 'n enkele karavaan?", antwoord: "Tot 40 000 kamele", afleiers: ["Tot 400 kamele", "Tot 4 000 kamele", "Tot 400 000 kamele"] },
+      C: { vraag: "Wat is 'n karavaan?", antwoord: "Groepe mense wat hulle handelswaar oor ver afstande vervoer en bymekaar in lang rye reis.", afleiers: ["'n Eie perd wat lank sonder water kan gaan.", "'n Fort in die woestyn waar handelaars bly.", "'n Skepe-vloot wat oor die Atlantiese Oseaan vaar."] }
+    }},
+    { konsep: "Die Saharawoestyn", variante: {
+      A: { vraag: "Wat is die Saharawoestyn?", antwoord: "Die grootste woestyn ter wêreld — dit strek van een kant van Afrika tot aan die ander kant.", afleiers: ["'n Klein woestyn in die suide van Afrika.", "Die tweede grootste woestyn, kleiner as die Arabiese Woestyn.", "Die enigste woestyn op die Afrikakontinent."] },
+      B: { vraag: "Waarom was dit moeilik om die Saharawoestyn te oorsteek?", antwoord: "Dit is baie sanderig en warm, en daar kom baie sandstorms voor.", afleiers: ["Dit is die koudste plek op Aarde.", "Daar is te veel riviere en mere in die pad.", "Die woestyn is te smal om deur te loop."] },
+      C: { vraag: "Hoe groot is die Saharawoestyn vergeleke met ander lande?", antwoord: "Dit is groter as die Verenigde State van Amerika.", afleiers: ["Dit is groter as Rusland.", "Dit is kleiner as Suid-Afrika.", "Dit is dieselfde grootte as Europa."] }
+    }},
+    { konsep: "Handelsware oor die Saharawoestyn", variante: {
+      A: { vraag: "Watter handelsware het handelaars uit Noord-Afrika NA Mali gebring?", antwoord: "Sout, koper en stof/tekstiele", afleiers: ["Goud, ivoor en slawe", "Kos, water en perde", "Boeke, manuskripte en wapens"] },
+      B: { vraag: "Watter handelsware het Mali na Noord-Afrika uitvoer?", antwoord: "Goud, slawe en ivoor", afleiers: ["Sout, koper en silwer", "Visse, groente en rys", "Stof, tee en koffie"] },
+      C: { vraag: "Hoekom was SOUT so waardevol vir Mali se handelaars?", antwoord: "Sout was skaars in die suide — mense het dit nodig gehad om kos te preserveer en te geur.", afleiers: ["Sout was mooi en is as juweliersware gebruik.", "Sout was die enigste manier om goud te smelt.", "Sout was nodig om kamele te voer."] }
+    }},
+    { konsep: "Verspreiding van Islam", variante: {
+      A: { vraag: "Hoe het Islam na Wes-Afrika versprei?", antwoord: "Deur Arabiese handelaars wat oor die Saharawoestyn gereis het en die godsdiens saamgebring het.", afleiers: ["Deur Europese sendelinge wat kerke gebou het.", "Deur die Portugese seevaarders aan die Weskus.", "Deur 'n militêre verowering van die Arabiese leër."] },
+      B: { vraag: "In watter eeu het Islam vir die eerste keer in Mali sy verskyning gemaak?", antwoord: "Die 9de eeu n.C.", afleiers: ["Die 14de eeu n.C.", "Die 1ste eeu n.C.", "Die 16de eeu n.C."] },
+      C: { vraag: "Wie het Islam gewoonlik in die Wes-Afrikaanse stede aangeneem?", antwoord: "Mense in die stede (veral staatsamptenary en handelaars)", afleiers: ["Almal — dit is deur die wet verplig gestel.", "Slegs vroue en kinders.", "Net die boere wat op die platteland gewoon het."] }
+    }},
+    { konsep: "Die Koninkryk van Mali", variante: {
+      A: { vraag: "Wanneer het die koninkryk van Mali ontstaan?", antwoord: "In 1230 toe Sundiata al die stamme van Mali saamgesnoer het.", afleiers: ["In die jaar 700 n.C. deur die eerste Moslem-konink.", "In 1490 deur Mansa Musa.", "In die jaar 1000 n.C. deur die Arabiese heerser."] },
+      B: { vraag: "Waarmee het die koninkryk van Mali ryk en magtig geword?", antwoord: "Deur handel oor die Saharawoestyn — veral die handel in goud en sout.", afleiers: ["Deur militêre veroweringe van Europese gebiede.", "Deur visvang langs die Atlantiese kus.", "Deur die ontdekking van groot silwer-myne."] },
+      C: { vraag: "Watter drie groot koninkryke het mekaar in Wes-Afrika opgevolg?", antwoord: "Ghana → Mali → Songhai", afleiers: ["Egipte → Mali → Soedan", "Timboektoe → Mali → Benin", "Arabië → Mali → Portugal"] }
+    }},
+    { konsep: "Mansa Musa — Hoogtepunt van Mali", variante: {
+      A: { vraag: "Wie was Mansa Musa?", antwoord: "Die mees bekende heerser van Mali wat in die 14de eeu regeer het en Mali op sy sterkste gemaak het.", afleiers: ["Die stigter van die koninkryk van Mali in die 9de eeu.", "Die laaste heerser van Mali voor die Europeërs aangekom het.", "Die hoof van die Arabiese handelaars in Timboektoe."] },
+      B: { vraag: "Hoe lank het Mansa Musa regeer?", antwoord: "25 jaar", afleiers: ["10 jaar", "50 jaar", "5 jaar"] },
+      C: { vraag: "Hoe het Mansa Musa sy koninkryk bestuur?", antwoord: "Deur opgevoede Moslem-geleerdes, 'n raad van weermag en koninklike families, en seniorslawe as raadgewers.", afleiers: ["Hy het alles alleen besluit sonder raadgewers.", "Deur demokratiese verkiesings elke 4 jaar.", "Slegs deur familielede van sy stamgroep."] }
+    }},
+    { konsep: "Mansa Musa se Pelgrimsreis", variante: {
+      A: { vraag: "Wanneer het Mansa Musa op sy bekende pelgrimsreis na Mekka vertrek?", antwoord: "In 1324", afleiers: ["In 1204", "In 1424", "In 1024"] },
+      B: { vraag: "Wat het Mansa Musa se pelgrimsreis veroorsaak in Egipte?", antwoord: "Hy het soveel goud uitgedeel dat die prys van goud vir jare daarna gedaal het.", afleiers: ["Hy het 'n oorlog veroorsaak toe hy goud gesteel het.", "Die prys van sout het vir 10 jaar gestyg.", "Hy het siektes saamgebring wat baie mense gedood het."] },
+      C: { vraag: "Hoeveel skepe het Abubakar II gebruik om die Atlantiese Oseaan te verken?", antwoord: "2 000 skepe", afleiers: ["200 skepe", "20 skepe", "20 000 skepe"] }
+    }},
+    { konsep: "Die Jali (Griot)", variante: {
+      A: { vraag: "Wat is 'n Jali (of Griot)?", antwoord: "'n Gemeenskaplike verteller en musikant wat mondelinge geskiedenis van families en stamgroepe bewaar en oordra.", afleiers: ["'n Moslem-priester wat die Koran leer.", "'n Handelaar wat goud en sout verkoop.", "'n Militêre leier wat die koninkryk verdedig."] },
+      B: { vraag: "Watter instrument is veral geassosieer met die Jali van Wes-Afrika?", antwoord: "Die Afrika-harp (kora)", afleiers: ["Die trompet", "Die trom (djembe)", "Die kitaar"] },
+      C: { vraag: "Hoekom was die Jali so belangrik in Wes-Afrikaanse gemeenskappe?", antwoord: "Hulle was die geskiedkundige geheue van die gemeenskap — hulle het geskiedenisse, liedere en stories van geslagte na geslagte oorgedra.", afleiers: ["Hulle was die enigste mense wat kon lees en skryf.", "Hulle het die belastings ingesamel vir die koning.", "Hulle het die weermag gelei tydens oorloë."] }
+    }},
+    { konsep: "Die Groot Moskee van Djenné", variante: {
+      A: { vraag: "Waarvoor is die Groot Moskee van Djenné bekend?", antwoord: "Dit is die grootste modder-gebou ter wêreld en 'n Wêrelderfenisgebied.", afleiers: ["Dit is die oudste steengebou in Afrika.", "Dit is die grootste moskee in die wêreld wat uit marmer gebou is.", "Dit is die eerste gebou wat in Mali ooit opgerig is."] },
+      B: { vraag: "Hoeveel mense kan die Groot Moskee van Djenné huisves?", antwoord: "Tot 3 000 mense", afleiers: ["Tot 300 mense", "Tot 30 000 mense", "Tot 300 000 mense"] },
+      C: { vraag: "Hoekom moet die Groot Moskee elke jaar herstel word?", antwoord: "Dit is van modder gebou en reën en sand beskadig dit elke jaar.", afleiers: ["Dit word gereeld deur aardbewings vernietig.", "Mense breek dele af as herinnering.", "Dit is te klein en moet vergroot word."] }
+    }},
+    { konsep: "Leo Africanus", variante: {
+      A: { vraag: "Wie was Leo Africanus?", antwoord: "'n Moslem-reisiger gebore in 1485 in Spanje wat in die 16de eeu deur Noord- en Wes-Afrika gereis het en Timboektoe besoek het.", afleiers: ["'n Portugese seevaarder wat die suidpunt van Afrika ontdek het.", "'n Arabiese heerser wat oor Mali regeer het.", "'n Europese handelaar wat slawe na Amerika vervoer het."] },
+      B: { vraag: "Wat is die titel van die boek wat Leo Africanus oor Afrika geskryf het?", antwoord: "Description of Africa (Beskrywing van Afrika)", afleiers: ["The Travels of Leo Africanus", "A History of Timbuktu", "The Great Kingdom of Mali"] },
+      C: { vraag: "Wanneer is Leo Africanus se boek oor Afrika gepubliseer?", antwoord: "In 1550", afleiers: ["In 1350", "In 1450", "In 1650"] }
+    }},
+    { konsep: "Timboektoe as Handelsentrum", variante: {
+      A: { vraag: "Waarom was Timboektoe 'n belangrike handelsentrum?", antwoord: "Dit was op die trans-Sahara-karavaanroete geleë en het Noord-Afrika, Asië en Europa met Wes-Afrika verbind.", afleiers: ["Dit was naby die Atlantiese Oseaan vir skeepshandel.", "Dit was die hoofstad van die Sahara-woestyn.", "Dit was die enigste plek met water in die woestyn."] },
+      B: { vraag: "Na wie se dood het Timboektoe 'n belangrike sentrum geword?", antwoord: "Na Mansa Musa se dood in 1337", afleiers: ["Na Sundiata se dood in 1255", "Na Leo Africanus se dood in 1554", "Na die Songhai-heerser se dood in 1492"] },
+      C: { vraag: "Watter geleerdes het na Timboektoe gekom om te studeer?", antwoord: "Duisende studente van regoor die Islamitiese wêreld het daarheen gegaan om by die madressas te studeer.", afleiers: ["Slegs studente uit Europa het daar gestudeer.", "Slegs handelaars se kinders het toegang tot onderwys gehad.", "Geen studente — dit was slegs 'n handelstad."] }
+    }},
+    { konsep: "Timboektoe as Leersentrum", variante: {
+      A: { vraag: "Wat het die Sankore-moskee in Timboektoe gedoen?", antwoord: "Dit was die sentrum van die gemeenskap van geleerdes in Timboektoe — dit het gefokus op die bestudering van die Koran en ander vakke.", afleiers: ["Dit was slegs 'n gebedsplek sonder opvoeding.", "Dit was 'n mark waar handelaars goedere verhandel het.", "Dit was die paleis van Mansa Musa."] },
+      B: { vraag: "Watter vakke kon jy in die 14de eeu in Timboektoe leer?", antwoord: "Sterrekunde, wiskunde, chemie, geskiedenis, geografie, en Islam-wet en -tradisies.", afleiers: ["Slegs die Koran en Arabiese taal.", "Slegs handel, rekeningkunde en ekonomie.", "Slegs militêre strategie en wapenkunde."] },
+      C: { vraag: "Wat was die Arabiese woord vir algebra, wat in Timboektoe ontwikkel is?", antwoord: "Al-jabr", afleiers: ["Al-kimiya", "Al-gebra", "Al-sufra"] }
+    }},
+    { konsep: "Manuskripte van Timboektoe", variante: {
+      A: { vraag: "In watter taal is die Timboektoe-manuskripte geskryf?", antwoord: "Arabies", afleiers: ["Frans", "Latyn", "Swahili"] },
+      B: { vraag: "Hoekom het die toestand van die Timboektoe-manuskripte verswak?", antwoord: "Baie van die manuskripte het deur stof en lug beskadig geword, en mense het hulle ook verkoop of verlore laat raak.", afleiers: ["Hulle is opsetlik deur vyande verbrand.", "Hulle is deur vloede vernietig.", "Die owerheid het hulle weggegooi as deel van modernisering."] },
+      C: { vraag: "Watter land het in 2001 gehelp om die Timboektoe-manuskripte te bewaar?", antwoord: "Suid-Afrika", afleiers: ["Frankryk", "Egipte", "Die VSA"] }
+    }},
+    { konsep: "Timboektoe as Wêrelderfenisgebied", variante: {
+      A: { vraag: "Deur wie is Timboektoe as 'n Wêrelderfenisgebied verklaar?", antwoord: "Die Verenigde Nasies (VN)", afleiers: ["Die Arabiese Liga", "Die Europese Unie", "Die Afrikaanse Unie"] },
+      B: { vraag: "Waarom is Timboektoe as 'n Wêrelderfenisgebied verklaar?", antwoord: "Omdat moskees wat in die tradisionele Wes-Afrikaanse styl gebou is, 'n belangrike rol gespeel het in die verspreiding van Islam in Afrika.", afleiers: ["Omdat dit die grootste stad in Afrika is.", "Omdat dit die naaste stad aan die Saharawoestyn is.", "Omdat dit die rykste stad in die wêreld was."] },
+      C: { vraag: "Watter bedreiging maak Timboektoe se status as Wêrelderfenisgebied onseker?", antwoord: "Die sand van die Saharawoestyn wat al nader kruip.", afleiers: ["Die groeiende bevolking wat te veel huise bou.", "Die toenemende toerisme wat geboue beskadig.", "Die gebrek aan water in die stad."] }
+    }},
+    { konsep: "Die Trans-Sahara Slawehandel", variante: {
+      A: { vraag: "Wanneer het die trans-Sahara slawehandel plaasgevind?", antwoord: "Van ongeveer 750 n.C. tot 1850 n.C.", afleiers: ["Van 1500 tot 1900 n.C.", "Van 500 v.C. tot 500 n.C.", "Van 1000 n.C. tot 1700 n.C."] },
+      B: { vraag: "Hoeveel slawe is elke jaar oor die Sahara verhandel?", antwoord: "Ongeveer 7 000 slawe per jaar", afleiers: ["Ongeveer 700 slawe per jaar", "Ongeveer 70 000 slawe per jaar", "Ongeveer 700 000 slawe per jaar"] },
+      C: { vraag: "Teen wat is slawe geruil tydens die trans-Sahara slawehandel?", antwoord: "Sout, perde, wapens en materiaal", afleiers: ["Goud, diamante en silwer", "Kos, water en kuns", "Skepe, kaarte en boeke"] }
+    }},
+    { konsep: "Die Trans-Atlantiese Slawehandel", variante: {
+      A: { vraag: "Wanneer het die trans-Atlantiese slawehandel begin?", antwoord: "Omstreeks 1500 n.C. toe Portugese handelsskepe aan die kus van Wes-Afrika begin koop het.", afleiers: ["In 1400 n.C. deur die Spanjaarde.", "In 1600 n.C. deur die Nederlanders.", "In 1700 n.C. deur die Britte."] },
+      B: { vraag: "Hoeveel miljoen slawe is tydens die trans-Atlantiese slawehandel verhandel?", antwoord: "Tussen 12 en 15 miljoen slawe", afleiers: ["Tussen 1 en 2 miljoen slawe", "Tussen 50 en 60 miljoen slawe", "Tussen 100 en 200 duisend slawe"] },
+      C: { vraag: "Waarheen is die meeste slawe tydens die trans-Atlantiese slawehandel geneem?", antwoord: "Na Noord- en Suid-Amerika en die Wes-Indiese Eilande", afleiers: ["Na Europa en Asië", "Na Noord-Afrika en die Midde-Ooste", "Na Australië en Nieu-Seeland"] }
+    }},
+    { konsep: "Plantasies in die Amerikaanse Suide", variante: {
+      A: { vraag: "Watter gewasse het plantasies in die Amerikaanse Suide groot gemaak?", antwoord: "Tabak, rys, suikerriet en katoen", afleiers: ["Koring, mielies en aartappels", "Koffie, kakao en groente", "Vrugte, nartjies en appels"] },
+      B: { vraag: "Wie het die katoenpluismeul (cotton gin) uitgevind wat katoenverwerking makliker gemaak het?", antwoord: "Eli Whitney", afleiers: ["George Washington", "Thomas Jefferson", "Abraham Lincoln"] },
+      C: { vraag: "Hoekom was slawe-arbeid so gewild op die plantasies?", antwoord: "Slawe was die goedkoopste werkers — hulle kry geen loon nie en plantasie-eienaars kon hulle koop en verkoop.", afleiers: ["Slawe was die beste opgeleide werkers beskikbaar.", "Die wet het bepaal dat slegs slawe op plantasies mag werk.", "Slawe het vrywillig aangebied om te werk."] }
+    }},
+    { konsep: "Die Driesydige Handel", variante: {
+      A: { vraag: "Watter drie gebiede was deel van die driesydige (driehoekige) handel?", antwoord: "Europa → Wes-Afrika → Amerika → terug na Europa", afleiers: ["Afrika → Asië → Australië → terug na Afrika", "Europa → Indië → China → terug na Europa", "Amerika → Arabië → Europa → terug na Amerika"] },
+      B: { vraag: "Wat het Europese handelaars na Wes-Afrika gebring in die driesydige handel?", antwoord: "Goedere soos wapens, klere en gereedskappe om vir slawe te ruil", afleiers: ["Goud en diamante om te verkoop", "Kos en water vir die lange reis", "Slawe om aan Afrika te verkoop"] },
+      C: { vraag: "Wat het Europese handelaars van die Amerikaanse plantasies terug na Europa gebring?", antwoord: "Plantasieprodukte soos suiker, katoen, tabak en rys", afleiers: ["Slawe wat na Europa gebring is vir arbeid", "Goud en silwer uit die myne", "Indigene mense se kuns en kultuur"] }
+    }},
+    { konsep: "Nat Turner se Opstand (1831)", variante: {
+      A: { vraag: "Wie was Nat Turner?", antwoord: "'n Slaaf in Virginia wat 'n groot slawe-opstand in 1831 gelei het.", afleiers: ["'n Vry slaaf wat Amerika verlaat het.", "'n Wit abolisionis wat slawe bevry het.", "'n Slawehandelaar uit Wes-Afrika."] },
+      B: { vraag: "Wat het die gevolge van Nat Turner se opstand vir slawe in die Suide gebring?", antwoord: "Slawe-eienaars het banger geword en die lewe vir slawe het nog moeiliker geword — strenger wette is ingestel.", afleiers: ["Slawe het meer vryheid gekry na die opstand.", "Die regering het besluit om alle slawe vry te stel.", "Die plantasies is gesluit as gevolg van die opstand."] },
+      C: { vraag: "Hoeveel mense het aan Nat Turner se opstand deelgeneem?", antwoord: "Meer as 200 slawe het deelgeneem.", afleiers: ["Net Nat Turner alleen", "Sowat 10 slawe", "Meer as 2 000 slawe"] }
+    }},
+    { konsep: "Harriet Tubman en die Ondergrondse Spoorweg", variante: {
+      A: { vraag: "Wat was die 'Ondergrondse Spoorweg'?", antwoord: "'n Geheime netwerk van roetes en skuilplekke wat slawe gehelp het om van die Suide na die Noorde en vryheid te vlug.", afleiers: ["'n Werklike spoorlyn wat onder die grond gebou is.", "'n Geheime mark waar slawe vir mekaar inligting uitgeruil het.", "'n Skeepsdiens wat slawe terug na Afrika geneem het."] },
+      B: { vraag: "Wie was Harriet Tubman?", antwoord: "'n Vrygelate slaaf wat meer as 300 ander slawe via die Ondergrondse Spoorweg bevry het.", afleiers: ["'n Wit vroue-aktivis wat wetgewing teen slawerny geskryf het.", "'n Slawe-eienaar wat haar slawe vrywillig vrygemaak het.", "'n Europese sendelinge wat na die Suide gekom het."] },
+      C: { vraag: "Joseph Cinque is bekend vir watter daad van weerstand?", antwoord: "Hy het die bemanning van die slaweSkip Amistad in 1839 oorgeneem en weerstand gebied teen slawerny.", afleiers: ["Hy het die eerste slawe-opstand in Virginia gelei.", "Hy het na Afrika teruggeswem nadat sy skip gesink het.", "Hy het die Ondergrondse Spoorweg gestig."] }
     }}
   ],
   tegnologie: [
@@ -552,6 +667,40 @@ function onFormSubmitNaTellings(e) {
     score,
     totaal
   ]);
+
+  // WhatsApp-kennisgewing na Ian se ouer
+  if (WA_AKTIEF && score !== null && totaal > 0) {
+    const persentasie = Math.round((score / totaal) * 100);
+    const slaag = persentasie >= SLAAGPUNT ? '✅ GESLAAG' : '❌ Nie geslaag';
+    const vakNaam = (VAKKE.find(v => v.kode === meta.vak) || { etiket: meta.vak }).etiket;
+    const boodskap =
+      '📚 Ian se Toetsuitslag\n' +
+      vakNaam + ' — Toets ' + meta.poging + '\n' +
+      'Telling: ' + score + '/' + totaal + ' (' + persentasie + '%)\n' +
+      slaag + ' (slaagpunt: ' + SLAAGPUNT + '%)\n' +
+      '🕐 ' + (tydstempel instanceof Date ? tydstempel.toLocaleString('af-ZA') : tydstempel);
+    stuurWhatsApp(boodskap);
+  }
+}
+
+// ===== WHATSAPP-KENNISGEWING via CallMeBot =====
+function stuurWhatsApp(boodskap) {
+  if (!WA_AKTIEF) return;
+  try {
+    const url = 'https://api.callmebot.com/whatsapp.php' +
+      '?phone=' + encodeURIComponent(WA_FOON) +
+      '&text='  + encodeURIComponent(boodskap) +
+      '&apikey=' + encodeURIComponent(WA_API_KEY);
+    UrlFetchApp.fetch(url, { muteHttpExceptions: true });
+    Logger.log('WhatsApp gestuur na %s', WA_FOON);
+  } catch (err) {
+    Logger.log('WhatsApp kon nie gestuur word nie: %s', err);
+  }
+}
+
+// ===== TOETS WHATSAPP (hardloop handmatig om die stelsel te toets) =====
+function toetsWhatsApp() {
+  stuurWhatsApp('🔔 Toets-boodskap van Ian se Eksamen-Plan. As jy dit sien, werk die WhatsApp-koppeling! ✅');
 }
 
 // ===== EENMALIGE MIGRASIE VIR BESTAANDE VORMS =====
@@ -717,6 +866,63 @@ function skommel(arr) {
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
+}
+
+// ===== HERBOU NET GESKIEDENIS-VORMS =====
+// Hardloop hierdie EENMALIG in die Apps Script-redakteur om:
+//   1. Die ou stub-Geskiedenisvorms te verwyder
+//   2. Drie nuwe kwis-vorms (Toets 1/2/3) met volledige vrae te skep
+//   3. Die formId-map en sneller by te werk sonder om ander vakke te raak
+// Die nuwe form-URLs verskyn in View → Logs — plak hulle in FORM_URLS in index.html.
+function herboueGeskiedenisVorms() {
+  const props = PropertiesService.getScriptProperties();
+  const masterSheetId = props.getProperty(PROP_MASTER_SHEET_ID);
+  if (!masterSheetId) {
+    throw new Error('Geen master sheet ID nie. Hardloop bouAlles() of konsolideerInstellings() eers.');
+  }
+  const sheet = SpreadsheetApp.openById(masterSheetId);
+  const formMap = JSON.parse(props.getProperty(PROP_FORM_MAP) || '{}');
+
+  const geskVak = VAKKE.find(v => v.kode === 'geskiedenis');
+  if (!geskVak) throw new Error('Geskiedenis-vak nie gevind in VAKKE-lys nie.');
+
+  // Vee die ou stub-Geskiedenisvorms uit (soek op titel)
+  POGINGS.forEach(function(poging) {
+    const titel = geskVak.etiket + ' — ' + poging.etiket + ' (slaagpunt: ' + SLAAGPUNT + '%)';
+    const files = DriveApp.getFilesByName(titel);
+    while (files.hasNext()) {
+      const f = files.next();
+      // Verwyder die ou formId uit die map
+      try {
+        const oldFormId = FormApp.openById(f.getId()).getId();
+        delete formMap[oldFormId];
+      } catch (err) { /* ignoreer */ }
+      f.setTrashed(true);
+      Logger.log('Verwyder: %s', titel);
+    }
+  });
+
+  // Skep drie nuwe vorms met volledige vrae
+  POGINGS.forEach(function(poging) {
+    const form = skepVormVirVak(geskVak, poging);
+    koppelAanSheet(form, sheet);
+    formMap[form.getId()] = { vak: geskVak.kode, poging: poging.nommer };
+    Logger.log('Geskep: %s', form.getPublishedUrl());
+  });
+
+  // Stoor die bygewerkte map en herinstalleer die sneller
+  props.setProperty(PROP_FORM_MAP, JSON.stringify(formMap));
+  installeerSpreadsheetTrigger(sheet);
+
+  Logger.log('===== KLAAR: Plak hierdie URLs in FORM_URLS.geskiedenis in index.html =====');
+  Object.keys(formMap)
+    .filter(id => formMap[id].vak === 'geskiedenis')
+    .sort((a, b) => formMap[a].poging - formMap[b].poging)
+    .forEach(function(id) {
+      try {
+        Logger.log('Toets %s: %s', formMap[id].poging, FormApp.openById(id).getPublishedUrl());
+      } catch (err) { Logger.log('Kon nie URL kry vir form %s nie', id); }
+    });
 }
 
 // ===== OPRUIM =====
