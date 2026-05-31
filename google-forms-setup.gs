@@ -715,7 +715,7 @@ function toetsWhatsApp() {
   stuurWhatsApp(
     '🔔 Toets-boodskap van Ian se Eksamen-Plan\n' +
     'As jy dit ontvang werk die Make.com WhatsApp-koppeling! ✅\n' +
-    'Voortaan sal jy 'n kennisgewing kry elke keer Ian 'n toets indien.'
+    'Voortaan sal jy \'n kennisgewing kry elke keer Ian \'n toets indien.'
   );
 }
 
