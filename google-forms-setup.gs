@@ -12,14 +12,12 @@
  *   4. View → Logs vir die 3 nuwe URLs — plak hulle in FORM_URLS.geskiedenis
  *      in index.html
  *
- * ── WHATSAPP-KENNISGEWINGS (CallMeBot — gratis) ──────────────────────────────
- *   1. Voeg +34 644 33 06 72 by jou WhatsApp-kontakte
- *   2. Stuur die boodskap: "I allow callmebot to send me messages"
- *   3. Jy ontvang 'n API-sleutel per WhatsApp (bv. 12345)
- *   4. Vul WA_FOON en WA_API_KEY onderaan die konstante-afdeling in
- *   5. Stel WA_AKTIEF = true
- *   6. Hardloop `toetsWhatsApp()` om te bevestig dit werk
- *   — Voortaan sal elke toets-indiening 'n WhatsApp-kennisgewing stuur
+ * ── WHATSAPP-KENNISGEWINGS (via Make.com scenario "Claude Send WhatsApp") ─────
+ *   1. Vul WA_ONTVANGER in met jou WhatsApp-nommer (landkode sonder +, bv. 27821234567)
+ *   2. Stel WA_AKTIEF = true
+ *   3. Hardloop `toetsWhatsApp()` om te bevestig dit werk
+ *   — Die boodskap word via die bestaande Make.com webhook gestuur
+ *   — Geen ekstra opstelling nodig — die scenario is reeds aktief
  *
  * ── VOLLEDIGE HERBOU (alle vakke) ────────────────────────────────────────────
  *   - Hardloop `veeAllesUit_GEVAAR` → dan `bouAlles`
@@ -35,14 +33,13 @@ const SHEET_NAAM = 'Ian — Eksamen Tellings';
 const TELLINGS_BLAD = 'Tellings';
 const TELLINGS_KOP = ['Timestamp', 'Vak', 'Poging', 'Telling', 'UitOf'];
 
-// ===== WHATSAPP CONFIG (CallMeBot — gratis, geen besigheidsrekening nodig) =====
-// Stap 1: Voeg +34 644 33 06 72 by op WhatsApp (CallMeBot se nommer)
-// Stap 2: Stuur die boodskap: "I allow callmebot to send me messages"
-// Stap 3: Jy ontvang 'n API-sleutel via WhatsApp
-// Stap 4: Vul jou foonnommer (met landkode, sonder +) en API-sleutel hieronder in
-const WA_FOON    = '27XXXXXXXXX';  // ← vervang met jou nommer bv. 27821234567
-const WA_API_KEY = 'XXXXX';        // ← vervang met jou CallMeBot API-sleutel
-const WA_AKTIEF  = false;          // ← verander na true sodra bogenoemde ingevul is
+// ===== WHATSAPP CONFIG (via Make.com — scenario "Claude Send WhatsApp") ======
+// Webhook: https://hook.eu2.make.com/og4xli5ljkagkuas1om2oragzy2xxpm2
+// Payload: { "to": "27XXXXXXXXX", "message": "...", "image_url": "" }
+// Enigste wat jy moet doen: vul WA_ONTVANGER in en stel WA_AKTIEF = true
+const MAKE_WA_WEBHOOK = 'https://hook.eu2.make.com/og4xli5ljkagkuas1om2oragzy2xxpm2';
+const WA_ONTVANGER    = '27XXXXXXXXX';  // ← vervang met jou nommer bv. 27748660437
+const WA_AKTIEF       = false;          // ← verander na true sodra nommer ingevul is
 // Script Properties sleutels — die onFormSubmit-snellermap onthou waar elke form se
 // resultate moet land. Sonder hierdie map sou submissies in 'Form Responses N'-tabbe
 // versuip i.p.v. in Tellings (wat die enigste blad is wat die webwerf lees).
@@ -668,31 +665,46 @@ function onFormSubmitNaTellings(e) {
     totaal
   ]);
 
-  // WhatsApp-kennisgewing na Ian se ouer
+  // WhatsApp-kennisgewing na Ian se ouer via Make.com
   if (WA_AKTIEF && score !== null && totaal > 0) {
     const persentasie = Math.round((score / totaal) * 100);
-    const slaag = persentasie >= SLAAGPUNT ? '✅ GESLAAG' : '❌ Nie geslaag';
-    const vakNaam = (VAKKE.find(v => v.kode === meta.vak) || { etiket: meta.vak }).etiket;
-    const boodskap =
-      '📚 Ian se Toetsuitslag\n' +
-      vakNaam + ' — Toets ' + meta.poging + '\n' +
-      'Telling: ' + score + '/' + totaal + ' (' + persentasie + '%)\n' +
-      slaag + ' (slaagpunt: ' + SLAAGPUNT + '%)\n' +
+    const slaag      = persentasie >= SLAAGPUNT ? '✅ GESLAAG' : '❌ Nie geslaag nie';
+    const vakNaam    = (VAKKE.find(function(v){ return v.kode === meta.vak; }) || { etiket: meta.vak }).etiket;
+    const pogings    = meta.poging + ' van ' + POGINGS.length;
+    const boodskap   =
+      '📚 *Ian se Toetsuitslag*\n' +
+      '━━━━━━━━━━━━━━━━━━━\n' +
+      '📖 Vak: ' + vakNaam + '\n' +
+      '🔢 Poging: Toets ' + pogings + '\n' +
+      '🎯 Telling: ' + score + '/' + totaal + ' (' + persentasie + '%)\n' +
+      '🏁 Uitkoms: ' + slaag + '\n' +
+      '📏 Slaagpunt: ' + SLAAGPUNT + '%\n' +
+      '━━━━━━━━━━━━━━━━━━━\n' +
       '🕐 ' + (tydstempel instanceof Date ? tydstempel.toLocaleString('af-ZA') : tydstempel);
     stuurWhatsApp(boodskap);
   }
 }
 
-// ===== WHATSAPP-KENNISGEWING via CallMeBot =====
+// ===== WHATSAPP-KENNISGEWING via Make.com (scenario: "Claude Send WhatsApp") =====
+// Payload volg dieselfde struktuur as die bestaande scenario:
+//   { "to": "27XXXXXXXXX", "message": "...", "image_url": "" }
+// Leë image_url stuur die boodskap via die "No image_url"-roete (teks-boodskap).
 function stuurWhatsApp(boodskap) {
   if (!WA_AKTIEF) return;
   try {
-    const url = 'https://api.callmebot.com/whatsapp.php' +
-      '?phone=' + encodeURIComponent(WA_FOON) +
-      '&text='  + encodeURIComponent(boodskap) +
-      '&apikey=' + encodeURIComponent(WA_API_KEY);
-    UrlFetchApp.fetch(url, { muteHttpExceptions: true });
-    Logger.log('WhatsApp gestuur na %s', WA_FOON);
+    const payload = JSON.stringify({
+      to:        WA_ONTVANGER,
+      message:   boodskap,
+      image_url: ''          // leeg = teks-roete in die Make.com router
+    });
+    const opsies = {
+      method:             'post',
+      contentType:        'application/json',
+      payload:            payload,
+      muteHttpExceptions: true
+    };
+    const reaksie = UrlFetchApp.fetch(MAKE_WA_WEBHOOK, opsies);
+    Logger.log('Make.com WhatsApp gestuur na %s — status: %s', WA_ONTVANGER, reaksie.getResponseCode());
   } catch (err) {
     Logger.log('WhatsApp kon nie gestuur word nie: %s', err);
   }
@@ -700,7 +712,11 @@ function stuurWhatsApp(boodskap) {
 
 // ===== TOETS WHATSAPP (hardloop handmatig om die stelsel te toets) =====
 function toetsWhatsApp() {
-  stuurWhatsApp('🔔 Toets-boodskap van Ian se Eksamen-Plan. As jy dit sien, werk die WhatsApp-koppeling! ✅');
+  stuurWhatsApp(
+    '🔔 Toets-boodskap van Ian se Eksamen-Plan\n' +
+    'As jy dit ontvang werk die Make.com WhatsApp-koppeling! ✅\n' +
+    'Voortaan sal jy 'n kennisgewing kry elke keer Ian 'n toets indien.'
+  );
 }
 
 // ===== EENMALIGE MIGRASIE VIR BESTAANDE VORMS =====
