@@ -38,8 +38,8 @@ const TELLINGS_KOP = ['Timestamp', 'Vak', 'Poging', 'Telling', 'UitOf'];
 // Payload: { "to": "27XXXXXXXXX", "message": "...", "image_url": "" }
 // Enigste wat jy moet doen: vul WA_ONTVANGER in en stel WA_AKTIEF = true
 const MAKE_WA_WEBHOOK = 'https://hook.eu2.make.com/og4xli5ljkagkuas1om2oragzy2xxpm2';
-const WA_ONTVANGER    = '27XXXXXXXXX';  // ← vervang met jou nommer bv. 27748660437
-const WA_AKTIEF       = false;          // ← verander na true sodra nommer ingevul is
+const WA_ONTVANGER    = '27748660437';
+const WA_AKTIEF       = true;           // ← nommer ingevul, WhatsApp aktief
 // Script Properties sleutels — die onFormSubmit-snellermap onthou waar elke form se
 // resultate moet land. Sonder hierdie map sou submissies in 'Form Responses N'-tabbe
 // versuip i.p.v. in Tellings (wat die enigste blad is wat die webwerf lees).
@@ -274,105 +274,205 @@ const QUIZ_DATA = {
     }}
   ],
   geskiedenis: [
-    { konsep: "Kameelkaravane as vervoermiddel", variante: {
-      A: { vraag: "Waarom was kamele die beste vervoermiddel oor die Saharawoestyn?", antwoord: "Kamele loop makliker oor sand, kan lank sonder kos en water gaan, en kan baie handelware dra.", afleiers: ["Kamele is die vinnigste diere ter wêreld.", "Kamele het nie water nodig nie en kan vlieg.", "Kamele is goedkoop om te koop en mees algemeen in Europa."] },
-      B: { vraag: "Hoeveel kamele was soms in 'n enkele karavaan?", antwoord: "Tot 40 000 kamele", afleiers: ["Tot 400 kamele", "Tot 4 000 kamele", "Tot 400 000 kamele"] },
-      C: { vraag: "Wat is 'n karavaan?", antwoord: "Groepe mense wat hulle handelswaar oor ver afstande vervoer en bymekaar in lang rye reis.", afleiers: ["'n Eie perd wat lank sonder water kan gaan.", "'n Fort in die woestyn waar handelaars bly.", "'n Skepe-vloot wat oor die Atlantiese Oseaan vaar."] }
+    { konsep: "Kamele as vervoermiddel oor die Sahara", variante: {
+      A: { vraag: "Waarom was kamele die beste vervoermiddel oor die Saharawoestyn?", antwoord: "Hulle loop maklik oor sand, kan lank sonder kos en water gaan, en kan baie handelware dra.", afleiers: ["Hulle is die vinnigste diere ter wêreld.", "Hulle het glad nie water nodig nie en kan vlieg.", "Hulle is goedkoop en kom meestal in Europa voor."] },
+      B: { vraag: "Hoeveel kamele was soms in een enkele karavaan oor die Sahara?", antwoord: "Tot 40 000 kamele.", afleiers: ["Tot 400 kamele.", "Tot 4 000 kamele.", "Tot 400 000 kamele."] },
+      C: { vraag: "Wat is 'n karavaan?", antwoord: "'n Groep mense wat hul handelsware in lang rye saam oor ver afstande vervoer.", afleiers: ["'n Enkele kameel wat alleen goedere dra.", "'n Skip wat goedere oor die see vervoer.", "'n Mark waar net sout verkoop word."] }
     }},
     { konsep: "Die Saharawoestyn", variante: {
-      A: { vraag: "Wat is die Saharawoestyn?", antwoord: "Die grootste woestyn ter wêreld — dit strek van een kant van Afrika tot aan die ander kant.", afleiers: ["'n Klein woestyn in die suide van Afrika.", "Die tweede grootste woestyn, kleiner as die Arabiese Woestyn.", "Die enigste woestyn op die Afrikakontinent."] },
-      B: { vraag: "Waarom was dit moeilik om die Saharawoestyn te oorsteek?", antwoord: "Dit is baie sanderig en warm, en daar kom baie sandstorms voor.", afleiers: ["Dit is die koudste plek op Aarde.", "Daar is te veel riviere en mere in die pad.", "Die woestyn is te smal om deur te loop."] },
-      C: { vraag: "Hoe groot is die Saharawoestyn vergeleke met ander lande?", antwoord: "Dit is groter as die Verenigde State van Amerika.", afleiers: ["Dit is groter as Rusland.", "Dit is kleiner as Suid-Afrika.", "Dit is dieselfde grootte as Europa."] }
+      A: { vraag: "Wat is die Saharawoestyn?", antwoord: "Die grootste woestyn ter wêreld — groter as die VSA.", afleiers: ["'n Klein woestyn in die suide van Afrika.", "Die tweede grootste woestyn, kleiner as die Arabiese Woestyn.", "'n Groot grasvlakte met baie riviere."] },
+      B: { vraag: "Hoekom was dit so moeilik om die Saharawoestyn te oorsteek?", antwoord: "Dit is baie sanderig en warm, met baie gevaarlike sandstorms.", afleiers: ["Dit is die koudste plek op aarde.", "Daar is te veel riviere en mere in die pad.", "Dit reën byna elke dag in die woestyn."] },
+      C: { vraag: "Hoe groot is die Saharawoestyn vergeleke met ander gebiede?", antwoord: "Dit is groter as die Verenigde State van Amerika.", afleiers: ["Dit is kleiner as Suid-Afrika.", "Dit is presies dieselfde grootte as Europa se kleinste land.", "Dit is so groot soos een Suid-Afrikaanse provinsie."] }
     }},
     { konsep: "Handelsware oor die Saharawoestyn", variante: {
-      A: { vraag: "Watter handelsware het handelaars uit Noord-Afrika NA Mali gebring?", antwoord: "Sout, koper en stof/tekstiele", afleiers: ["Goud, ivoor en slawe", "Kos, water en perde", "Boeke, manuskripte en wapens"] },
-      B: { vraag: "Watter handelsware het Mali na Noord-Afrika uitvoer?", antwoord: "Goud, slawe en ivoor", afleiers: ["Sout, koper en silwer", "Visse, groente en rys", "Stof, tee en koffie"] },
-      C: { vraag: "Hoekom was SOUT so waardevol vir Mali se handelaars?", antwoord: "Sout was skaars in die suide — mense het dit nodig gehad om kos te preserveer en te geur.", afleiers: ["Sout was mooi en is as juweliersware gebruik.", "Sout was die enigste manier om goud te smelt.", "Sout was nodig om kamele te voer."] }
+      A: { vraag: "Watter handelsware het van Noord-Afrika NA Mali gekom?", antwoord: "Sout, koper en stof (tekstiele).", afleiers: ["Goud, slawe en ivoor.", "Tee, rys en porselein.", "Olie, steenkool en diamante."] },
+      B: { vraag: "Watter handelsware het Mali UITGEVOER na Noord-Afrika?", antwoord: "Goud, slawe en ivoor.", afleiers: ["Sout, koper en stof.", "Wapens en gereedskap.", "Wyn en olyfolie."] },
+      C: { vraag: "Hoekom was sout so 'n waardevolle handelsartikel?", antwoord: "Dit was nodig om kos te preserveer (te bewaar).", afleiers: ["Dit was die enigste vorm van geld in Europa.", "Dit is gebruik om huise mee te bou.", "Dit was nodig om kamele mee te voer."] }
     }},
-    { konsep: "Verspreiding van Islam", variante: {
-      A: { vraag: "Hoe het Islam na Wes-Afrika versprei?", antwoord: "Deur Arabiese handelaars wat oor die Saharawoestyn gereis het en die godsdiens saamgebring het.", afleiers: ["Deur Europese sendelinge wat kerke gebou het.", "Deur die Portugese seevaarders aan die Weskus.", "Deur 'n militêre verowering van die Arabiese leër."] },
-      B: { vraag: "In watter eeu het Islam vir die eerste keer in Mali sy verskyning gemaak?", antwoord: "Die 9de eeu n.C.", afleiers: ["Die 14de eeu n.C.", "Die 1ste eeu n.C.", "Die 16de eeu n.C."] },
-      C: { vraag: "Wie het Islam gewoonlik in die Wes-Afrikaanse stede aangeneem?", antwoord: "Mense in die stede (veral staatsamptenary en handelaars)", afleiers: ["Almal — dit is deur die wet verplig gestel.", "Slegs vroue en kinders.", "Net die boere wat op die platteland gewoon het."] }
+    { konsep: "Die verspreiding van Islam na Wes-Afrika", variante: {
+      A: { vraag: "Hoe het Islam na Wes-Afrika versprei?", antwoord: "Deur Arabiese handelaars wat oor die Saharawoestyn gereis en die godsdiens saamgebring het.", afleiers: ["Deur Europese sendelinge wat kerke gebou het.", "Deur die Portugese seevaarders aan die weskus.", "Deur 'n militêre verowering deur die Arabiese leër."] },
+      B: { vraag: "In watter eeu het Islam vir die eerste keer in Wes-Afrika verskyn?", antwoord: "In die 9de eeu.", afleiers: ["In die 15de eeu.", "In die 1ste eeu.", "In die 19de eeu."] },
+      C: { vraag: "Watter mense in Wes-Afrika het Islam die eerste aangeneem?", antwoord: "Mense in die stede, veral handelaars en amptenare.", afleiers: ["Net die boere op die platteland.", "Net die slawe op die plantasies.", "Net die Europese besoekers."] }
     }},
-    { konsep: "Die Koninkryk van Mali", variante: {
-      A: { vraag: "Wanneer het die koninkryk van Mali ontstaan?", antwoord: "In 1230 toe Sundiata al die stamme van Mali saamgesnoer het.", afleiers: ["In die jaar 700 n.C. deur die eerste Moslem-konink.", "In 1490 deur Mansa Musa.", "In die jaar 1000 n.C. deur die Arabiese heerser."] },
-      B: { vraag: "Waarmee het die koninkryk van Mali ryk en magtig geword?", antwoord: "Deur handel oor die Saharawoestyn — veral die handel in goud en sout.", afleiers: ["Deur militêre veroweringe van Europese gebiede.", "Deur visvang langs die Atlantiese kus.", "Deur die ontdekking van groot silwer-myne."] },
-      C: { vraag: "Watter drie groot koninkryke het mekaar in Wes-Afrika opgevolg?", antwoord: "Ghana → Mali → Songhai", afleiers: ["Egipte → Mali → Soedan", "Timboektoe → Mali → Benin", "Arabië → Mali → Portugal"] }
+    { konsep: "Kaurieskulpe as geld", variante: {
+      A: { vraag: "Wat is kaurieskulpe?", antwoord: "Porseleinkulpe van die verre Indiese Oseaan wat as 'n tipe geld gebruik is.", afleiers: ["Goue munte wat in Mali geslaan is.", "Klein klippies wat in die Sahara gevind is.", "Stukke sout wat in vierkante gesny is."] },
+      B: { vraag: "Hoe het kaurieskulpe by Timboektoe uitgekom?", antwoord: "Dit is eers na Egipte gebring en daarna langs die handelsroetes deur die Sahara geneem.", afleiers: ["Dit is direk van Europa per skip aangery.", "Dit is in die riviere naby Timboektoe gevind.", "Dit is deur die Portugese aan die weskus afgelaai."] },
+      C: { vraag: "Behalwe kaurieskulpe, hoe is handel ook gedryf?", antwoord: "Deur ruilhandel (barter) — goedere is vir ander goedere geruil.", afleiers: ["Net met goue en silwer munte.", "Net met papiergeld.", "Net met bankkaarte."] }
     }},
-    { konsep: "Mansa Musa — Hoogtepunt van Mali", variante: {
-      A: { vraag: "Wie was Mansa Musa?", antwoord: "Die mees bekende heerser van Mali wat in die 14de eeu regeer het en Mali op sy sterkste gemaak het.", afleiers: ["Die stigter van die koninkryk van Mali in die 9de eeu.", "Die laaste heerser van Mali voor die Europeërs aangekom het.", "Die hoof van die Arabiese handelaars in Timboektoe."] },
-      B: { vraag: "Hoe lank het Mansa Musa regeer?", antwoord: "25 jaar", afleiers: ["10 jaar", "50 jaar", "5 jaar"] },
-      C: { vraag: "Hoe het Mansa Musa sy koninkryk bestuur?", antwoord: "Deur opgevoede Moslem-geleerdes, 'n raad van weermag en koninklike families, en seniorslawe as raadgewers.", afleiers: ["Hy het alles alleen besluit sonder raadgewers.", "Deur demokratiese verkiesings elke 4 jaar.", "Slegs deur familielede van sy stamgroep."] }
+    { konsep: "Die drie koninkryke van Wes-Afrika", variante: {
+      A: { vraag: "Watter drie koninkryke het mekaar in Wes-Afrika opgevolg, in die regte volgorde?", antwoord: "Ghana, dan Mali, dan Songhai.", afleiers: ["Songhai, dan Ghana, dan Mali.", "Mali, dan Songhai, dan Ghana.", "Egipte, dan Ghana, dan Rome."] },
+      B: { vraag: "Wanneer het die koninkryk van Mali ontstaan en wie het dit gestig?", antwoord: "In 1230, toe Sundiata al die stamme saamgesnoer het.", afleiers: ["In die jaar 700, deur Mansa Musa.", "In 1490, deur Ibn Battuta.", "In 1550, deur Leo Africanus."] },
+      C: { vraag: "Waarmee het hierdie koninkryke ryk en magtig geword?", antwoord: "Deur die handel in sout en goud.", afleiers: ["Deur die handel in olie en steenkool.", "Deur visvang in die Atlantiese Oseaan.", "Deur die ontdekking van silwer-myne in Europa."] }
     }},
-    { konsep: "Mansa Musa se Pelgrimsreis", variante: {
-      A: { vraag: "Wanneer het Mansa Musa op sy bekende pelgrimsreis na Mekka vertrek?", antwoord: "In 1324", afleiers: ["In 1204", "In 1424", "In 1024"] },
-      B: { vraag: "Wat het Mansa Musa se pelgrimsreis veroorsaak in Egipte?", antwoord: "Hy het soveel goud uitgedeel dat die prys van goud vir jare daarna gedaal het.", afleiers: ["Hy het 'n oorlog veroorsaak toe hy goud gesteel het.", "Die prys van sout het vir 10 jaar gestyg.", "Hy het siektes saamgebring wat baie mense gedood het."] },
-      C: { vraag: "Hoeveel skepe het Abubakar II gebruik om die Atlantiese Oseaan te verken?", antwoord: "2 000 skepe", afleiers: ["200 skepe", "20 skepe", "20 000 skepe"] }
+    { konsep: "Mansa Musa en hoe hy Mali bestuur het", variante: {
+      A: { vraag: "Wie was Mansa Musa?", antwoord: "Die mees bekende heerser van Mali, wat ongeveer 25 jaar in die 14de eeu regeer het.", afleiers: ["Die argitek wat die moskees van Mali gebou het.", "'n Moslem-reisiger wat oor Mali geskryf het.", "Die stigter van die koninkryk Ghana."] },
+      B: { vraag: "Hoe het Mansa Musa die groot koninkryk Mali bestuur?", antwoord: "Met die hulp van Moslem-geleerdes, 'n raad van die weermag en koninklike families, en senior slawe as lojale raadgewers.", afleiers: ["Hy het alles alleen sonder enige raadgewers bestuur.", "Hy het Europese amptenare ingevoer om te regeer.", "Hy het die land in klein republieke verdeel sonder 'n koning."] },
+      C: { vraag: "In watter eeu het Mansa Musa oor Mali geregeer?", antwoord: "In die 14de eeu.", afleiers: ["In die 9de eeu.", "In die 19de eeu.", "In die 21ste eeu."] }
+    }},
+    { konsep: "Mansa Musa se pelgrimsreis na Mekka", variante: {
+      A: { vraag: "Wanneer het Mansa Musa op sy pelgrimsreis na Mekka vertrek?", antwoord: "In 1324.", afleiers: ["In 1230.", "In 1550.", "In 1789."] },
+      B: { vraag: "Wat was die gevolg van al die goud wat Mansa Musa in Egipte uitgedeel het?", antwoord: "Die prys van goud het vir jare daarna gedaal.", afleiers: ["Die prys van goud het skerp gestyg.", "Egipte het bankrot geraak.", "Goud is daarna nooit weer in Egipte gebruik nie."] },
+      C: { vraag: "Ongeveer hoeveel mense het Mansa Musa op sy pelgrimsreis saamgeneem?", antwoord: "Ongeveer 60 000 mense, saam met meer as 80 kamele en goud.", afleiers: ["Ongeveer 600 mense.", "Net sy onmiddellike familie.", "Ongeveer 6 mense."] }
+    }},
+    { konsep: "Al-Sahili die argitek", variante: {
+      A: { vraag: "Wie was Al-Sahili?", antwoord: "'n Beroemde argitek wat Mansa Musa tydens sy pelgrimsreis na Mekka ontmoet het.", afleiers: ["'n Moslem-reisiger wat 'n boek oor Afrika geskryf het.", "'n Slaaf wat 'n opstand in Amerika gelei het.", "Die koning wat ná Mansa Musa regeer het."] },
+      B: { vraag: "Wat het Al-Sahili in Mali gedoen?", antwoord: "Hy het pragtige moskees in die tradisionele Wes-Afrikaanse styl gebou.", afleiers: ["Hy het die eerste universiteit in Europa gestig.", "Hy het die katoenpluismeul uitgevind.", "Hy het die Ondergrondse Spoorweg gestig."] },
+      C: { vraag: "Hoe het Al-Sahili in Mali beland?", antwoord: "Hy het saam met Mansa Musa van die pelgrimsreis af na Mali teruggekeer.", afleiers: ["Hy is as 'n slaaf na Mali gebring.", "Hy is in Mali gebore en het nooit weggegaan nie.", "Hy is deur die Portugese na Mali gestuur."] }
     }},
     { konsep: "Die Jali (Griot)", variante: {
-      A: { vraag: "Wat is 'n Jali (of Griot)?", antwoord: "'n Gemeenskaplike verteller en musikant wat mondelinge geskiedenis van families en stamgroepe bewaar en oordra.", afleiers: ["'n Moslem-priester wat die Koran leer.", "'n Handelaar wat goud en sout verkoop.", "'n Militêre leier wat die koninkryk verdedig."] },
-      B: { vraag: "Watter instrument is veral geassosieer met die Jali van Wes-Afrika?", antwoord: "Die Afrika-harp (kora)", afleiers: ["Die trompet", "Die trom (djembe)", "Die kitaar"] },
-      C: { vraag: "Hoekom was die Jali so belangrik in Wes-Afrikaanse gemeenskappe?", antwoord: "Hulle was die geskiedkundige geheue van die gemeenskap — hulle het geskiedenisse, liedere en stories van geslagte na geslagte oorgedra.", afleiers: ["Hulle was die enigste mense wat kon lees en skryf.", "Hulle het die belastings ingesamel vir die koning.", "Hulle het die weermag gelei tydens oorloë."] }
+      A: { vraag: "Wat is 'n Jali (Griot)?", antwoord: "'n Gemeenskaplike verteller wat die mondelinge geskiedenis van families en stamgroepe bewaar en oordra.", afleiers: ["'n Soldaat wat die koning se paleis bewaak.", "'n Handelaar wat sout oor die Sahara vervoer.", "'n Boer wat die koning se grond bewerk."] },
+      B: { vraag: "Watter musiekinstrument speel die Jali?", antwoord: "Die Afrika-harp, genoem die kora.", afleiers: ["Die tromboon.", "Die kitaar.", "Die klavier."] },
+      C: { vraag: "Hoekom was die Jali so belangrik vir die gemeenskap?", antwoord: "Hy was die gemeenskap se 'lewende biblioteek' wat stories van geslag na geslag oorgedra het.", afleiers: ["Hy het al die belasting vir die koning ingevorder.", "Hy het die enigste geskrewe boeke in die dorp besit.", "Hy het die kamele vir die karavane versorg."] }
     }},
     { konsep: "Die Groot Moskee van Djenné", variante: {
-      A: { vraag: "Waarvoor is die Groot Moskee van Djenné bekend?", antwoord: "Dit is die grootste modder-gebou ter wêreld en 'n Wêrelderfenisgebied.", afleiers: ["Dit is die oudste steengebou in Afrika.", "Dit is die grootste moskee in die wêreld wat uit marmer gebou is.", "Dit is die eerste gebou wat in Mali ooit opgerig is."] },
-      B: { vraag: "Hoeveel mense kan die Groot Moskee van Djenné huisves?", antwoord: "Tot 3 000 mense", afleiers: ["Tot 300 mense", "Tot 30 000 mense", "Tot 300 000 mense"] },
-      C: { vraag: "Hoekom moet die Groot Moskee elke jaar herstel word?", antwoord: "Dit is van modder gebou en reën en sand beskadig dit elke jaar.", afleiers: ["Dit word gereeld deur aardbewings vernietig.", "Mense breek dele af as herinnering.", "Dit is te klein en moet vergroot word."] }
+      A: { vraag: "Wat maak die Groot Moskee van Djenné so besonders?", antwoord: "Dit is die grootste modder-gebou ter wêreld en is 'n Wêrelderfenisgebied.", afleiers: ["Dit is heeltemal uit goud gebou.", "Dit is die oudste klipgebou in Europa.", "Dit is heeltemal onder die grond gebou."] },
+      B: { vraag: "Ongeveer hoeveel mense kan die Groot Moskee van Djenné inneem?", antwoord: "Ongeveer 3 000 mense.", afleiers: ["Ongeveer 30 mense.", "Ongeveer 300 000 mense.", "Net die koning en sy familie."] },
+      C: { vraag: "Hoekom moet die Groot Moskee van Djenné elke jaar herstel word?", antwoord: "Reën en sand beskadig die moddermure.", afleiers: ["Besoekers breek elke jaar stukke af.", "Dit word elke jaar afgebreek en weer hoër gebou.", "Aardbewings beskadig dit elke jaar."] }
+    }},
+    { konsep: "Abubakar II en sy seereis", variante: {
+      A: { vraag: "Hoeveel skepe het Abubakar II gebruik om die Atlantiese Oseaan te probeer verken?", antwoord: "2 000 skepe.", afleiers: ["20 skepe.", "200 000 skepe.", "Net 2 skepe."] },
+      B: { vraag: "Wat het met Abubakar II gebeur nadat hy die Atlantiese Oseaan ingevaar het?", antwoord: "Hy het nooit teruggekeer nie.", afleiers: ["Hy het Amerika ontdek en ryk teruggekom.", "Hy het na 'n jaar veilig teruggekeer.", "Hy het na Europa gevaar en 'n koning daar geword."] },
+      C: { vraag: "Wat was die gevolg daarvan dat Abubakar II nooit teruggekeer het nie?", antwoord: "Mansa Musa het die koningskap geërf en die bekendste heerser van Mali geword.", afleiers: ["Die koninkryk Mali het dadelik tot 'n einde gekom.", "Die Portugese het Mali oorgeneem.", "Songhai het onmiddellik Mali se plek ingeneem."] }
+    }},
+    { konsep: "Timboektoe as handelsentrum", variante: {
+      A: { vraag: "Hoekom was Timboektoe 'n belangrike handelsentrum?", antwoord: "Dit het op die trans-Sahara-karavaanroete gelê en Noord-Afrika, Asië en Europa met Wes-Afrika verbind.", afleiers: ["Dit was 'n hawe aan die Atlantiese Oseaan.", "Dit was die enigste dorp met 'n spoorlyn.", "Dit het langs 'n groot goudmyn in Europa gelê."] },
+      B: { vraag: "Watter goedere is van Wes-Afrika af in Timboektoe verkoop?", antwoord: "Ivoor, volstruisvere, slawe en graan.", afleiers: ["Olie, steenkool en staal.", "Motors en masjiene.", "Tee en porselein uit China."] },
+      C: { vraag: "Watter goedere het van die noorde af na Timboektoe gekom?", antwoord: "Sout, perde en koperkrale.", afleiers: ["Goud, ivoor en slawe.", "Rys, suiker en katoen.", "Wapens en gereedskap uit Amerika."] }
+    }},
+    { konsep: "Ibn Battuta", variante: {
+      A: { vraag: "Wie was Ibn Battuta?", antwoord: "'n Moslem-reisiger wat tussen 1325 en 1354 Wes- en Oos-Afrika besoek het.", afleiers: ["'n Argitek wat moskees in Mali gebou het.", "'n Slawe-eienaar in Amerika.", "Die koning van Songhai."] },
+      B: { vraag: "Wat het Ibn Battuta belangrik gemaak as 'n geskiedkundige bron?", antwoord: "Hy het alles wat hy gesien het neergeskryf, sodat ons vandag daaroor kan lees.", afleiers: ["Hy het die eerste moskee in Mali gebou.", "Hy het die Arabiese syfers uitgevind.", "Hy het die Ondergrondse Spoorweg gestig."] },
+      C: { vraag: "Wat het Ibn Battuta oor die mense van Wes-Afrika gesê?", antwoord: "Dat hulle selde onregverdig was en 'n groot afkeer aan onregverdigheid gehad het.", afleiers: ["Dat hulle baie wreed en oneerlik was.", "Dat hulle geen wette gehad het nie.", "Dat hulle nooit handel gedryf het nie."] }
     }},
     { konsep: "Leo Africanus", variante: {
-      A: { vraag: "Wie was Leo Africanus?", antwoord: "'n Moslem-reisiger gebore in 1485 in Spanje wat in die 16de eeu deur Noord- en Wes-Afrika gereis het en Timboektoe besoek het.", afleiers: ["'n Portugese seevaarder wat die suidpunt van Afrika ontdek het.", "'n Arabiese heerser wat oor Mali regeer het.", "'n Europese handelaar wat slawe na Amerika vervoer het."] },
-      B: { vraag: "Wat is die titel van die boek wat Leo Africanus oor Afrika geskryf het?", antwoord: "Description of Africa (Beskrywing van Afrika)", afleiers: ["The Travels of Leo Africanus", "A History of Timbuktu", "The Great Kingdom of Mali"] },
-      C: { vraag: "Wanneer is Leo Africanus se boek oor Afrika gepubliseer?", antwoord: "In 1550", afleiers: ["In 1350", "In 1450", "In 1650"] }
+      A: { vraag: "Wie was Leo Africanus?", antwoord: "'n Moslem-reisiger, gebore in 1485 in Spanje, wat Timboektoe twee keer in die vroeë 1500's besoek het.", afleiers: ["'n Slaaf wat in 1789 'n boek geskryf het.", "Die argitek van die Groot Moskee van Djenné.", "Die stigter van die koninkryk Ghana."] },
+      B: { vraag: "Wat is die naam van Leo Africanus se beroemde boek, en wanneer is dit gepubliseer?", antwoord: "'Description of Africa', gepubliseer in 1550.", afleiers: ["'The Life of Olaudah Equiano', in 1789.", "'Description of Africa', in 1230.", "'Travels in Asia', in 1325."] },
+      C: { vraag: "Hoekom is Leo Africanus belangrik?", antwoord: "Hy is 'n belangrike bron van kennis oor Wes-Afrika.", afleiers: ["Hy het die katoenpluismeul uitgevind.", "Hy het die eerste hospitaal in Amerika gebou.", "Hy het slawe via die Ondergrondse Spoorweg gehelp."] }
     }},
-    { konsep: "Timboektoe as Handelsentrum", variante: {
-      A: { vraag: "Waarom was Timboektoe 'n belangrike handelsentrum?", antwoord: "Dit was op die trans-Sahara-karavaanroete geleë en het Noord-Afrika, Asië en Europa met Wes-Afrika verbind.", afleiers: ["Dit was naby die Atlantiese Oseaan vir skeepshandel.", "Dit was die hoofstad van die Sahara-woestyn.", "Dit was die enigste plek met water in die woestyn."] },
-      B: { vraag: "Na wie se dood het Timboektoe 'n belangrike sentrum geword?", antwoord: "Na Mansa Musa se dood in 1337", afleiers: ["Na Sundiata se dood in 1255", "Na Leo Africanus se dood in 1554", "Na die Songhai-heerser se dood in 1492"] },
-      C: { vraag: "Watter geleerdes het na Timboektoe gekom om te studeer?", antwoord: "Duisende studente van regoor die Islamitiese wêreld het daarheen gegaan om by die madressas te studeer.", afleiers: ["Slegs studente uit Europa het daar gestudeer.", "Slegs handelaars se kinders het toegang tot onderwys gehad.", "Geen studente — dit was slegs 'n handelstad."] }
+    { konsep: "Vakke in Timboektoe se leersentrums", variante: {
+      A: { vraag: "Watter vakke is in Timboektoe se leersentrums gedoseer?", antwoord: "Onder andere sterrekunde, wiskunde (al-jabr), chemie, fisika, geskiedenis, geografie en Islam-wet.", afleiers: ["Net die lees van die Koran, niks anders nie.", "Net kuns en musiek.", "Net landbou en visvang."] },
+      B: { vraag: "Wat beteken die Arabiese woord 'al-jabr' vandag?", antwoord: "Algebra.", afleiers: ["Sterrekunde.", "Aardrykskunde.", "Geskiedenis."] },
+      C: { vraag: "By watter moskee was een van Timboektoe se beroemde leersentrums?", antwoord: "Die Sankore-moskee.", afleiers: ["Die Groot Moskee van Djenné.", "Die moskee in Mekka.", "Die Ahmed Baba-katedraal."] }
     }},
-    { konsep: "Timboektoe as Leersentrum", variante: {
-      A: { vraag: "Wat het die Sankore-moskee in Timboektoe gedoen?", antwoord: "Dit was die sentrum van die gemeenskap van geleerdes in Timboektoe — dit het gefokus op die bestudering van die Koran en ander vakke.", afleiers: ["Dit was slegs 'n gebedsplek sonder opvoeding.", "Dit was 'n mark waar handelaars goedere verhandel het.", "Dit was die paleis van Mansa Musa."] },
-      B: { vraag: "Watter vakke kon jy in die 14de eeu in Timboektoe leer?", antwoord: "Sterrekunde, wiskunde, chemie, geskiedenis, geografie, en Islam-wet en -tradisies.", afleiers: ["Slegs die Koran en Arabiese taal.", "Slegs handel, rekeningkunde en ekonomie.", "Slegs militêre strategie en wapenkunde."] },
-      C: { vraag: "Wat was die Arabiese woord vir algebra, wat in Timboektoe ontwikkel is?", antwoord: "Al-jabr", afleiers: ["Al-kimiya", "Al-gebra", "Al-sufra"] }
+    { konsep: "Arabiese syfers en wiskunde", variante: {
+      A: { vraag: "Watter wiskundige stelsel het die Arabiere aan die wêreld gegee?", antwoord: "Die Arabiese syfers (0 tot 9) wat ons vandag nog gebruik.", afleiers: ["Die Romeinse syfers (I, V, X).", "Die Egiptiese prentjie-syfers.", "Die Griekse letter-syfers."] },
+      B: { vraag: "Wat het die Arabiese syfers in Europa vervang?", antwoord: "Die ou Romeinse syfers.", afleiers: ["Die Arabiese letters.", "Die Egiptiese hiërogliewe.", "Die Chinese karakters."] },
+      C: { vraag: "Watter ander wiskundige en tydhou-bydraes het van die Arabiere gekom?", antwoord: "Algebra (al-jabr) en die verdeling van die dag in 24 uur (met 'n waterhorlosie).", afleiers: ["Die uitvind van die rekenaar.", "Die meet van die spoed van lig.", "Die uitvind van die sonbril."] }
     }},
-    { konsep: "Manuskripte van Timboektoe", variante: {
-      A: { vraag: "In watter taal is die Timboektoe-manuskripte geskryf?", antwoord: "Arabies", afleiers: ["Frans", "Latyn", "Swahili"] },
-      B: { vraag: "Hoekom het die toestand van die Timboektoe-manuskripte verswak?", antwoord: "Baie van die manuskripte het deur stof en lug beskadig geword, en mense het hulle ook verkoop of verlore laat raak.", afleiers: ["Hulle is opsetlik deur vyande verbrand.", "Hulle is deur vloede vernietig.", "Die owerheid het hulle weggegooi as deel van modernisering."] },
-      C: { vraag: "Watter land het in 2001 gehelp om die Timboektoe-manuskripte te bewaar?", antwoord: "Suid-Afrika", afleiers: ["Frankryk", "Egipte", "Die VSA"] }
+    { konsep: "Arabiese sterrekunde en navigasie", variante: {
+      A: { vraag: "Watter ontdekking oor die Aarde het Arabiese sterrekundiges gemaak?", antwoord: "Dat die Aarde rond is en om die son draai — eeue voordat Europa dit aanvaar het.", afleiers: ["Dat die Aarde plat is en die son om dit draai.", "Dat die Aarde die middel van die heelal is.", "Dat daar geen sterre buite ons sonnestelsel is nie."] },
+      B: { vraag: "Watter navigasie-instrumente het die Arabiere ontwikkel?", antwoord: "Die astrolabium en die kwadrant.", afleiers: ["Die teleskoop en die mikroskoop.", "Die kompas-app en die GPS.", "Die verkyker en die kamera."] },
+      C: { vraag: "Waarvoor is die astrolabium en kwadrant gebruik?", antwoord: "Om te meet hoe hoog sterre bokant die horison is, sodat reisigers hul plek kon bepaal.", afleiers: ["Om die gewig van goud te meet.", "Om die temperatuur van die woestyn te meet.", "Om die diepte van die see te meet."] }
+    }},
+    { konsep: "Arabiese mediese ontdekkings", variante: {
+      A: { vraag: "Watter belangrike mediese ontdekking het Arabiese dokters as die eerste gemaak?", antwoord: "Dat sommige siektes (soos pokke, masels en TB) aansteeklik is — siek mense steek gesonde mense aan.", afleiers: ["Dat alle siektes deur die weer veroorsaak word.", "Dat siektes nooit van een persoon na 'n ander oorgedra kan word nie.", "Dat siektes deur bose geeste veroorsaak word."] },
+      B: { vraag: "Watter mediese instelling het Arabiese dokters as die eerste opgerig?", antwoord: "Die eerste hospitale.", afleiers: ["Die eerste apteke in Amerika.", "Die eerste mediese skole in Europa.", "Die eerste tandartspraktyke."] },
+      C: { vraag: "Wie het Arabiese, Hebreeuse en Latynse mediese terme in een boek gekombineer?", antwoord: "Leo Africanus.", afleiers: ["Ibn Battuta.", "Mansa Musa.", "Ahmed Baba."] }
+    }},
+    { konsep: "Die Manuskripte van Timboektoe", variante: {
+      A: { vraag: "In watter taal is die Manuskripte van Timboektoe geskryf?", antwoord: "In Arabies.", afleiers: ["In Engels.", "In Latyn.", "In Afrikaans."] },
+      B: { vraag: "Watter land het in 2001 gehelp om die Ahmed Baba-sentrum vir die manuskripte op te stel?", antwoord: "Suid-Afrika.", afleiers: ["Egipte.", "Brittanje.", "Spanje."] },
+      C: { vraag: "Wie was Ahmed Baba?", antwoord: "Die bekendste geleerde in Timboektoe in die 16de eeu.", afleiers: ["'n Argitek wat moskees gebou het.", "'n Slaaf wat 'n opstand gelei het.", "'n Europese seevaarder."] }
     }},
     { konsep: "Timboektoe as Wêrelderfenisgebied", variante: {
-      A: { vraag: "Deur wie is Timboektoe as 'n Wêrelderfenisgebied verklaar?", antwoord: "Die Verenigde Nasies (VN)", afleiers: ["Die Arabiese Liga", "Die Europese Unie", "Die Afrikaanse Unie"] },
-      B: { vraag: "Waarom is Timboektoe as 'n Wêrelderfenisgebied verklaar?", antwoord: "Omdat moskees wat in die tradisionele Wes-Afrikaanse styl gebou is, 'n belangrike rol gespeel het in die verspreiding van Islam in Afrika.", afleiers: ["Omdat dit die grootste stad in Afrika is.", "Omdat dit die naaste stad aan die Saharawoestyn is.", "Omdat dit die rykste stad in die wêreld was."] },
-      C: { vraag: "Watter bedreiging maak Timboektoe se status as Wêrelderfenisgebied onseker?", antwoord: "Die sand van die Saharawoestyn wat al nader kruip.", afleiers: ["Die groeiende bevolking wat te veel huise bou.", "Die toenemende toerisme wat geboue beskadig.", "Die gebrek aan water in die stad."] }
+      A: { vraag: "Hoekom is Timboektoe 'n Wêrelderfenisgebied?", antwoord: "Sy moskees in die tradisionele Wes-Afrikaanse styl het 'n belangrike rol gespeel in die verspreiding van Islam in Afrika.", afleiers: ["Omdat dit die grootste goudmyn ter wêreld het.", "Omdat dit die hoofstad van Egipte is.", "Omdat die eerste motor daar gebou is."] },
+      B: { vraag: "Wie het Timboektoe 'n Wêrelderfenisgebied verklaar?", antwoord: "Die Verenigde Nasies (VN).", afleiers: ["Die regering van Amerika.", "Die koning van Mali.", "Die Portugese seevaarders."] },
+      C: { vraag: "Wat bedreig Timboektoe se erfenis-geboue vandag?", antwoord: "Die sand van die Saharawoestyn wat al nader kruip.", afleiers: ["Groot oorstromings van die see.", "Sneeustorms in die winter.", "Aardbewings elke jaar."] }
     }},
-    { konsep: "Die Trans-Sahara Slawehandel", variante: {
-      A: { vraag: "Wanneer het die trans-Sahara slawehandel plaasgevind?", antwoord: "Van ongeveer 750 n.C. tot 1850 n.C.", afleiers: ["Van 1500 tot 1900 n.C.", "Van 500 v.C. tot 500 n.C.", "Van 1000 n.C. tot 1700 n.C."] },
-      B: { vraag: "Hoeveel slawe is elke jaar oor die Sahara verhandel?", antwoord: "Ongeveer 7 000 slawe per jaar", afleiers: ["Ongeveer 700 slawe per jaar", "Ongeveer 70 000 slawe per jaar", "Ongeveer 700 000 slawe per jaar"] },
-      C: { vraag: "Teen wat is slawe geruil tydens die trans-Sahara slawehandel?", antwoord: "Sout, perde, wapens en materiaal", afleiers: ["Goud, diamante en silwer", "Kos, water en kuns", "Skepe, kaarte en boeke"] }
+    { konsep: "Mondelinge oorlewering as bron", variante: {
+      A: { vraag: "Wat is mondelinge oorlewering?", antwoord: "Kennis oor die verlede wat as stories van geslag na geslag oorvertel word en nie neergeskryf is nie.", afleiers: ["Boeke wat in Arabies geskryf is.", "Foto's en kaarte van die verlede.", "Amptelike regeringsdokumente."] },
+      B: { vraag: "Watter drie soorte bronne gebruik historici om die verlede te bestudeer?", antwoord: "Mondelinge oorlewering, geskrifte en visuele bronne.", afleiers: ["Net mondelinge oorlewering.", "Net televisie en radio.", "Net die internet."] },
+      C: { vraag: "Noem 'n voorbeeld van 'n geskrewe bron oor Wes-Afrika.", antwoord: "Die geskrifte van Ibn Battuta of Leo Africanus.", afleiers: ["Die kora-musiek van die Jali.", "Die modder-mure van Djenné.", "Die kamele van die karavane."] }
     }},
-    { konsep: "Die Trans-Atlantiese Slawehandel", variante: {
-      A: { vraag: "Wanneer het die trans-Atlantiese slawehandel begin?", antwoord: "Omstreeks 1500 n.C. toe Portugese handelsskepe aan die kus van Wes-Afrika begin koop het.", afleiers: ["In 1400 n.C. deur die Spanjaarde.", "In 1600 n.C. deur die Nederlanders.", "In 1700 n.C. deur die Britte."] },
-      B: { vraag: "Hoeveel miljoen slawe is tydens die trans-Atlantiese slawehandel verhandel?", antwoord: "Tussen 12 en 15 miljoen slawe", afleiers: ["Tussen 1 en 2 miljoen slawe", "Tussen 50 en 60 miljoen slawe", "Tussen 100 en 200 duisend slawe"] },
-      C: { vraag: "Waarheen is die meeste slawe tydens die trans-Atlantiese slawehandel geneem?", antwoord: "Na Noord- en Suid-Amerika en die Wes-Indiese Eilande", afleiers: ["Na Europa en Asië", "Na Noord-Afrika en die Midde-Ooste", "Na Australië en Nieu-Seeland"] }
+    { konsep: "Wes-Afrika se kultuur voor die slawehandel", variante: {
+      A: { vraag: "Wat het Wes-Afrikane voor die slawehandel oor hul voorouers geglo?", antwoord: "Dat hul gestorwe voorouers oor hulle waghou.", afleiers: ["Dat voorouers heeltemal verdwyn ná die dood.", "Dat voorouers in diere verander.", "Dat voorouers na Europa reis ná die dood."] },
+      B: { vraag: "Hoe het Wes-Afrikane met hul voorouers probeer kommunikeer?", antwoord: "Met godsdienstige rituele en koramusiek (die Afrika-harp).", afleiers: ["Met geskrewe briewe.", "Met die astrolabium.", "Met kaurieskulpe as offers."] },
+      C: { vraag: "Wat het liedere, volkspreke en fabels in die samelewing oorgedra?", antwoord: "Die waardes van die samelewing, soos vindingrykheid, dapperheid en kennis van die natuur.", afleiers: ["Net die name van die konings.", "Net resepte vir kos.", "Net die pryse van handelsware."] }
     }},
-    { konsep: "Plantasies in die Amerikaanse Suide", variante: {
-      A: { vraag: "Watter gewasse het plantasies in die Amerikaanse Suide groot gemaak?", antwoord: "Tabak, rys, suikerriet en katoen", afleiers: ["Koring, mielies en aartappels", "Koffie, kakao en groente", "Vrugte, nartjies en appels"] },
-      B: { vraag: "Wie het die katoenpluismeul (cotton gin) uitgevind wat katoenverwerking makliker gemaak het?", antwoord: "Eli Whitney", afleiers: ["George Washington", "Thomas Jefferson", "Abraham Lincoln"] },
-      C: { vraag: "Hoekom was slawe-arbeid so gewild op die plantasies?", antwoord: "Slawe was die goedkoopste werkers — hulle kry geen loon nie en plantasie-eienaars kon hulle koop en verkoop.", afleiers: ["Slawe was die beste opgeleide werkers beskikbaar.", "Die wet het bepaal dat slegs slawe op plantasies mag werk.", "Slawe het vrywillig aangebied om te werk."] }
+    { konsep: "Hoe mense in Afrika slawe geword het", variante: {
+      A: { vraag: "Wat is een hoofrede waarom mense in Afrika slawe geword het?", antwoord: "Hulle is as krygsgevangenes geneem ná 'n oorlog.", afleiers: ["Hulle het vrywillig aansoek gedoen om slawe te word.", "Hulle is deur Europese skepe ontvoer uit hul huise se vensters.", "Hulle het 'n eksamen gedruip."] },
+      B: { vraag: "Hoe het 'n misdadiger in Afrika 'n slaaf geword?", antwoord: "Slawerny is as 'n straf vir 'n misdaad opgelê.", afleiers: ["'n Misdadiger is altyd net beboet.", "'n Misdadiger is na Europa gestuur.", "'n Misdadiger is altyd doodgemaak."] },
+      C: { vraag: "Wat was 'pandskap' as 'n manier om 'n slaaf te word?", antwoord: "'n Jong meisie is as sekuriteit vir 'n gesin se skuld gegee; as die skuld nie betaal is nie, het sy dit afgewerk.", afleiers: ["'n Persoon is in 'n oorlog gevang.", "'n Persoon is gestraf vir 'n misdaad.", "'n Persoon het homself by 'n mark verkoop vir goud."] }
     }},
-    { konsep: "Die Driesydige Handel", variante: {
-      A: { vraag: "Watter drie gebiede was deel van die driesydige (driehoekige) handel?", antwoord: "Europa → Wes-Afrika → Amerika → terug na Europa", afleiers: ["Afrika → Asië → Australië → terug na Afrika", "Europa → Indië → China → terug na Europa", "Amerika → Arabië → Europa → terug na Amerika"] },
-      B: { vraag: "Wat het Europese handelaars na Wes-Afrika gebring in die driesydige handel?", antwoord: "Goedere soos wapens, klere en gereedskappe om vir slawe te ruil", afleiers: ["Goud en diamante om te verkoop", "Kos en water vir die lange reis", "Slawe om aan Afrika te verkoop"] },
-      C: { vraag: "Wat het Europese handelaars van die Amerikaanse plantasies terug na Europa gebring?", antwoord: "Plantasieprodukte soos suiker, katoen, tabak en rys", afleiers: ["Slawe wat na Europa gebring is vir arbeid", "Goud en silwer uit die myne", "Indigene mense se kuns en kultuur"] }
+    { konsep: "Slawerny in Afrika vs. Amerika", variante: {
+      A: { vraag: "Hoe het slawerny in Afrika van slawerny in Amerika verskil?", antwoord: "In Afrika kon slawe trou en kinders hê en het dikwels as amptenare en adviseurs gedien.", afleiers: ["In Afrika is slawe altyd net as goedere behandel.", "In Afrika kon slawe nooit deel van die gemeenskap wees nie.", "In Afrika is slawe nooit toegelaat om te werk nie."] },
+      B: { vraag: "Wat was die 'klandistie stelsel' in Afrika?", antwoord: "'n Slaaf skuld 'n deel van sy oes of arbeid en neem steeds deel aan die gemeenskaplike lewe.", afleiers: ["'n Stelsel waar slawe heeltemal vrygelaat is.", "'n Stelsel waar slawe net op skepe gewerk het.", "'n Stelsel waar slawe nooit kos gekry het nie."] },
+      C: { vraag: "Hoe is slawe in Amerika behandel?", antwoord: "As slegs eiendom, sonder enige regte.", afleiers: ["As betaalde werkers met volle regte.", "As deel van die eienaar se familie.", "As amptenare en adviseurs van die regering."] }
     }},
-    { konsep: "Nat Turner se Opstand (1831)", variante: {
-      A: { vraag: "Wie was Nat Turner?", antwoord: "'n Slaaf in Virginia wat 'n groot slawe-opstand in 1831 gelei het.", afleiers: ["'n Vry slaaf wat Amerika verlaat het.", "'n Wit abolisionis wat slawe bevry het.", "'n Slawehandelaar uit Wes-Afrika."] },
-      B: { vraag: "Wat het die gevolge van Nat Turner se opstand vir slawe in die Suide gebring?", antwoord: "Slawe-eienaars het banger geword en die lewe vir slawe het nog moeiliker geword — strenger wette is ingestel.", afleiers: ["Slawe het meer vryheid gekry na die opstand.", "Die regering het besluit om alle slawe vry te stel.", "Die plantasies is gesluit as gevolg van die opstand."] },
-      C: { vraag: "Hoeveel mense het aan Nat Turner se opstand deelgeneem?", antwoord: "Meer as 200 slawe het deelgeneem.", afleiers: ["Net Nat Turner alleen", "Sowat 10 slawe", "Meer as 2 000 slawe"] }
+    { konsep: "Trans-Sahara vs. trans-Atlantiese slawehandel", variante: {
+      A: { vraag: "Hoeveel slawe per jaar is gemiddeld in die trans-Sahara slawehandel verhandel?", antwoord: "Ongeveer 7 000 slawe per jaar (±750 tot 1850 n.C.).", afleiers: ["Ongeveer 12 tot 15 miljoen per jaar.", "Ongeveer 40 000 per jaar.", "Ongeveer 100 per jaar."] },
+      B: { vraag: "Hoeveel slawe is in totaal in die trans-Atlantiese slawehandel verhandel?", antwoord: "Ongeveer 12 tot 15 miljoen slawe (±1500 tot 1850).", afleiers: ["Ongeveer 7 000 in totaal.", "Ongeveer 300 in totaal.", "Ongeveer 60 000 in totaal."] },
+      C: { vraag: "Waarheen is slawe in die trans-Atlantiese slawehandel geneem?", antwoord: "Na Noord- en Suid-Amerika en die Wes-Indiese Eilande.", afleiers: ["Net na Noord-Afrika.", "Net na Europa.", "Net na Asië."] }
     }},
-    { konsep: "Harriet Tubman en die Ondergrondse Spoorweg", variante: {
-      A: { vraag: "Wat was die 'Ondergrondse Spoorweg'?", antwoord: "'n Geheime netwerk van roetes en skuilplekke wat slawe gehelp het om van die Suide na die Noorde en vryheid te vlug.", afleiers: ["'n Werklike spoorlyn wat onder die grond gebou is.", "'n Geheime mark waar slawe vir mekaar inligting uitgeruil het.", "'n Skeepsdiens wat slawe terug na Afrika geneem het."] },
-      B: { vraag: "Wie was Harriet Tubman?", antwoord: "'n Vrygelate slaaf wat meer as 300 ander slawe via die Ondergrondse Spoorweg bevry het.", afleiers: ["'n Wit vroue-aktivis wat wetgewing teen slawerny geskryf het.", "'n Slawe-eienaar wat haar slawe vrywillig vrygemaak het.", "'n Europese sendelinge wat na die Suide gekom het."] },
-      C: { vraag: "Joseph Cinque is bekend vir watter daad van weerstand?", antwoord: "Hy het die bemanning van die slaweSkip Amistad in 1839 oorgeneem en weerstand gebied teen slawerny.", afleiers: ["Hy het die eerste slawe-opstand in Virginia gelei.", "Hy het na Afrika teruggeswem nadat sy skip gesink het.", "Hy het die Ondergrondse Spoorweg gestig."] }
+    { konsep: "Slawe gevang en in fortes gehou", variante: {
+      A: { vraag: "Hoe is mense gewoonlik gevang om slawe te word vir die trans-Atlantiese handel?", antwoord: "Deur oorlog — en dan geruil vir gewere, yster of materiaal.", afleiers: ["Deur vrywillig by die fortes aan te meld.", "Deur eksamens te druip.", "Deur skuld by die bank te maak."] },
+      B: { vraag: "Ongeveer hoeveel ysterstawe is in 1700 vir een slaaf geruil?", antwoord: "Ongeveer 600 ysterstawe.", afleiers: ["Ongeveer 6 ysterstawe.", "Ongeveer 60 000 ysterstawe.", "Net 1 ysterstaaf."] },
+      C: { vraag: "Waar is gevange mense gehou voordat die slaweskepe aangekom het?", antwoord: "In sterk fortes langs die kus.", afleiers: ["In hul eie huise.", "In moskees in Timboektoe.", "Op die plantasies in Amerika."] }
+    }},
+    { konsep: "Die Middelvaart (toestande op die slaweskip)", variante: {
+      A: { vraag: "Hoe was die toestande op die slaweskepe tydens die Middelvaart?", antwoord: "Mense was aanmekaar vasgeketting in klein plekke, kon skaars asemhaal, en die lug was baie ongesond.", afleiers: ["Elke slaaf het 'n eie kajuit met 'n bed gehad.", "Hulle is goed gevoed en kon vrylik op die dek rondloop.", "Die skepe was leeg en gemaklik."] },
+      B: { vraag: "Ongeveer hoe lank het die Middelvaart oor die Atlantiese Oseaan geduur?", antwoord: "Ongeveer twee maande.", afleiers: ["Ongeveer twee dae.", "Ongeveer twee jaar.", "Ongeveer twee weke."] },
+      C: { vraag: "Ongeveer watter deel van die slawe het tydens die vaart gesterf?", antwoord: "Ongeveer 'n kwart (25%).", afleiers: ["Ongeveer 1%.", "Byna almal (95%).", "Niemand het gesterf nie."] }
+    }},
+    { konsep: "Olaudah Equiano", variante: {
+      A: { vraag: "Wie was Olaudah Equiano?", antwoord: "'n Kind wat as slaaf gevang is en later sy ervarings neergeskryf het.", afleiers: ["'n Slawe-eienaar in Amerika.", "Die kaptein van die slaweskip Amistad.", "'n Argitek in Mali."] },
+      B: { vraag: "Wat is die naam van Olaudah Equiano se boek en wanneer is dit geskryf?", antwoord: "'The Life of Olaudah Equiano the African', in 1789.", afleiers: ["'Description of Africa', in 1550.", "'The Life of Olaudah Equiano the African', in 1230.", "'Travels in Africa', in 1900."] },
+      C: { vraag: "Hoekom is Olaudah Equiano se boek so belangrik?", antwoord: "Dit is een van die beste eerstehandse beskrywings van toestande op slaweskepe en die slawebestaan.", afleiers: ["Dit was die eerste wiskundeboek in Afrika.", "Dit het die Arabiese syfers verduidelik.", "Dit was 'n boek oor die bou van moskees."] }
+    }},
+    { konsep: "Gewasse op die Amerikaanse plantasies", variante: {
+      A: { vraag: "Watter gewasse is op die Amerikaanse plantasies verbou?", antwoord: "Tabak, rys, suikerriet en katoen.", afleiers: ["Sout, koper en goud.", "Tee, koffie en porselein.", "Olyfolie, wyn en koring net."] },
+      B: { vraag: "Wie het die katoenpluismeul uitgevind?", antwoord: "Eli Whitney.", afleiers: ["Olaudah Equiano.", "Harriet Tubman.", "Mansa Musa."] },
+      C: { vraag: "Hoe het die getal slawe in Amerika van 1800 tot 1860 verander?", antwoord: "Dit het van ongeveer 200 000 (1800) tot ongeveer 4 miljoen (1860) gegroei.", afleiers: ["Dit het van 4 miljoen tot 200 000 afgeneem.", "Dit het presies dieselfde gebly.", "Dit het tot nul gedaal."] }
+    }},
+    { konsep: "Slawemarkte in Amerika", variante: {
+      A: { vraag: "Watter regte het slawe op die slawemarkte gehad wanneer hulle verkoop is?", antwoord: "Geen regte nie — 'n slaaf was die wettige eiendom van sy eienaar.", afleiers: ["Volle regte, soos enige vrye burger.", "Die reg om te stem.", "Die reg om self te besluit aan wie hy verkoop word."] },
+      B: { vraag: "Wat het dikwels met slawegesinne op die markte gebeur?", antwoord: "Gesinne is verdeel — kinders is aan verskillende eienaars verkoop en het mekaar dikwels nooit weer gesien nie.", afleiers: ["Gesinne is altyd saam verkoop en bymekaar gehou.", "Gesinne is vrygelaat sodra hulle verkoop is.", "Gesinne is terug na Afrika gestuur."] },
+      C: { vraag: "Ongeveer hoeveel het slawe in Amerika gekos vergeleke met die prys in Afrika?", antwoord: "Ongeveer drie maal die prys wat in Afrika betaal is.", afleiers: ["Presies dieselfde prys.", "Die helfte van die Afrika-prys.", "Slawe was gratis in Amerika."] }
+    }},
+    { konsep: "Die driesydige handel", variante: {
+      A: { vraag: "In die driesydige handel — wat is van Europa na Wes-Afrika geneem?", antwoord: "Wapens, klere en gereedskap (om slawe mee te koop).", afleiers: ["Suiker, katoen en tabak.", "Slawe vir die plantasies.", "Goud en ivoor."] },
+      B: { vraag: "In die driesydige handel — wat is van Wes-Afrika na Amerika geneem?", antwoord: "Slawe, vir arbeid op die plantasies.", afleiers: ["Wapens en gereedskap.", "Suiker en tabak.", "Sout en koper."] },
+      C: { vraag: "In die driesydige handel — wat is van Amerika na Europa geneem?", antwoord: "Suiker, katoen, tabak en rys.", afleiers: ["Wapens en klere.", "Slawe.", "Goud, ivoor en sout."] }
+    }},
+    { konsep: "Hoe slawe op die plantasies behandel is", variante: {
+      A: { vraag: "Hoe is slawe op die plantasies behandel?", antwoord: "Hulle is geslaan en gestraf vir enigiets en het in klein, ongemaklike hutte gewoon.", afleiers: ["Hulle is met groot respek en goeie lone behandel.", "Hulle het in groot, gemaklike huise gewoon.", "Hulle het kort werkdae en lang vakansies gehad."] },
+      B: { vraag: "Watter twee dinge mag slawe op die plantasies NIE doen nie?", antwoord: "Hulle kon nie lees of skryf nie en kon nie sonder toestemming die plantasie verlaat nie.", afleiers: ["Hulle kon nie eet of slaap nie.", "Hulle kon nie praat of loop nie.", "Hulle kon nie asemhaal in die hutte nie."] },
+      C: { vraag: "Hoekom het baie slawe op die plantasies nie lank geleef nie?", antwoord: "Hulle was dikwels siek, en die hutte was baie koud in die winter en warm in die somer.", afleiers: ["Hulle het te veel kos gekry.", "Hulle het te min gewerk.", "Hulle is na Afrika teruggestuur sodra hulle siek geword het."] }
+    }},
+    { konsep: "Slawekultuur: musiek en tradisie", variante: {
+      A: { vraag: "Hoe het slawe hul Afrika-kultuur in Amerika bewaar?", antwoord: "Deur musiek, liedere en danse — hulle het Afrika-tradisies met nuwe gewoontes vermeng.", afleiers: ["Deur boeke in Arabies te skryf.", "Deur moskees in die Wes-Afrikaanse styl te bou.", "Deur terug na Afrika te reis vir vakansies."] },
+      B: { vraag: "Watter moderne musieksoorte kom van die musiek van slawe?", antwoord: "Jazz en blues.", afleiers: ["Klassieke opera.", "Middeleeuse kerkmusiek.", "Elektroniese dansmusiek van die 1900's."] },
+      C: { vraag: "Hoekom was tromme op sommige plantasies verbied?", antwoord: "Eienaars was bang dat tromme gebruik word om 'n opstand te beplan.", afleiers: ["Tromme was te duur om te koop.", "Tromme het die gewasse beskadig.", "Tromme is in plaas daarvan vir handel gebruik."] }
+    }},
+    { konsep: "Soorte weerstand teen slawerny", variante: {
+      A: { vraag: "Wat was 'onopsigtelike' (versteekte) weerstand deur slawe?", antwoord: "Hulself siek maak, gereedskap of geboue aan die brand steek, stadig werk, of die baas aanval.", afleiers: ["Openlik 'n leër teen die regering oprig.", "'n Boek skryf en publiseer.", "Na die hof gaan om hul vryheid te eis."] },
+      B: { vraag: "Watter ontsnappingsroete het slawe gebruik om vry te word?", antwoord: "Hulle het na die moerasse (soos by New Orleans) of na die Noorde gevlug, dikwels via die Ondergrondse Spoorweg.", afleiers: ["Hulle het per skip terug na Afrika gevaar.", "Hulle het na Europa gevlieg.", "Hulle het in die woestyn gaan wegkruip."] },
+      C: { vraag: "Noem een voorbeeld van weerstand wat 'n slaaf onopsigtelik kon gebruik.", antwoord: "Stadig werk of die gereedskap opsetlik breek.", afleiers: ["'n Groot openbare optog hou.", "'n Brief aan die koning skryf.", "'n Verkiesing wen."] }
+    }},
+    { konsep: "Nat Turner se opstand (1831)", variante: {
+      A: { vraag: "Wie was Nat Turner?", antwoord: "'n Slaaf in Virginia wat kon lees en skryf en 'n prediker was.", afleiers: ["'n Wit slawe-eienaar.", "Die kaptein van die Amistad.", "'n Europese sendelinge."] },
+      B: { vraag: "Wat het Nat Turner in 1831 gedoen?", antwoord: "Hy het 'n slawe-opstand gelei met meer as 60 slawe.", afleiers: ["Hy het die Ondergrondse Spoorweg gestig.", "Hy het 'n boek oor slawerny geskryf.", "Hy het 'n regeringsarsenaal aangeval."] },
+      C: { vraag: "Wat was die gevolg van Nat Turner se opstand?", antwoord: "Strenger wette is ingestel en die lewe vir slawe het nog moeiliker geword.", afleiers: ["Slawerny is dadelik in die hele Amerika afgeskaf.", "Alle slawe is onmiddellik vrygelaat.", "Daar was geen gevolge nie."] }
+    }},
+    { konsep: "Die Amistad-muitery (1839)", variante: {
+      A: { vraag: "Wie het die Amistad-muitery in 1839 gelei?", antwoord: "Joseph Cinque.", afleiers: ["Nat Turner.", "John Brown.", "Harriet Tubman."] },
+      B: { vraag: "Wat het Joseph Cinque op die slaweskip Amistad gedoen?", antwoord: "Hy het die bemanning doodgemaak en beheer van die skip oorgeneem.", afleiers: ["Hy het die skip na Amerika toe gestuur en homself oorgegee.", "Hy het die skip aan die brand gesteek.", "Hy het die slawe aan 'n nuwe eienaar verkoop."] },
+      C: { vraag: "Wat was die uitkoms van die Amistad-saak in die hof?", antwoord: "Die hof het besluit die slawe is vry, en 35 van hulle het na Sierra Leone teruggekeer.", afleiers: ["Almal is teruggestuur na die plantasies.", "Joseph Cinque is tereggestel.", "Die slawe is na Europa verkoop."] }
+    }},
+    { konsep: "Die Ondergrondse Spoorweg en Harriet Tubman", variante: {
+      A: { vraag: "Wat was die Ondergrondse Spoorweg?", antwoord: "'n Geheime netwerk van roetes en skuilplekke wat slawe gehelp het om van die Suide na vryheid te vlug.", afleiers: ["'n Werklike spoorlyn wat onder die grond gebou is.", "'n Mark waar slawe verkoop is.", "'n Skeepsdiens wat slawe na Afrika teruggeneem het."] },
+      B: { vraag: "Ongeveer hoeveel slawe het die Ondergrondse Spoorweg gehelp om te ontsnap?", antwoord: "Ongeveer 100 000 slawe.", afleiers: ["Ongeveer 100 slawe.", "Ongeveer 10 miljoen slawe.", "Net 35 slawe."] },
+      C: { vraag: "Wat het Harriet Tubman vir die Ondergrondse Spoorweg gedoen?", antwoord: "Sy het 19 keer na die Suide teruggegaan en meer as 300 slawe bevry.", afleiers: ["Sy het die wette teen slawerny geskryf.", "Sy het die slaweskip Amistad oorgeneem.", "Sy het 'n regeringsarsenaal aangeval."] }
+    }},
+    { konsep: "John Brown", variante: {
+      A: { vraag: "Wie was John Brown?", antwoord: "Iemand van 'n noordelike familie wat geglo het slawerny moet met geweld afgeskaf word.", afleiers: ["'n Slawe-eienaar in die Suide.", "Die kaptein van die Amistad.", "'n Slaaf in Virginia."] },
+      B: { vraag: "Wat het John Brown in 1859 gedoen?", antwoord: "Hy het 'n regeringsarsenaal aangeval om wapens te kry vir 'n slawe-rebellie.", afleiers: ["Hy het die Ondergrondse Spoorweg gestig.", "Hy het 'n boek oor sy slawe-ervarings geskryf.", "Hy het die Amistad oorgeneem."] },
+      C: { vraag: "Wat het met John Brown gebeur ná sy aanval, en hoe is hy in die Noorde onthou?", antwoord: "Hy is gevang, vir moord en hoogverraad verhoor en gehang — in die Noorde is hy as 'n martelaar beskou.", afleiers: ["Hy is vrygelaat en het president geword.", "Hy het ontsnap en na Afrika gevlug.", "Hy is beloon deur die slawe-eienaars."] }
+    }},
+    { konsep: "Die impak van die slawehandel", variante: {
+      A: { vraag: "Wat was die impak van die slawehandel op Wes-Afrika?", antwoord: "Miljoene jong mense is weggeneem, daar was meer oorloë, en die ekonomie het afhanklik geword van Europese goedere.", afleiers: ["Wes-Afrika het die rykste gebied ter wêreld geword.", "Wes-Afrika se bevolking het vinnig gegroei.", "Wes-Afrika het heeltemal onaangeraak gebly."] },
+      B: { vraag: "Wat was die impak van die slawehandel op Amerika?", antwoord: "Die plantasies het ryk geword; teen 1860 was daar ongeveer 4 miljoen slawe en katoen het die ekonomie oorheers.", afleiers: ["Amerika het al sy slawe in 1800 vrygelaat.", "Amerika het arm geword weens die handel.", "Amerika het geen plantasies gehad nie."] },
+      C: { vraag: "Wat was die impak van die slawehandel op Brittanje?", antwoord: "Brittanje was die grootste deelnemer; dit het die grootste ekonomie geword en het die Industriële Revolusie help finansier.", afleiers: ["Brittanje het nooit aan die slawehandel deelgeneem nie.", "Brittanje het al sy rykdom verloor.", "Brittanje het die kleinste ekonomie ter wêreld geword."] }
     }}
   ],
   tegnologie: [
