@@ -1041,6 +1041,59 @@ function herboueGeskiedenisVorms() {
     });
 }
 
+// ===== EEN TOETS PER KEER (vermy Apps Script se 6-minuut-limiet) =====
+// herboueGeskiedenisVorms() bou al 3 vorms in EEN lopie. Elke vorm met 40 vrae
+// neem ~2 min, so 3 vorms loop oor die 6-minuut-limiet en time-out (Toets 3 word
+// dan nooit klaar gebou nie). Hardloop eerder hierdie drie funksies een vir een:
+//   1. bouGeskToets1()    2. bouGeskToets2()    3. bouGeskToets3()
+// Elke lopie bou NET daardie een toets, stoor die form-map, en herinstalleer die
+// sneller — dus is dit veilig om hulle apart te hardloop. Plak elke URL uit die
+// Logs in die ooreenstemmende plek in FORM_URLS.geskiedenis in index.html.
+function bouGeskToets(nommer) {
+  const props = PropertiesService.getScriptProperties();
+  const masterSheetId = props.getProperty(PROP_MASTER_SHEET_ID);
+  if (!masterSheetId) {
+    throw new Error('Geen master sheet ID nie. Hardloop bouAlles() of konsolideerInstellings() eers.');
+  }
+  const sheet = SpreadsheetApp.openById(masterSheetId);
+  const formMap = JSON.parse(props.getProperty(PROP_FORM_MAP) || '{}');
+
+  const geskVak = VAKKE.find(function(v){ return v.kode === 'geskiedenis'; });
+  if (!geskVak) throw new Error('Geskiedenis-vak nie gevind in VAKKE-lys nie.');
+  const poging = POGINGS.find(function(p){ return p.nommer === nommer; });
+  if (!poging) throw new Error('Ongeldige poging-nommer: ' + nommer + ' (gebruik 1, 2 of 3).');
+
+  // Vee enige bestaande vorm vir HIERDIE poging uit (op titel) — maak skoon op,
+  // ook half-geboude vorms van 'n vorige lopie wat ge-time-out het.
+  const titel = geskVak.etiket + ' — ' + poging.etiket + ' (slaagpunt: ' + SLAAGPUNT + '%)';
+  const files = DriveApp.getFilesByName(titel);
+  while (files.hasNext()) {
+    const f = files.next();
+    try { delete formMap[FormApp.openById(f.getId()).getId()]; } catch (err) { /* ignoreer */ }
+    f.setTrashed(true);
+    Logger.log('Verwyder ou: %s', titel);
+  }
+
+  // Skep die nuwe vorm en koppel dit aan die master sheet
+  const form = skepVormVirVak(geskVak, poging);
+  koppelAanSheet(form, sheet);
+  formMap[form.getId()] = { vak: geskVak.kode, poging: poging.nommer };
+
+  // Stoor die bygewerkte map en herinstalleer die enkele sneller (idempotent),
+  // sodat tellings dadelik in die Tellings-blad beland.
+  props.setProperty(PROP_FORM_MAP, JSON.stringify(formMap));
+  installeerSpreadsheetTrigger(sheet);
+
+  const url = form.getPublishedUrl();
+  Logger.log('===== Toets %s gereed — plak in FORM_URLS.geskiedenis (%s): =====', nommer, nommer);
+  Logger.log(url);
+  return url;
+}
+
+function bouGeskToets1() { return bouGeskToets(1); }
+function bouGeskToets2() { return bouGeskToets(2); }
+function bouGeskToets3() { return bouGeskToets(3); }
+
 // ===== OPRUIM =====
 // Run hierdie EERS as jy van skoon af wil begin. Vee alle ou vorms + die sheet uit.
 function veeAllesUit_GEVAAR() {
